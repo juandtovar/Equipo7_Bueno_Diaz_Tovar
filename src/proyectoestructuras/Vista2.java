@@ -31,7 +31,6 @@ public class Vista2 implements Vista{
         boolean condicion=true;
         while(condicion){
             Button boton =new Button (temp.element.getNombre());
-            System.out.println(boton.getText());
             layout.getChildren().add(boton);
             botones.PushBack(boton);
             temp=temp.next;

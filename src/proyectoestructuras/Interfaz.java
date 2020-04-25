@@ -39,12 +39,10 @@ public class Interfaz extends Application {
             FileInputStream planesFile=new FileInputStream("informacion_planes.txt");
             Scanner readPlanes=new Scanner (planesFile);
             readPlanes.useDelimiter("/ ");
-            System.out.println(readPlanes.nextLine());
+            readPlanes.nextLine();
             while(readPlanes.hasNext()){
                 Plan plan=new Plan (readPlanes.next(),readPlanes.nextInt(),readPlanes.nextInt(),readPlanes.nextInt(),readPlanes.nextInt());
-                System.out.println(plan.getNombre());
                 planes.PushBack(plan);
-                System.out.println(plan.getNombre()+".txt");
                 FileInputStream file=new FileInputStream(plan.getNombre()+".txt");
                 plan.cargarMaterias(file);
                 readPlanes.nextLine();

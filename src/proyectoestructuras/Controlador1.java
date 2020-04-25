@@ -39,7 +39,6 @@ public class Controlador1 {
           Singleton singleton = Singleton.getSingleton();
           Stage stage = singleton.getStage();          
           Controlador2 controlador = new Controlador2(planes);
-          System.out.print(controlador.getVista().getElegir().getText());
           Vista vista = controlador.getVista();
           stage.setScene(vista.getScena());
           stage.show();

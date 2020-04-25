@@ -20,8 +20,7 @@ public class Controlador3 {
 
     public Controlador3(Chain <Plan> planes, String plan) {
       this.planes=planes;
-      this.vista = new Vista3(planes,String plan);
-      
+      this.vista = new Vista3(planes,plan);
     }
     public Vista3 getVista() {
         return vista;

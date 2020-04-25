@@ -26,20 +26,5 @@ public class ChainNode <T>{
     public ChainNode(T element, ChainNode<T> next) {
         this.element = element;
         this.next=next;
-    }
-
-    public T getElement() {
-        return element;
-    }
-    public ChainNode<T> getNext() {
-        return next;
-    }
-    
-    
-    
-    
-    
-
-    
-    
+    }   
 }

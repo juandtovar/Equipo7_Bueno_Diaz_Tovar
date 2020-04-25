@@ -56,24 +56,20 @@ public class Plan {
     public double getPAPA() {
         return PAPA;
     }
-    
-    
-
     public void setCreditosTotales(int creditosTotales) {
         this.creditosTotales = this.creditosDiscp+this.creditosFund+this.creditosElect;
-    }
-    
+    }  
     public void setAprobadas (){
         
     }
-
     public void setPAPA(double PAPA) {
 
     }
+    
     public void cargarMaterias(FileInputStream file){
         Scanner readFile=new Scanner (file);
         readFile.useDelimiter("/ ");
-        System.out.println(readFile.nextLine());
+        readFile.nextLine();
         int i=1;
         do{
             Materia materia=new Materia (readFile.nextInt(),readFile.next(),readFile.nextInt(),readFile.next(),readFile.next());
