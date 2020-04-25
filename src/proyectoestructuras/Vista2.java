@@ -31,6 +31,7 @@ public class Vista2 implements Vista{
         boolean condicion=true;
         while(condicion){
             Button boton =new Button (temp.element.getNombre());
+            System.out.println(boton.getText());
             layout.getChildren().add(boton);
             botones.PushBack(boton);
             temp=temp.next;
@@ -38,6 +39,7 @@ public class Vista2 implements Vista{
                 condicion=false;
             }
         }
+        this.escena = new Scene(layout, 500, 500);
     }
     @Override
     public Scene getScena() {

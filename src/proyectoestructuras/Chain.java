@@ -21,7 +21,7 @@ public class Chain <T> implements LinearList<T>{
     }
     @Override
     public void PushBack(T element) {
-        ChainNode newNode=new ChainNode<T>(element);
+        ChainNode <T> newNode=new ChainNode<>(element);
         if(this.isEmpty()){
             this.head= newNode;
             this.tail=newNode;

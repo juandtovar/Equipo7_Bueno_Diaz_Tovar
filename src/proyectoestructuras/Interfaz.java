@@ -54,7 +54,7 @@ public class Interfaz extends Application {
         }
       Singleton singleton = Singleton.getSingleton();
       singleton.setStage(stage);
-      Controlador2 controlador = new Controlador2(planes);
+      Controlador1 controlador = new Controlador1(planes);
       Vista vista = controlador.getVista();
       stage.setScene(vista.getScena());
       stage.show();
