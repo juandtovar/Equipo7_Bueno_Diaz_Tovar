@@ -3,7 +3,7 @@ Codigo/ Materia/ Creditos/ Tipologia/ Prerrequisitos/ Semestre/
 1000005/ Calculo Integral/ 4/ FO/ Calculo Diferencial/ 2/ 
 1000006/ Calculo en varias variables/ 4/ FO/ Calculo Integral y algebra Lineal/ 3/ 
 1000007/ Ecuaciones Diferenciales/ 4/ FO/ Calculo Integral y algebra Lineal/ 4/ 
-1000003/ algebra Lineal/ 4/ FO/ Calculo Diferencial/ 2/ 
+1000003/ Algebra Lineal/ 4/ FO/ Calculo Diferencial/ 2/ 
 1000013/ Probabilidad y Estadistica Fundamental/ 3/ FO/ Calculo Diferencial/ 3/ 
 2015159/ Variable compleja/ 4/ FO/ Ecuaciones Diferenciales/ 5/ 
 1000019/ Fundamentos de Mecanica/ 4/ FO/ Calculo Diferencial/ 2/ 
@@ -53,3 +53,4 @@ Codigo/ Materia/ Creditos/ Tipologia/ Prerrequisitos/ Semestre/
 1000000/ Optativa Informatica y Herramientas para Ingenieria/ 0/ -/ -/ 7/ 
 1000000/ Optativa Ingenieria de Materiales y Procesos de Manufactura/ 0/ -/ -/ 6/ 
 1000000/ Optativa Automatizacion, Control y Robotica/ 0/ -/ -/ 8/ 
+2017295/ Trabajo de Grado / 6/ DO/ Ninguno/ 10/ 

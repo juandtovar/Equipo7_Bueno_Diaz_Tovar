@@ -48,3 +48,4 @@ Codigo/ Materia/ Creditos/ Tipologia/ Prerrequisitos/ Semestre/
 1000000/ Optativa de Fisica/ 0/ -/ -/ 5/ 
 1000000/ Optativa Ingenieria Térmica y fluidos/ 0/ -/ -/ 7/ 
 1000000/ Optativa Ingenieria Térmica y fluidos/ 0/ -/ -/ 8/ 
+2017295/ Trabajo de Grado / 6/ DO/ Ninguno/ 10/ 

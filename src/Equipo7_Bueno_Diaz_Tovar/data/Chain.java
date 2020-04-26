@@ -22,13 +22,13 @@ public class Chain<T> implements LinearList<T> {
     @Override
     public void add(T element, int i) {
         if (i == 0) {
-            this.head = new ChainNode<T>(element, this.head);
+            this.head = new ChainNode<>(element, this.head);
         } else {
             ChainNode<T> temp = this.head;
             for (int j = 0; j < i - 1; j++) {
                 temp = temp.getNext();
             }
-            temp.setNext(new ChainNode<T>(element, temp.getNext()));
+            temp.setNext(new ChainNode<>(element, temp.getNext()));
         }
         size++;
     }

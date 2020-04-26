@@ -26,28 +26,28 @@ public class Plan {
     }
 
     public void cargarMaterias(FileInputStream file) {
-        Scanner readFile = new Scanner(file);
-        readFile.useDelimiter("/ ");
-        readFile.nextLine();
-        do {
-            Materia materia = new Materia(readFile.nextInt(), readFile.next(),
-                    readFile.nextInt(), readFile.next(), readFile.next());
-            int semestre = readFile.nextInt();
+        try (Scanner readFile = new Scanner(file)) {
+            readFile.useDelimiter("/ ");
             readFile.nextLine();
-            materia.setSemestre(semestre);
-            if (semestre == 0) {
-                this.optativas.add(materia, this.optativas.getSize());
-            } else {
-                if (semestres[semestre - 1] == null) {
-                    Chain<Materia> semestreLista = new Chain<>();
-                    this.semestres[semestre - 1] = semestreLista;
-                    semestreLista.add(materia, semestreLista.getSize());
+            do {
+                Materia materia = new Materia(readFile.nextInt(), readFile.next(),
+                        readFile.nextInt(), readFile.next(), readFile.next());
+                int semestre = readFile.nextInt();
+                readFile.nextLine();
+                materia.setSemestre(semestre);
+                if (semestre == 0) {
+                    this.optativas.add(materia, this.optativas.getSize());
                 } else {
-                    semestres[semestre - 1].add(materia, semestres[semestre - 1].getSize());
+                    if (semestres[semestre - 1] == null) {
+                        Chain<Materia> semestreLista = new Chain<>();
+                        this.semestres[semestre - 1] = semestreLista;
+                        semestreLista.add(materia, semestreLista.getSize());
+                    } else {
+                        semestres[semestre - 1].add(materia, semestres[semestre - 1].getSize());
+                    }
                 }
-            }
-        } while (readFile.hasNext());
-        readFile.close();
+            } while (readFile.hasNext());
+        }
     }
 
     public String getNombre() {

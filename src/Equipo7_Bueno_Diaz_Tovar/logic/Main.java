@@ -19,18 +19,18 @@ public class Main extends Application {
         Chain<Plan> planes = new Chain<>();
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
-            Scanner readPlanes = new Scanner(planesFile);
-            readPlanes.useDelimiter("/ ");
-            readPlanes.nextLine();
-            while (readPlanes.hasNext()) {
-                Plan plan = new Plan(readPlanes.next(), readPlanes.nextInt(),
-                        readPlanes.nextInt(), readPlanes.nextInt(), readPlanes.nextInt());
-                planes.add(plan, planes.getSize());
-                FileInputStream file = new FileInputStream(plan.getNombre() + ".txt");
-                plan.cargarMaterias(file);
+            try (Scanner readPlanes = new Scanner(planesFile)) {
+                readPlanes.useDelimiter("/ ");
                 readPlanes.nextLine();
+                while (readPlanes.hasNext()) {
+                    Plan plan = new Plan(readPlanes.next(), readPlanes.nextInt(),
+                            readPlanes.nextInt(), readPlanes.nextInt(), readPlanes.nextInt());
+                    planes.add(plan, planes.getSize());
+                    FileInputStream file = new FileInputStream(plan.getNombre() + ".txt");
+                    plan.cargarMaterias(file);
+                    readPlanes.nextLine();
+                }
             }
-            readPlanes.close();
         } catch (FileNotFoundException ex) {
 
         }
