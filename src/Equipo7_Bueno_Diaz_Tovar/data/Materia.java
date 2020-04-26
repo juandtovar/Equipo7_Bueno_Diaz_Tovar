@@ -16,7 +16,7 @@ public class Materia {
         this.creditos = creditos;
         this.tipologia = tipologia;
         this.prerrequisitos = prerrequisitos;
-        this.nota = new Chain<>();
+        this.nota = null;
     }
 
     public void insertarNota(int nota) {
