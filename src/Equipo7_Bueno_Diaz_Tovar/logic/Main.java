@@ -25,7 +25,7 @@ public class Main extends Application {
             while (readPlanes.hasNext()) {
                 Plan plan = new Plan(readPlanes.next(), readPlanes.nextInt(),
                         readPlanes.nextInt(), readPlanes.nextInt(), readPlanes.nextInt());
-                planes.PushBack(plan);
+                planes.add(plan, planes.getSize());
                 FileInputStream file = new FileInputStream(plan.getNombre() + ".txt");
                 plan.cargarMaterias(file);
                 readPlanes.nextLine();

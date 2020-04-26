@@ -30,7 +30,7 @@ public class Controlador1 {
             stage.setScene(vista.getScena());
             stage.show();
         }
-        
+
     }
 
     public Vista1 getVista() {

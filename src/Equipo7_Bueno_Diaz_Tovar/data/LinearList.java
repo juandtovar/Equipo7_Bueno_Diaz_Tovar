@@ -2,8 +2,14 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 public interface LinearList<T> {
 
-    public boolean isEmpty();
+    boolean isEmpty();
 
-    public void PushBack(T theElement);
+    int size();
+
+    int indexOf(T element);
+
+    void remove(int i);
+
+    void add(T element, int i);
 
 }

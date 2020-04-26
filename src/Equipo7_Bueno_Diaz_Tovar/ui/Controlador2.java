@@ -22,7 +22,7 @@ public class Controlador2 {
             temp1.getElement().setOnAction(new Evento(this.planes, this.plan));
             temp1 = temp1.getNext();
             temp2 = temp2.getNext();
-        } while(temp1 != null);
+        } while (temp1 != null);
     }
 
     private class Evento implements EventHandler<ActionEvent> {
@@ -37,18 +37,16 @@ public class Controlador2 {
 
         @Override
         public void handle(ActionEvent event) {
-            Controlador3 controlador
-                    = new Controlador3(this.planes, this.plan);
+            Controlador3 controlador = new Controlador3(this.planes, this.plan);
             Vista vista = controlador.getVista();
-            Singleton singleton
-                    = Singleton.getSingleton();
+            Singleton singleton = Singleton.getSingleton();
             Stage stage = singleton.getStage();
             stage.setScene(vista.getScena());
             stage.show();
         }
 
     }
-    
+
     public Vista2 getVista() {
         return vista;
     }
@@ -72,5 +70,5 @@ public class Controlador2 {
     public void setPlan(String plan) {
         this.plan = plan;
     }
-    
+
 }

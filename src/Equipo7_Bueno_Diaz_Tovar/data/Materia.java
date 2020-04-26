@@ -20,7 +20,7 @@ public class Materia {
     }
 
     public void insertarNota(int nota) {
-        this.nota.PushBack(nota);
+        this.nota.add(nota, this.nota.getSize());
     }
 
     public String getName() {

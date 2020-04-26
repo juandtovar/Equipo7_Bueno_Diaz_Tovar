@@ -14,7 +14,7 @@ public class Controlador3 {
         this.planes = planes;
         this.vista = new Vista3(planes, plan);
     }
-    
+
     public Vista3 getVista() {
         return vista;
     }

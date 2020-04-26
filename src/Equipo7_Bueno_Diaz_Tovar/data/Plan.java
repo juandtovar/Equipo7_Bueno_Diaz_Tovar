@@ -1,6 +1,5 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-import Equipo7_Bueno_Diaz_Tovar.data.Chain;
 import java.io.*;
 import java.util.*;
 
@@ -30,7 +29,6 @@ public class Plan {
         Scanner readFile = new Scanner(file);
         readFile.useDelimiter("/ ");
         readFile.nextLine();
-        int i = 1;
         do {
             Materia materia = new Materia(readFile.nextInt(), readFile.next(),
                     readFile.nextInt(), readFile.next(), readFile.next());
@@ -38,17 +36,16 @@ public class Plan {
             readFile.nextLine();
             materia.setSemestre(semestre);
             if (semestre == 0) {
-                this.optativas.PushBack(materia);
+                this.optativas.add(materia, this.optativas.getSize());
             } else {
                 if (semestres[semestre - 1] == null) {
                     Chain<Materia> semestreLista = new Chain<>();
                     this.semestres[semestre - 1] = semestreLista;
-                    semestreLista.PushBack(materia);
+                    semestreLista.add(materia, semestreLista.getSize());
                 } else {
-                    semestres[semestre - 1].PushBack(materia);
+                    semestres[semestre - 1].add(materia, semestres[semestre - 1].getSize());
                 }
             }
-            i++;
         } while (readFile.hasNext());
         readFile.close();
     }

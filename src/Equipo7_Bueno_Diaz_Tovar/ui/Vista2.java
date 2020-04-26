@@ -16,7 +16,7 @@ public class Vista2 implements Vista {
     private Chain<Plan> planes;
 
     public Vista2(Chain<Plan> planes) {
-        botones = new Chain<>();
+        this.botones = new Chain<>();
         this.planes = planes;
         this.elegir = new Label("Eliga su plan");
         VBox layout = new VBox();
@@ -27,7 +27,7 @@ public class Vista2 implements Vista {
                     .replace("ingenieria_mecanica", "Ingeniería Mecánica")
                     .replace("ingenieria_mecatronica", "Ingeniería Mecatrónica"));
             layout.getChildren().add(boton);
-            botones.PushBack(boton);
+            this.botones.add(boton, this.botones.getSize());
             temp = temp.getNext();
         } while (temp != null);
         this.escena = new Scene(layout, 500, 500);

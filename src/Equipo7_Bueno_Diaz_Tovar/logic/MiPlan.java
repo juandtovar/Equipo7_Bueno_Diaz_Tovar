@@ -4,30 +4,40 @@ import Equipo7_Bueno_Diaz_Tovar.data.*;
 
 public class MiPlan {
 
-    public void insertarMateria(Plan plan, Materia materia) {
-        if (materia.getSemestre() <= plan.getN_semestres()) {
-            plan.getSemestres()[materia.getSemestre() - 1].PushBack(materia);
+    public static void insertarMateria(Plan plan, Materia materia) {
+        if (materia.getSemestre() <= plan.getN_semestres() && !estaDentroEnPlan(plan, materia)) {
+            plan.getSemestres()[materia.getSemestre() - 1].add(materia, plan.getSemestres()[materia.getSemestre() - 1].getSize());
         }
-
     }
 
-    public boolean eliminarMateria(Plan plan, int codigo) {
-        ChainNode<Materia> temp = new ChainNode();
-        for (int i = 0; i < plan.getN_semestres() - 1; i++) {
-            temp = plan.getSemestres()[i].getHead();
-            if (temp.getElement().getCodigo()== codigo) {
-                temp.setNext(temp.getNext().getNext());
-                return true;
-            }
-            boolean condicion = true;
-            while (condicion) {
-                if (temp.getNext().getElement().getCodigo() == codigo && temp.getNext() != null) {
-                    temp.setNext(temp.getNext().getNext());
-                    return true;
+    public static void eliminarMateria(Plan plan, int codigo) {
+        ChainNode<Materia> temp;
+        for (int i = 0; i < plan.getN_semestres(); i++) {
+            if (plan.getSemestres()[i].getSize() != 0) {
+                temp = plan.getSemestres()[i].getHead();
+                while (temp != null) {
+                    if (temp.getElement().getCodigo() == codigo) {
+                        plan.getSemestres()[i].remove(plan.getSemestres()[i].indexOf(temp.getElement()));
+                        return;
+                    } else {
+                        temp = temp.getNext();
+                    }
                 }
-                temp = temp.getNext();
-                if (temp == null) {
-                    condicion = false;
+            }
+        }
+    }
+
+    public static boolean estaDentroEnPlan(Plan plan, Materia materia) {
+        ChainNode<Materia> temp;
+        for (int i = 0; i < plan.getN_semestres(); i++) {
+            if (plan.getSemestres()[i].getSize() != 0) {
+                temp = plan.getSemestres()[i].getHead();
+                while (temp != null) {
+                    if (temp.getElement().getCodigo() == materia.getCodigo()) {
+                        return true;
+                    } else {
+                        temp = temp.getNext();
+                    }
                 }
             }
         }
