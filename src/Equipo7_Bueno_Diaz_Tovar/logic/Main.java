@@ -16,6 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.printf("%s%d\n", "Inicio cargar materias = \t", System.currentTimeMillis());
         Chain<Plan> planes = new Chain<>();
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
@@ -28,6 +29,7 @@ public class Main extends Application {
                     planes.add(plan, planes.getSize());
                     FileInputStream file = new FileInputStream(plan.getNombre() + ".txt");
                     plan.cargarMaterias(file);
+                    System.out.printf("%s%d\n", "Plan cargado = \t\t\t", System.currentTimeMillis());
                     readPlanes.nextLine();
                 }
             }

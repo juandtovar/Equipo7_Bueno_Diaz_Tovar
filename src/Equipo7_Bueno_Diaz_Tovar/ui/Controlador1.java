@@ -17,12 +17,10 @@ public class Controlador1 {
         this.vista.getBtCrearPlan().setOnAction(new Evento1());
     }
 
-    //Registro eventos
     private class Evento1 implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-
             Singleton singleton = Singleton.getSingleton();
             Stage stage = singleton.getStage();
             Controlador2 controlador = new Controlador2(planes);
