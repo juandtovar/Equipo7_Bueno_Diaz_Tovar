@@ -71,15 +71,11 @@ public class Vista3 implements Vista {
         this.columnas = new VBox[this.planActual.getN_semestres()];
         this.layoutHor = new HBox();
         for (int i = 0; i < columnas.length; i++) {
-            ChainNode<Materia> temp2 = this.planActual.getSemestres()[i].getHead();
             this.columnas[i] = new VBox();
             this.columnas[i].getChildren().add(new Label("Semestre" + " " + (i + 1)));
-            if (temp2 != null) {
-                do {
-                    Button boton = new Button(temp2.getElement().getName());
-                    this.columnas[i].getChildren().add(boton);
-                    temp2 = temp2.getNext();
-                } while (temp2 != null);
+            for (int j = 0; j < this.planActual.getSemestres()[i].size(); j++) {
+                Button boton = new Button(this.planActual.getSemestres()[i].get(j).getName());
+                this.columnas[i].getChildren().add(boton);
             }
             this.layoutHor.getChildren().add(this.columnas[i]);
         }

@@ -36,6 +36,7 @@ public class Main extends Application {
         } catch (FileNotFoundException ex) {
 
         }
+        planes.getHead().getElement().getCodigos().inOrder();
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);
         Controlador1 controlador = new Controlador1(planes);

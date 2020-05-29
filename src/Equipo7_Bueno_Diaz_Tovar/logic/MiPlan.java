@@ -9,13 +9,22 @@ public class MiPlan {
 
     public static void insertarMateria(Plan plan, Materia materia) {
         System.out.printf("%s%d\n", "Inicio insertar materia = \t", System.currentTimeMillis());
-        if (materia.getSemestre() <= plan.getN_semestres() && !estaDentroEnPlan(plan, materia)) {
-            plan.getSemestres()[materia.getSemestre() - 1].add(materia, plan.getSemestres()[materia.getSemestre() - 1].getSize());
-        } else if (materia.getSemestre() <= plan.getN_semestres()) {
+        AVLTreeNode temp = plan.getCodigos().find(materia.getCodigo());
+        if(temp != null) {
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Insertar materia");
             dialogo.setHeaderText(null);
             dialogo.setContentText("La materia ya se encontraba en el plan");
+            dialogo.initStyle(StageStyle.UTILITY);
+            dialogo.showAndWait();
+        } else if (materia.getSemestre() <= plan.getN_semestres()) {
+            plan.getSemestres()[materia.getSemestre() - 1].add(materia);
+            plan.getCodigos().add(materia.getCodigo(), materia.getSemestre(), plan.getSemestres()[materia.getSemestre() - 1].size() - 1);
+        } else {
+            Alert dialogo = new Alert(AlertType.INFORMATION);
+            dialogo.setTitle("Insertar materia");
+            dialogo.setHeaderText(null);
+            dialogo.setContentText("Semestre fuera de rango");
             dialogo.initStyle(StageStyle.UTILITY);
             dialogo.showAndWait();
         }
@@ -23,7 +32,7 @@ public class MiPlan {
     }
 
     public static void eliminarMateria(Plan plan, int codigo) {
-        System.out.printf("%s%d\n", "Inicio eliminar materia = \t", System.currentTimeMillis());
+        System.out.printf("%s%d\n", "Inicio eliminar materia = \t", System.currentTimeMillis());/*
         ChainNode<Materia> temp;
         for (int i = 0; i < plan.getN_semestres(); i++) {
             if (plan.getSemestres()[i].getSize() != 0) {
@@ -39,11 +48,20 @@ public class MiPlan {
                 }
             }
         }
-        alertaMateriaNoEncontrada();
+        alertaMateriaNoEncontrada();*/
+        AVLTreeNode temp = plan.getCodigos().find(codigo);
+        if (temp != null) {
+            plan.getCodigos().remove(codigo);
+            plan.getSemestres()[temp.getSemestre() - 1].remove(temp.getPosición());
+            System.out.printf("%s%d\n", "Fin eliminar materia = \t\t", System.currentTimeMillis());
+
+        } else {
+            alertaMateriaNoEncontrada();
+        }
     }
 
     public static void consultarMateria(Plan plan, int codigo) {
-        System.out.printf("%s%d\n", "Inicio consultar materia = \t", System.currentTimeMillis());
+        System.out.printf("%s%d\n", "Inicio consultar materia = \t", System.currentTimeMillis());/*
         ChainNode<Materia> temp;
         for (int i = 0; i < plan.getN_semestres(); i++) {
             if (plan.getSemestres()[i].getSize() != 0) {
@@ -71,25 +89,30 @@ public class MiPlan {
                     }
                 }
             }
-        }
-        alertaMateriaNoEncontrada();
-    }
+        }*/
 
-    public static boolean estaDentroEnPlan(Plan plan, Materia materia) {
-        ChainNode<Materia> temp;
-        for (int i = 0; i < plan.getN_semestres(); i++) {
-            if (plan.getSemestres()[i].getSize() != 0) {
-                temp = plan.getSemestres()[i].getHead();
-                while (temp != null) {
-                    if (temp.getElement().getCodigo() == materia.getCodigo()) {
-                        return true;
-                    } else {
-                        temp = temp.getNext();
-                    }
-                }
+        AVLTreeNode temp = plan.getCodigos().find(codigo);
+        if (temp != null) {
+            int semestre = temp.getSemestre();
+            int pos = temp.getPosición();
+            System.out.printf("%s%d\n", "Fin consultar materia = \t", System.currentTimeMillis());
+            Materia mat = plan.getSemestres()[semestre - 1].get(pos);
+            Alert dialogo = new Alert(AlertType.INFORMATION);
+            dialogo.setTitle("Busqueda de materia");
+            dialogo.setHeaderText(null);
+            String texto = "Código: " + mat.getCodigo() + '\n'
+                    + "Materia: " + mat.getName() + '\n'
+                    + "Créditos: " + mat.getCreditos() + '\n'
+                    + "Tipología: " + mat.getTipologia() + '\n';
+            if (mat.getNota() != null) {
+                texto += "Nota: " + mat.getNota() + '\n';
             }
+            dialogo.setContentText(texto);
+            dialogo.initStyle(StageStyle.UTILITY);
+            dialogo.showAndWait();
+        } else {
+            alertaMateriaNoEncontrada();
         }
-        return false;
     }
 
     public static void alertaMateriaNoEncontrada() {

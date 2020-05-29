@@ -7,8 +7,10 @@ public class Plan {
 
     private String nombre;
     private int n_semestres;
-    private Chain<Materia>[] semestres;
-    private Chain<Materia> optativas;
+    private ArrayList<Materia>[] semestres;
+    private ArrayList<Materia> optativas;
+    private ArrayList<Integer> vistas;
+    private AVLTree codigos;
     private int creditosDiscp;
     private int creditosFund;
     private int creditosElect;
@@ -21,8 +23,9 @@ public class Plan {
         this.creditosFund = creditosFund;
         this.creditosElect = creditosElect;
         this.n_semestres = n_semestres;
-        this.semestres = new Chain[n_semestres];
-        this.optativas = new Chain<>();
+        this.semestres = new ArrayList[n_semestres];
+        this.optativas = new ArrayList<>();
+        this.codigos = new AVLTree();
     }
 
     public void cargarMaterias(FileInputStream file) {
@@ -36,18 +39,30 @@ public class Plan {
                 readFile.nextLine();
                 materia.setSemestre(semestre);
                 if (semestre == 0) {
-                    this.optativas.add(materia, this.optativas.getSize());
+                    this.optativas.add(materia);
                 } else {
                     if (semestres[semestre - 1] == null) {
-                        Chain<Materia> semestreLista = new Chain<>();
+                        ArrayList<Materia> semestreLista = new ArrayList<>();
                         this.semestres[semestre - 1] = semestreLista;
-                        semestreLista.add(materia, semestreLista.getSize());
+                        semestreLista.add(materia);
                     } else {
-                        semestres[semestre - 1].add(materia, semestres[semestre - 1].getSize());
+                        semestres[semestre - 1].add(materia);
                     }
+                    AVLTreeNode temp = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
+                            this.semestres[materia.getSemestre() - 1].size() - 1);
+                    this.codigos.add(temp.getCodigo(), temp.getSemestre(), temp.getPosición());
                 }
+
             } while (readFile.hasNext());
         }
+    }
+
+    public AVLTree getCodigos() {
+        return codigos;
+    }
+
+    public void setCodigos(AVLTree codigos) {
+        this.codigos = codigos;
     }
 
     public String getNombre() {
@@ -66,19 +81,19 @@ public class Plan {
         this.n_semestres = n_semestres;
     }
 
-    public Chain<Materia>[] getSemestres() {
+    public ArrayList<Materia>[] getSemestres() {
         return semestres;
     }
 
-    public void setSemestres(Chain<Materia>[] semestres) {
+    public void setSemestres(ArrayList<Materia>[] semestres) {
         this.semestres = semestres;
     }
 
-    public Chain<Materia> getOptativas() {
+    public ArrayList<Materia> getOptativas() {
         return optativas;
     }
 
-    public void setOptativas(Chain<Materia> optativas) {
+    public void setOptativas(ArrayList<Materia> optativas) {
         this.optativas = optativas;
     }
 

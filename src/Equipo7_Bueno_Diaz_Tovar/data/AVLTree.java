@@ -14,6 +14,18 @@ public class AVLTree {
         return root == null;
     }
 
+    public void inOrder() {
+        theInOrder(this.root);
+    }
+
+    public static void theInOrder(AVLTreeNode t) {
+        if (t != null) {
+            theInOrder(t.getLeft());
+            System.out.printf("%d %d %d\n", t.getCodigo(), t.getSemestre(), t.getPosición());
+            theInOrder(t.getRight());
+        }
+    }
+
     public AVLTreeNode find(int codigo) {
         AVLTreeNode temp = root;
         while (temp != null) {
@@ -43,19 +55,22 @@ public class AVLTree {
         return false;
     }
 
-    public void add(int x) {
-        root = add(root, x);
+    public void add(int codigo, int semestre, int pos) {
+        root = add(root, codigo, semestre, pos);
     }
 
-    public AVLTreeNode add(AVLTreeNode nodo, int x) {
+    private AVLTreeNode add(AVLTreeNode nodo, int codigo, int semestre, int pos) {
         if (nodo == null) {
             size++;
-            return new AVLTreeNode(x);
+            return new AVLTreeNode(codigo, semestre, pos);
         }
-        if (x < nodo.getCodigo()) {
-            nodo.setLeft(add(nodo.getLeft(), x));
-        } else if (x > nodo.getCodigo()) {
-            nodo.setRight(add(nodo.getRight(), x));
+        if(nodo.getCodigo()==codigo){
+            return null;
+        }
+        if (codigo < nodo.getCodigo()) {
+            nodo.setLeft(add(nodo.getLeft(), codigo, semestre, pos));
+        } else if (codigo > nodo.getCodigo()) {
+            nodo.setRight(add(nodo.getRight(), codigo, semestre, pos));
         }
         return balance(nodo);
     }
@@ -85,7 +100,7 @@ public class AVLTree {
         return nodo;
     }
 
-    private void remove(int x) {
+    public void remove(int x) {
         root = remove(root, x);
     }
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Equipo7_Bueno_Diaz_Tovar.data;
 
 public class AVLTreeNode {
@@ -17,6 +12,12 @@ public class AVLTreeNode {
 
     public AVLTreeNode() {
 
+    }
+
+    public AVLTreeNode(int codigo, int semestre, int posición) {
+        this.codigo = codigo;
+        this.semestre = semestre;
+        this.posición = posición;
     }
 
     public AVLTreeNode(int x) {
