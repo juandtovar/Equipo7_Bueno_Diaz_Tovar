@@ -3,6 +3,7 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 public class Chain<T> implements LinearList<T> {
 
     private ChainNode<T> head;
+    private ChainNode<T> tail;
     private int size;
 
     public Chain() {
@@ -22,13 +23,24 @@ public class Chain<T> implements LinearList<T> {
     @Override
     public void add(T element, int i) {
         if (i == 0) {
-            this.head = new ChainNode<>(element, this.head);
+            ChainNode<T> newHead = new ChainNode<>(element, this.head);
+            this.head = newHead;
+            if (this.size == 0) {
+                this.tail = this.head;
+            }
         } else {
+            if (i == this.size) {
+                this.tail.setNext(new ChainNode<>(element));
+                this.tail = this.tail.getNext();
+                return;
+            }
             ChainNode<T> temp = this.head;
             for (int j = 0; j < i - 1; j++) {
                 temp = temp.getNext();
             }
-            temp.setNext(new ChainNode<>(element, temp.getNext()));
+            ChainNode node = new ChainNode<>(element, temp.getNext());
+            node.setNext(temp.getNext());
+            temp.setNext(node);
         }
         size++;
     }
@@ -70,13 +82,21 @@ public class Chain<T> implements LinearList<T> {
     public void setHead(ChainNode<T> head) {
         this.head = head;
     }
-    
+
     public int getSize() {
         return size;
     }
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public ChainNode<T> getTail() {
+        return tail;
+    }
+
+    public void setTail(ChainNode<T> tail) {
+        this.tail = tail;
     }
 
 }

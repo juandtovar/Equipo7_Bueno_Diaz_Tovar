@@ -16,11 +16,7 @@ public class Materia {
         this.creditos = creditos;
         this.tipologia = tipologia;
         this.prerrequisitos = prerrequisitos;
-        this.nota = null;
-    }
-
-    public void insertarNota(int nota) {
-        this.nota.add(nota, this.nota.getSize());
+        this.nota = new Chain<>();
     }
 
     public String getName() {
@@ -64,11 +60,15 @@ public class Materia {
     }
 
     public Chain<Integer> getNota() {
-        return nota;
+        return this.nota;
     }
 
-    public void setNota(Chain<Integer> nota) {
-        this.nota = nota;
+    public Integer getLastNota() {
+        return this.nota.getTail().getElement();
+    }
+
+    public void setNota(int nota) {
+        this.nota.add(nota, this.nota.getSize());
     }
 
     public String getPrerrequisitos() {
@@ -77,6 +77,11 @@ public class Materia {
 
     public void setPrerrequisitos(String prerrequisitos) {
         this.prerrequisitos = prerrequisitos;
+    }
+
+    @Override
+    public String toString() {
+        return "Materia{" + "name=" + name + ", codigo=" + codigo + ", creditos=" + creditos + ", tipologia=" + tipologia + ", semestre=" + semestre + ", nota=" + nota + ", prerrequisitos=" + prerrequisitos + '}' + '\n';
     }
 
 }

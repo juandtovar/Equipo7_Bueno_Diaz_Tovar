@@ -5,6 +5,7 @@ import Equipo7_Bueno_Diaz_Tovar.ui.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Set;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -36,13 +37,14 @@ public class Main extends Application {
         } catch (FileNotFoundException ex) {
 
         }
-        planes.getHead().getElement().getCodigos().inOrder();
+
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);
         Controlador1 controlador = new Controlador1(planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
         stage.show();
+        
     }
 
 }

@@ -9,7 +9,7 @@ public class Plan {
     private int n_semestres;
     private ArrayList<Materia>[] semestres;
     private ArrayList<Materia> optativas;
-    private ArrayList<Integer> vistas;
+    private ArrayList<Materia>[] materiasVistas;
     private AVLTree codigos;
     private int creditosDiscp;
     private int creditosFund;
@@ -26,6 +26,10 @@ public class Plan {
         this.semestres = new ArrayList[n_semestres];
         this.optativas = new ArrayList<>();
         this.codigos = new AVLTree();
+        this.materiasVistas = new ArrayList[n_semestres];
+        for(int i = 0; i < n_semestres; i++) {
+            this.materiasVistas[i] = new ArrayList<>();
+        }
     }
 
     public void cargarMaterias(FileInputStream file) {
@@ -135,6 +139,14 @@ public class Plan {
 
     public void setPAPA(double PAPA) {
         this.PAPA = PAPA;
+    }
+
+    public ArrayList<Materia>[] getMateriasVistas() {
+        return materiasVistas;
+    }
+
+    public void setMateriasVistas(ArrayList<Materia>[] vistas) {
+        this.materiasVistas = vistas;
     }
 
 }
