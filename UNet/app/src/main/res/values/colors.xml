@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/Orange</color>
+    <color name="colorPrimaryDark">@color/Fundamentación_Blue</color>
+    <color name="colorAccent">@color/Fundamentación_Blue</color>
+
+    <color name="colorTextLigth">#c8c7cc</color>
+    <color name="colorTextDark">#606060</color>
+    <color name="Orange">#ffa834</color>
+    <color name="Black">#000000</color>
+    <color name="White">#ffffff</color>
+    <color name="Fundamentación_Blue">#5f6af8</color>
+    <color name="Disciplinar_Yellow">#f8e35f</color>
+    <color name="Libre_Gren">#10ec79</color>
+</resources>

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">UNet</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Pepita Perez</string>
+    <string name="nav_header_subtitle">Ingeniería Mecatrónica</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_miPlan">Mi Plan</string>
+    <string name="menu_miAvance">Mi Avance</string>
+
+    <string name="button_conf">Ingresar</string>
+    <string name="logo">logo_unal</string>
+    <string name="spinner">Seleccione su plan</string>
+
+    <string name="config_user">Usuario</string>
+    <string name="config_user_hint">Inserte su nombre</string>
+    <string name="config_plan_hint">Escoja su plan</string>
+
+</resources>
