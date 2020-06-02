@@ -2,7 +2,9 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
+import java.text.Normalizer;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,6 +13,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -24,6 +29,7 @@ public class Vista3 implements Vista {
     private ScrollPane sp;
     private VBox layout = new VBox();
     private HBox layoutHor = new HBox();
+    private VBox layout_Botones = new VBox();
     private VBox[] columnas;
     private TextField[] MateriaTF;
     private Label[] MateriaLB;
@@ -66,15 +72,27 @@ public class Vista3 implements Vista {
         System.out.printf("%s%d\n", "\t\t\t\tInicio mostrar materias = \t", System.currentTimeMillis());
         this.sp = new ScrollPane();
         this.layout = new VBox();
+        this.escena = new Scene(this.sp, 1280, 700);
+        escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
 
         //Malla
         this.columnas = new VBox[this.planActual.getN_semestres()];
         this.layoutHor = new HBox();
+        this.layoutHor.setSpacing(25);
+        this.layoutHor.getChildren().add(new Label(""));
         for (int i = 0; i < columnas.length; i++) {
             this.columnas[i] = new VBox();
-            this.columnas[i].getChildren().add(new Label("Semestre" + " " + (i + 1)));
+            this.columnas[i].setSpacing(10);
+            Label lb= new Label("                 " + "Semestre" + " " + (i + 1));
+            lb.setPrefWidth(225);
+            lb.setFont(Font.font( java.awt.Font.SERIF, FontPosture.ITALIC, 18));
+            this.columnas[i].getChildren().add(lb);
             for (int j = 0; j < this.planActual.getSemestres()[i].size(); j++) {
                 Button boton = new Button(this.planActual.getSemestres()[i].get(j).getName());
+                boton.setPrefWidth(225);
+                boton.setAlignment(Pos.CENTER);
+                boton.setWrapText(true);
+                boton.getStyleClass().add("button");
                 this.columnas[i].getChildren().add(boton);
             }
             this.layoutHor.getChildren().add(this.columnas[i]);
@@ -83,13 +101,16 @@ public class Vista3 implements Vista {
         System.out.printf("%s%d\n", "\t\t\t\tFin mostrar materias = \t\t", System.currentTimeMillis());
 
         //Botones
+        this.layout_Botones = new VBox();
+        this.layout_Botones.setSpacing(10);
         this.insertarMateria = new Button("Insertar materia de libre elección");
         this.insertar = new Button("Insertar");
         this.eliminarMateria = new Button("Eliminar materia");
         this.eliminar = new Button("Eliminar");
         this.consultarMateria = new Button("Buscar materia");
         this.consultar = new Button("Buscar");
-
+        this.layout_Botones.getChildren().add(consultarMateria);
+        this.layout_Botones.getChildren().add(eliminarMateria);
         this.insertarMateria.setOnAction((ActionEvent event) -> {
             for (int i = 0; i < 6; i++) {
                 MateriaTF[i].setVisible(true);
@@ -195,7 +216,8 @@ public class Vista3 implements Vista {
         }
 
         presentarVistaInicial();
-        this.escena = new Scene(this.sp, 1280, 700);
+        
+        
 
         //Ventana
         this.sp.setContent(layout);

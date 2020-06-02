@@ -3,6 +3,7 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class Vista1 implements Vista {
@@ -13,13 +14,18 @@ public class Vista1 implements Vista {
     private VBox layoutPrincipal;
 
     public Vista1() {
+        HBox lh = new HBox();
+        lh.setSpacing(50);
         layoutPrincipal = new VBox();
-        titulo = new Label("Bienvenido a UNet");
-        btCrearPlan = new Button("Siguiente");
-        layoutPrincipal.getChildren().add(titulo);
-        btCrearPlan = new Button("Crear plan");
+        layoutPrincipal.setSpacing(10);
+        titulo = new Label("Bienvenido a Unet");
+        titulo.setStyle("-fx-text-size: 16" );
+        layoutPrincipal.getChildren().addAll(new Label(""), titulo);
+        btCrearPlan = new Button("Crear plan");    
+        btCrearPlan.setPrefWidth(100);
         layoutPrincipal.getChildren().add(btCrearPlan);
-        this.escena = new Scene(layoutPrincipal, 500, 500);
+        lh.getChildren().addAll(new Label(""), layoutPrincipal );
+        this.escena = new Scene(lh, 200, 200);
     }
 
     @Override

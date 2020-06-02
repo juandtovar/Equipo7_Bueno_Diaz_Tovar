@@ -1,0 +1,51 @@
+Codigo/ Materia/ Creditos/ Tipologia/ Prerrequisitos/ Semestre/ 
+1000004/ Calculo Diferencial/ 4/ FO/ Ninguno/ 1/ 
+1000005/ Calculo Integral/ 4/ FO/ Calculo Diferencial/ 2/ 
+1000006/ Calculo en Varias Variables/ 4/ FO/ Calculo Integral y algebra Lineal/ 3/ 
+1000007/ Ecuaciones Diferenciales/ 4/ FO/ Calculo Integral y algebra Lineal/ 4/ 
+1000003/ algebra Lineal/ 4/ FO/ Calculo Diferencial/ 2/ 
+1000013/ Probabilidad y Estadistica Fundamental/ 3/ FO/ Calculo Diferencial/ 3/ 
+1000019/ Fundamentos de mecanica/ 4/ FO/ Calculo Diferencial/ 2/ 
+2015703/ Ingenieria Economica/ 3/ FO/ Calculo Integral/ 6/ 
+2015702/ Gerencia y Gestion de Proyectos/ 3/ FO/ Ingenieria Economica/ 7/ 
+2015734/ Programacion de Computadores/ 3/ FO/ Ninguno/ 1/ 
+2015970/ Métodos Numéricos/ 3/ FO/ Ecuaciones Diferenciales/ 5/ 
+2017293/ Modelacion Matematica/ 3/ FO/ Ecuaciones Diferenciales/ 6/ 
+2015942/ Aplicaciones de Elementos Finitos/ 3/ FO/ Ecuaciones Diferenciales/ 7/ 
+1000024/ Principios de Quimica/ 3/ FO/ Ninguno/ 3/ 
+2015711/ Dibujo Basico/ 3/ FO/ Ninguno/ 1/ 
+2017257/ Dibujo de Maquinas/ 4/ DO/ Dibujo Basico/ 2/ 
+2016640/ Principios de Estatica/ 3/ DO/ algebra Lineal/ 3/ 
+2017271/ Principios de Dinamica/ 3/ DO/ algebra Lineal/ 4/ 
+2017268/ Mecanismos/ 3/ DO/ Principios de Dinamica/ 5/ 
+2017277/ Resistencia de Materiales/ 3/ DO/ Principios de Estatica/ 5/ 
+2017259/ Diseno de Elementos de Maquinas I/ 3/ DO/ Resistencia de Materiales/ 7/ 
+2017259/ Diseno de Elementos de Maquinas II/ 3/ DO/ Resistencia de Materiales/ 8/ 
+2017279/ Termodinamica Técnica/ 3/ DO/ Principios de Quimica/ 4/ 
+2017272/ Principios de Mecanica de Fluidos/ 3/ DO/ Ecuaciones Diferenciales/ 5/ 
+2017262/ Fundamentos de Transferencia de Calor/ 3/ DO/ Termodinamica Técnica y Principios de Mecanica de Fluidos/ 6/ 
+2017278/ Tecnologia Mecanica Basica/ 3/ DO/ Ninguno/ 1/ 
+2017256/ Ciencia e Ingenieria de Materiales/ 3/ DO/ Principios de Quimica/ 3/ 
+2017267/ Materiales de Ingenieria/ 3/ DO/ Ciencia e Ingenieria de Materiales/ 5/ 
+2017273/ Procesos de Manufactura I/ 3/ DO/ Materiales de Ingenieria/ 6/ 
+2017274/ Procesos de Manufactura II/ 3/ DO/ Materiales de Ingenieria/ 7/ 
+2017264/ Ingenieria de Manufactura/ 3/ DO/ Procesos de Manufactura II/ 8/ 
+2017266/ Instalaciones y Maquinas Eléctricas/ 3/ DO/ algebra Lineal/ 5/ 
+2017260/ Electronica Basica/ 3/ DO/ Instalaciones y Maquinas Eléctricas/ 6/ 
+2016506/ Senales y Sistemas I/ 3/ DO/ Electronica Basica/ 7/ 
+2015215/ Analisis de Sistemas Dinamicos/ 3/ DO/ Senales y Sistemas I/ 8/ 
+2017261/ Fundamentos de Control/ 3/ DO/ Analisis de Sistemas Dinamicos/ 9/ 
+2017265/ Ingenieria y Desarrollo Sostenible/ 3/ DO/ Ninguno/ 1/ 
+1000017/ Fundamentos de electricidad y magnetismo/ 4/ FOpt/ Fundamentos de Mecanica y Calculo Integral/ 0/ 
+1000020/ Fundamentos de oscilaciones, ondas y optica/ 4/ FOpt/ Fundamentos de Mecanica y Calculo Integral/ 0/ 
+1000018/ Fundamentos de fisica moderna/ 3/ FOpt/ Ecuaciones Diferenciales/ 0/ 
+1000021/ Fundamentos de Mecanica de Fluidos/ 3/ FOpt/ Fundamentos de Mecanica/ 0/ 
+2020122/ Fisica de radiaciones/ 3/ FOpt/ Ninguno/ 0/ 
+2017270/ Plantas Térmicas/ 3/ Dopt/ Fundamentos de Transferencia de Calor/ 0/ 
+2017269/ Motores de Combustion Interna/ 3/ Dopt/ Fundamentos de Transferencia de Calor/ 0/ 
+2017263/ Fundamentos de Turbomaquinaria/ 3/ Dopt/ Fundamentos de Transferencia de Calor/ 0/ 
+1000000/ Optativa de Fisica/ 0/ -/ -/ 3/ 
+1000000/ Optativa de Fisica/ 0/ -/ -/ 5/ 
+1000000/ Optativa Ingenieria Térmica y fluidos/ 0/ -/ -/ 7/ 
+1000000/ Optativa Ingenieria Térmica y fluidos/ 0/ -/ -/ 8/ 
+2017295/ Trabajo de Grado / 6/ DO/ Ninguno/ 10/ 

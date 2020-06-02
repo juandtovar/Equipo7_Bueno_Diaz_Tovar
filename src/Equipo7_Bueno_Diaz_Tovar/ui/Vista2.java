@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 public class Vista2 implements Vista {
 
@@ -18,19 +19,26 @@ public class Vista2 implements Vista {
     public Vista2(Chain<Plan> planes) {
         this.botones = new Chain<>();
         this.planes = planes;
-        this.elegir = new Label("Eliga su plan");
+        this.elegir = new Label("                Eliga su plan");
+        HBox lh = new HBox();
         VBox layout = new VBox();
+        lh.setSpacing(35);
+        layout.setSpacing(10);
         layout.getChildren().add(elegir);
+        lh.getChildren().add(new Label(""));
+       
         ChainNode<Plan> temp = planes.getHead();
         do {
             Button boton = new Button(temp.getElement().getNombre()
                     .replace("ingenieria_mecanica", "Ingeniería Mecánica")
                     .replace("ingenieria_mecatronica", "Ingeniería Mecatrónica"));
+            boton.setPrefWidth(180);
             layout.getChildren().add(boton);
             this.botones.add(boton, this.botones.getSize());
             temp = temp.getNext();
-        } while (temp != null);
-        this.escena = new Scene(layout, 500, 500);
+        } while (temp != null); 
+        lh.getChildren().add(layout);
+        this.escena = new Scene(lh, 250, 200);
     }
 
     @Override

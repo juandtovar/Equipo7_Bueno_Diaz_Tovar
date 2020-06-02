@@ -32,7 +32,7 @@ public class Plan {
         }
     }
 
-    public void cargarMaterias(FileInputStream file) {
+    public void cargarMaterias(DataInputStream file) {
         try (Scanner readFile = new Scanner(file)) {
             readFile.useDelimiter("/ ");
             readFile.nextLine();

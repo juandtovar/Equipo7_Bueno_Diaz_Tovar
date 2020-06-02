@@ -1,6 +1,7 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.*;
+import java.text.Normalizer;
 import java.util.*;
 
 public class Plan {
@@ -37,7 +38,7 @@ public class Plan {
             readFile.useDelimiter("/ ");
             readFile.nextLine();
             do {
-                Materia materia = new Materia(readFile.nextInt(), readFile.next(),
+                Materia materia = new Materia(readFile.nextInt(),Normalizer.normalize(readFile.next(), Normalizer.Form.NFD),
                         readFile.nextInt(), readFile.next(), readFile.next());
                 int semestre = readFile.nextInt();
                 readFile.nextLine();

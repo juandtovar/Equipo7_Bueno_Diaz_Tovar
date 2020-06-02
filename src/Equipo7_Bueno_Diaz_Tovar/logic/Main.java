@@ -43,6 +43,8 @@ public class Main extends Application {
         Controlador1 controlador = new Controlador1(planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
+        
+        stage.setTitle("Unet tu malla personalizada");
         stage.show();
         
     }
