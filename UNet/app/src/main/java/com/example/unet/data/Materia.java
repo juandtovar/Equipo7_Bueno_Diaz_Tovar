@@ -10,17 +10,18 @@ public class Materia {
     private Chain<Integer> nota;
     private String prerrequisitos;
 
-    public Materia(int codigo, String name, int creditos, String tipologia, String prerrequisitos) {
+    public Materia(int codigo, String name, int creditos, String tipologia, String prerrequisitos, int semestre) {
         this.name = name;
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
         this.prerrequisitos = prerrequisitos;
         this.nota = new Chain<>();
+        this.semestre = semestre;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {

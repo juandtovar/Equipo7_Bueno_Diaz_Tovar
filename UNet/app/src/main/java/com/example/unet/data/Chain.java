@@ -24,26 +24,26 @@ public class Chain<T> implements LinearList<T> {
     @Override
     public void add(T element, int i) {
         if (i == 0) {
-            ChainNode<T> newHead = new ChainNode<>(element, this.head);
-            this.head = newHead;
+            this.head = new ChainNode<>(element, this.head);
             if (this.size == 0) {
                 this.tail = this.head;
             }
         } else {
-            if (i == this.size) {
-                this.tail.setNext(new ChainNode<>(element));
-                this.tail = this.tail.getNext();
-                return;
-            }
             ChainNode<T> temp = this.head;
             for (int j = 0; j < i - 1; j++) {
                 temp = temp.getNext();
             }
-            ChainNode node = new ChainNode<>(element, temp.getNext());
-            node.setNext(temp.getNext());
+            ChainNode<T> node = new ChainNode<T>(element, temp.getNext());
             temp.setNext(node);
+            if (i == this.size) {
+                this.setTail(node);
+            }
         }
         size++;
+    }
+
+    public void add(T element) {
+        add(element, this.getSize());
     }
 
     @Override
@@ -62,18 +62,46 @@ public class Chain<T> implements LinearList<T> {
     }
 
     @Override
-    public void remove(int i) {
+    public T remove(int i) {
+        T removedElement;
         if (i == 0) {
+            removedElement = this.head.getElement();
             this.head = this.head.getNext();
         } else {
             ChainNode<T> temp = this.head;
             for (int j = 0; j < i - 1; j++) {
                 temp = temp.getNext();
             }
-            T removedElement = temp.getNext().getElement();
+            removedElement = temp.getNext().getElement();
             temp.setNext(temp.getNext().getNext());
         }
-        this.size--;
+        if(i == this.size) {
+            this.setTail(this.tail.getNext());
+        }
+        setSize(this.size - 1);
+        return removedElement;
+    }
+
+    @Override
+    public T find(T element) {
+        ChainNode<T> currentNode = this.head;
+        while (currentNode != null && !currentNode.getElement().equals(element)) {
+            currentNode = currentNode.getNext();
+        }
+        return currentNode.getElement();
+    }
+
+    @Override
+    public T find(int i) {
+        if (i >= this.size || i < 0) {
+            return null;
+        } else {
+            ChainNode<T> currentNode = this.head;
+            for(int j = 0; j < i; j++) {
+                currentNode = currentNode.getNext();
+            }
+            return currentNode.getElement();
+        }
     }
 
     public ChainNode<T> getHead() {

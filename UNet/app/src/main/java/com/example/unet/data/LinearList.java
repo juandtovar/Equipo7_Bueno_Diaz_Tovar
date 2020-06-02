@@ -8,8 +8,11 @@ public interface LinearList<T> {
 
     int indexOf(T element);
 
-    void remove(int i);
+    T remove(int i);
 
     void add(T element, int i);
+
+    T find(T element);
+    T find(int i);
 
 }

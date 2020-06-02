@@ -170,7 +170,7 @@ public class AVLTree {
 
     public int getMax(AVLTreeNode x) {
         AVLTreeNode y = x;
-        int max = x.getCodigo();
+        int max = y.getCodigo();
         while (y != null) {
             max = y.getCodigo();
             y = y.getRight();
@@ -221,4 +221,11 @@ public class AVLTree {
         this.size = size;
     }
 
+    public AVLTreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(AVLTreeNode root) {
+        this.root = root;
+    }
 }

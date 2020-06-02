@@ -19,12 +19,30 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.unet.R;
+import com.example.unet.data.AVLTreeNode;
+import com.example.unet.data.Chain;
+import com.example.unet.data.Materia;
+import com.example.unet.data.Plan;
+import com.example.unet.logic.Conf;
+import com.example.unet.logic.MainActivity;
 
-public class MiPlanFragment extends Fragment{
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
+public class MiPlanFragment extends Fragment {
+
+    private String user;
     private MiPlanViewModel mViewModel;
+    private Chain<Plan> planes = new Chain<>();
+    private Plan planActual;
+    private final int parametrosP = 7;
+    private final int parametros = 6;
+    private final int nPlanes = 2;
 
     public static MiPlanFragment newInstance() {
         return new MiPlanFragment();
@@ -38,25 +56,99 @@ public class MiPlanFragment extends Fragment{
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        int n = 10;
-        int m = 15;
+        Chain<Plan> temp = planes;
+        while (temp.getSize() > 0) {
+            temp.remove(temp.getSize() - 1);
+        }
+        planes = temp;
+        int nPlan = Conf.getSpinner_plan().getSelectedItemPosition();
+        InputStream file = null;
+        switch (nPlan) {
+            case 0:
+                file = getResources().openRawResource(R.raw.ingenieria_mecatronica);
+                System.out.println("MT");
+                break;
+            case 1:
+                file = getResources().openRawResource(R.raw.ingenieria_mecanica);
+                System.out.println("MC");
+                break;
+        }
+        InputStream fileP = getResources().openRawResource(R.raw.informacion_planes);
+        BufferedReader readP = new BufferedReader(new InputStreamReader(fileP));
+
+        String[] lecturas = new String[500];
+        BufferedReader read = new BufferedReader(new InputStreamReader(file));
+
+
+        try {
+            String linea = readP.readLine();
+            lecturas = linea.split(" ");
+            for (String s : lecturas) {
+                System.out.println(s);
+            }
+        } catch (Exception ex) {
+
+        }
+
+        planActual = new Plan(lecturas[nPlan * parametrosP + 0], Integer.parseInt(lecturas[nPlan * parametrosP + 1]),
+                Integer.parseInt(lecturas[nPlan * parametrosP + 2]), Integer.parseInt(lecturas[nPlan * parametrosP + 3]),
+                Integer.parseInt(lecturas[nPlan * parametrosP + 4]), Integer.parseInt(lecturas[nPlan * parametrosP + 5]),
+                Integer.parseInt(lecturas[nPlan * parametrosP + 6]));
+
+
+        System.out.println(planActual.getNombre());
+
+        try {
+            String linea = read.readLine();
+            lecturas = linea.split("/ ");
+        } catch (Exception ex) {
+
+        }
+        for (int i = 0; i < planActual.getnMaterias(); i++) {
+            Materia materia = new Materia(Integer.parseInt(lecturas[parametros * i + 0]),
+                    lecturas[parametros * i + 1], Integer.parseInt(lecturas[parametros * i + 2]),
+                    lecturas[parametros * i + 3], lecturas[parametros * i + 4],
+                    Integer.parseInt(lecturas[parametros * i + 5]));
+            if (materia.getSemestre() == 0) {
+                planActual.getOptativas().add(materia);
+            } else {
+                if (planActual.getSemestres()[materia.getSemestre() - 1] == null) {
+                    ArrayList<Materia> semestreLista = new ArrayList<>();
+                    planActual.getSemestres()[materia.getSemestre() - 1] = semestreLista;
+                    semestreLista.add(materia);
+                } else {
+                    planActual.getSemestres()[materia.getSemestre() - 1].add(materia);
+                }
+                AVLTreeNode tempNode = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
+                        planActual.getSemestres()[materia.getSemestre() - 1].size() - 1);
+                planActual.getCodigos().add(tempNode.getCodigo(), tempNode.getSemestre(), tempNode.getPosición());
+            }
+        }
+
+        int n = planActual.getN_semestres(), m = planActual.getMaxMaterias();
 
         LinearLayout semestres = new LinearLayout(getActivity());
         semestres.setLayoutParams(param);
-        semestres.setOrientation(LinearLayout.VERTICAL);
+        semestres.setOrientation(LinearLayout.HORIZONTAL);
+        Button dirButton[][] = new Button[n + 5][m + 2];
 
-        Button dirButton[] = new Button[n * m];
-
-        for(int i = 0; i < n; i++) {
-            LinearLayout L =  new LinearLayout(getActivity());
-            for(int j = 0; j < m; j++) {
-                dirButton[i] = new Button(getActivity());
-                dirButton[i].setLayoutParams(param2);
-                dirButton[i].setText(String.valueOf(i + 1).concat(" ".concat(String.valueOf(j + 1))));
-                L.addView(dirButton[i]);
+        for (int i = 0; i < n; i++) {
+            LinearLayout L = new LinearLayout(getActivity());
+            L.setOrientation(LinearLayout.VERTICAL);
+            for (int j = 0; j < m; j++) {
+                dirButton[i][j] = new Button(getActivity());
+                dirButton[i][j].setLayoutParams(param2);
+                try {
+                    Materia mat = planActual.getSemestres()[i].get(j);
+                    dirButton[i][j].setText(mat.getName());
+                } catch (Exception ex) {
+                    dirButton[i][j].setVisibility(View.INVISIBLE);
+                }
+                L.addView(dirButton[i][j]);
             }
             semestres.addView(L);
         }
+
         HorizontalScrollView vista = new HorizontalScrollView(getActivity());
         vista.addView(semestres);
         ViewGroup vg = (ViewGroup) rootView;

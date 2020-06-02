@@ -1,7 +1,5 @@
 package com.example.unet.data;
 
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unet.R;
@@ -22,8 +20,10 @@ public class Plan extends AppCompatActivity {
     private int creditosElect;
     private int creditosTotales;
     private double PAPA;
+    private int maxMaterias;
+    private int nMaterias;
 
-    public Plan(String nombre, int creditosDiscp, int creditosFund, int creditosElect, int n_semestres) {
+    public Plan(String nombre, int creditosDiscp, int creditosFund, int creditosElect, int n_semestres, int maxMaterias, int nMaterias) {
         this.nombre = nombre;
         this.creditosDiscp = creditosDiscp;
         this.creditosFund = creditosFund;
@@ -37,51 +37,8 @@ public class Plan extends AppCompatActivity {
         for (int i = 0; i < n_semestres; i++) {
             this.materiasVistas[i] = new ArrayList<>();
         }
-    }
-
-    public void cargarMaterias(String nombrePlan) {
-        InputStream file = null;
-        switch (nombrePlan) {
-            case "ingenieria_mecatronica":
-                file = getResources().openRawResource(R.raw.ingenieria_mecatronica);
-                break;
-            case "ingenieria_mecanica":
-                file = getResources().openRawResource(R.raw.ingenieria_mecanica);
-                break;
-        }
-        try {
-            BufferedReader read = new BufferedReader(new InputStreamReader(file));
-            String[] lecturas = new String[7];
-            boolean seguir = true;
-            while (seguir) {
-                try {
-                    String linea = read.readLine();
-                    lecturas = linea.split("/ ");
-                    Materia materia = new Materia(Integer.parseInt(lecturas[0]), lecturas[1],
-                            Integer.parseInt(lecturas[2]), lecturas[3], lecturas[4]);
-                    int semestre = Integer.parseInt(lecturas[5]);
-                    materia.setSemestre(semestre);
-                    if (semestre == 0) {
-                        this.optativas.add(materia);
-                    } else {
-                        if (semestres[semestre - 1] == null) {
-                            ArrayList<Materia> semestreLista = new ArrayList<>();
-                            this.semestres[semestre - 1] = semestreLista;
-                            semestreLista.add(materia);
-                        } else {
-                            semestres[semestre - 1].add(materia);
-                        }
-                        AVLTreeNode temp = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
-                                this.semestres[materia.getSemestre() - 1].size() - 1);
-                        this.codigos.add(temp.getCodigo(), temp.getSemestre(), temp.getPosición());
-                    }
-                } catch (Exception ex) {
-
-                }
-            }
-        } catch (Exception ex) {
-            Toast.makeText(this, "FCargar", Toast.LENGTH_LONG).show();
-        }
+        this.maxMaterias = maxMaterias;
+        this.nMaterias = nMaterias;
     }
 
     public AVLTree getCodigos() {
@@ -172,11 +129,24 @@ public class Plan extends AppCompatActivity {
         this.materiasVistas = vistas;
     }
 
+    public int getMaxMaterias() {
+        return this.maxMaterias;
+    }
+
+    public void setMaxMaterias(int maxMaterias) {
+        this.maxMaterias = maxMaterias;
+    }
+
+    public int getnMaterias() {
+        return nMaterias;
+    }
+
+    public void setnMaterias(int nMaterias) {
+        this.nMaterias = nMaterias;
+    }
+
     @Override
     public String toString() {
-        return "Plan{" +
-                "nombre='" + nombre + '\'' +
-                ", creditosTotales=" + creditosTotales +
-                '}';
+        return this.nombre + ' ' + this.creditosTotales + ' ' + this.n_semestres + ' ' + maxMaterias;
     }
 }

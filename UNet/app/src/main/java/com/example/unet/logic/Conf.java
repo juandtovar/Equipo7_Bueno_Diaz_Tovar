@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -14,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.unet.R;
+import com.example.unet.data.Chain;
+import com.example.unet.data.Plan;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,19 +25,18 @@ import java.io.OutputStreamWriter;
 
 public class Conf extends AppCompatActivity{
 
-    private EditText e_text1;
-    private Spinner spinner_plan;
+    private static EditText e_text1;
+    public static Spinner spinner_plan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conf);
 
-        //obtener
         e_text1= findViewById(R.id.editText_user);
         spinner_plan= findViewById(R.id.spinner_planes);
 
-        String[] planes = {"Ingeniería Mecánica", "Ingeniería Mecatrónica", "Seleccione su plan"};
+        String[] planes = {"Ingeniería Mecatrónica", "Ingeniería Mecánica", "Seleccione su plan"};
         final int listsize = planes.length - 1;
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, planes) {
             @Override
@@ -95,4 +97,13 @@ public class Conf extends AppCompatActivity{
         this.finish();
         startActivity(new Intent(this, MainActivity.class));
     }
+
+    public static EditText getE_text1() {
+        return e_text1;
+    }
+
+    public static Spinner getSpinner_plan() {
+        return spinner_plan;
+    }
+
 }
