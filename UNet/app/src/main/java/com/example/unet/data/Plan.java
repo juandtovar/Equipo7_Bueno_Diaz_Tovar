@@ -1,9 +1,15 @@
 package com.example.unet.data;
 
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.unet.R;
+
 import java.io.*;
 import java.util.*;
 
-public class Plan {
+public class Plan extends AppCompatActivity {
 
     private String nombre;
     private int n_semestres;
@@ -22,42 +28,59 @@ public class Plan {
         this.creditosDiscp = creditosDiscp;
         this.creditosFund = creditosFund;
         this.creditosElect = creditosElect;
+        this.creditosTotales = this.creditosDiscp + this.creditosFund + this.creditosElect;
         this.n_semestres = n_semestres;
         this.semestres = new ArrayList[n_semestres];
         this.optativas = new ArrayList<>();
         this.codigos = new AVLTree();
         this.materiasVistas = new ArrayList[n_semestres];
-        for(int i = 0; i < n_semestres; i++) {
+        for (int i = 0; i < n_semestres; i++) {
             this.materiasVistas[i] = new ArrayList<>();
         }
     }
 
-    public void cargarMaterias(DataInputStream file) {
-        try (Scanner readFile = new Scanner(file)) {
-            readFile.useDelimiter("/ ");
-            readFile.nextLine();
-            do {
-                Materia materia = new Materia(readFile.nextInt(), readFile.next(),
-                        readFile.nextInt(), readFile.next(), readFile.next());
-                int semestre = readFile.nextInt();
-                readFile.nextLine();
-                materia.setSemestre(semestre);
-                if (semestre == 0) {
-                    this.optativas.add(materia);
-                } else {
-                    if (semestres[semestre - 1] == null) {
-                        ArrayList<Materia> semestreLista = new ArrayList<>();
-                        this.semestres[semestre - 1] = semestreLista;
-                        semestreLista.add(materia);
+    public void cargarMaterias(String nombrePlan) {
+        InputStream file = null;
+        switch (nombrePlan) {
+            case "ingenieria_mecatronica":
+                file = getResources().openRawResource(R.raw.ingenieria_mecatronica);
+                break;
+            case "ingenieria_mecanica":
+                file = getResources().openRawResource(R.raw.ingenieria_mecanica);
+                break;
+        }
+        try {
+            BufferedReader read = new BufferedReader(new InputStreamReader(file));
+            String[] lecturas = new String[7];
+            boolean seguir = true;
+            while (seguir) {
+                try {
+                    String linea = read.readLine();
+                    lecturas = linea.split("/ ");
+                    Materia materia = new Materia(Integer.parseInt(lecturas[0]), lecturas[1],
+                            Integer.parseInt(lecturas[2]), lecturas[3], lecturas[4]);
+                    int semestre = Integer.parseInt(lecturas[5]);
+                    materia.setSemestre(semestre);
+                    if (semestre == 0) {
+                        this.optativas.add(materia);
                     } else {
-                        semestres[semestre - 1].add(materia);
+                        if (semestres[semestre - 1] == null) {
+                            ArrayList<Materia> semestreLista = new ArrayList<>();
+                            this.semestres[semestre - 1] = semestreLista;
+                            semestreLista.add(materia);
+                        } else {
+                            semestres[semestre - 1].add(materia);
+                        }
+                        AVLTreeNode temp = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
+                                this.semestres[materia.getSemestre() - 1].size() - 1);
+                        this.codigos.add(temp.getCodigo(), temp.getSemestre(), temp.getPosición());
                     }
-                    AVLTreeNode temp = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
-                            this.semestres[materia.getSemestre() - 1].size() - 1);
-                    this.codigos.add(temp.getCodigo(), temp.getSemestre(), temp.getPosición());
-                }
+                } catch (Exception ex) {
 
-            } while (readFile.hasNext());
+                }
+            }
+        } catch (Exception ex) {
+            Toast.makeText(this, "FCargar", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -149,4 +172,11 @@ public class Plan {
         this.materiasVistas = vistas;
     }
 
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "nombre='" + nombre + '\'' +
+                ", creditosTotales=" + creditosTotales +
+                '}';
+    }
 }

@@ -7,6 +7,7 @@ public class Chain<T> implements LinearList<T> {
     private int size;
 
     public Chain() {
+        this.head = this.tail = null;
         this.size = 0;
     }
 
@@ -84,7 +85,7 @@ public class Chain<T> implements LinearList<T> {
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     public void setSize(int size) {
@@ -98,5 +99,4 @@ public class Chain<T> implements LinearList<T> {
     public void setTail(ChainNode<T> tail) {
         this.tail = tail;
     }
-
 }
