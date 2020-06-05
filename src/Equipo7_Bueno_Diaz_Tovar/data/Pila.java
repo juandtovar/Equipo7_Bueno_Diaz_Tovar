@@ -2,11 +2,12 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 public class Pila {
 
-    int[] pila = new int[50];
-    int pos = -1;
+    private final int size = 50;
+    private int[] pila = new int[this.size];
+    private int pos = -1;
 
     public Pila() {
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < this.size; i++) {
             pila[i] = 0;
         }
     }

@@ -1,8 +1,5 @@
 package com.example.unet.ui.MiPlan;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -18,16 +15,14 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.example.unet.R;
-import com.example.unet.data.AVLTreeNode;
+import com.example.unet.data.BinaryTreeNode;
 import com.example.unet.data.Chain;
+import com.example.unet.data.Identificador;
 import com.example.unet.data.Materia;
 import com.example.unet.data.Plan;
 import com.example.unet.logic.Conf;
-import com.example.unet.logic.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -52,7 +47,7 @@ public class MiPlanFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mi_plan_fragment, container, false);
-
+        System.out.println("Let the hunger games begin");
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -83,9 +78,6 @@ public class MiPlanFragment extends Fragment {
         try {
             String linea = readP.readLine();
             lecturas = linea.split(" ");
-            for (String s : lecturas) {
-                System.out.println(s);
-            }
         } catch (Exception ex) {
 
         }
@@ -119,9 +111,11 @@ public class MiPlanFragment extends Fragment {
                 } else {
                     planActual.getSemestres()[materia.getSemestre() - 1].add(materia);
                 }
-                AVLTreeNode tempNode = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
+                Identificador identificador = new Identificador(materia.getCodigo(), materia.getSemestre(),
                         planActual.getSemestres()[materia.getSemestre() - 1].size() - 1);
-                planActual.getCodigos().add(tempNode.getCodigo(), tempNode.getSemestre(), tempNode.getPosición());
+                BinaryTreeNode<Identificador> tempNode = new BinaryTreeNode();
+                System.out.println(identificador.toString());
+                planActual.getIdentificadores().add(identificador);
             }
         }
 

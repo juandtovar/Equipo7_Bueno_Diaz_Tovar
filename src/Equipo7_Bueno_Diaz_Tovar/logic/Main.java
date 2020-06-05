@@ -5,7 +5,6 @@ import Equipo7_Bueno_Diaz_Tovar.ui.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Set;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -26,7 +25,8 @@ public class Main extends Application {
                 readPlanes.nextLine();
                 while (readPlanes.hasNext()) {
                     Plan plan = new Plan(readPlanes.next(), readPlanes.nextInt(),
-                            readPlanes.nextInt(), readPlanes.nextInt(), readPlanes.nextInt());
+                            readPlanes.nextInt(), readPlanes.nextInt(), readPlanes.nextInt(),
+                            readPlanes.nextInt(), readPlanes.nextInt());
                     planes.add(plan, planes.getSize());
                     FileInputStream file = new FileInputStream(plan.getNombre() + ".txt");
                     plan.cargarMaterias(file);

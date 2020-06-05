@@ -2,9 +2,6 @@ package com.example.unet.data;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.unet.R;
-
-import java.io.*;
 import java.util.*;
 
 public class Plan extends AppCompatActivity {
@@ -14,7 +11,7 @@ public class Plan extends AppCompatActivity {
     private ArrayList<Materia>[] semestres;
     private ArrayList<Materia> optativas;
     private ArrayList<Materia>[] materiasVistas;
-    private AVLTree codigos;
+    private AVLTree<Identificador> identificadores;
     private int creditosDiscp;
     private int creditosFund;
     private int creditosElect;
@@ -32,7 +29,7 @@ public class Plan extends AppCompatActivity {
         this.n_semestres = n_semestres;
         this.semestres = new ArrayList[n_semestres];
         this.optativas = new ArrayList<>();
-        this.codigos = new AVLTree();
+        this.identificadores = new AVLTree();
         this.materiasVistas = new ArrayList[n_semestres];
         for (int i = 0; i < n_semestres; i++) {
             this.materiasVistas[i] = new ArrayList<>();
@@ -41,12 +38,12 @@ public class Plan extends AppCompatActivity {
         this.nMaterias = nMaterias;
     }
 
-    public AVLTree getCodigos() {
-        return codigos;
+    public AVLTree getIdentificadores() {
+        return identificadores;
     }
 
-    public void setCodigos(AVLTree codigos) {
-        this.codigos = codigos;
+    public void setIdentificadores(AVLTree identificadores) {
+        this.identificadores = identificadores;
     }
 
     public String getNombre() {

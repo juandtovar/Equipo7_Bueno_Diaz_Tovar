@@ -6,7 +6,7 @@ public class MiPlan {
 
     public static void insertarMateria(Plan plan, Materia materia) {
         System.out.printf("%s%d\n", "Inicio insertar materia = \t", System.currentTimeMillis());
-        AVLTreeNode temp = plan.getCodigos().find(materia.getCodigo());
+        BinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(materia.getCodigo());
         if(temp != null) {/*
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Insertar materia");
@@ -16,7 +16,9 @@ public class MiPlan {
             dialogo.showAndWait();*/
         } else if (materia.getSemestre() <= plan.getN_semestres()) {
             plan.getSemestres()[materia.getSemestre() - 1].add(materia);
-            plan.getCodigos().add(materia.getCodigo(), materia.getSemestre(), plan.getSemestres()[materia.getSemestre() - 1].size() - 1);
+            Identificador identificador = new Identificador(materia.getCodigo(),
+                    materia.getSemestre(), plan.getSemestres()[materia.getSemestre() - 1].size() - 1);
+            plan.getIdentificadores().add(identificador);
         } else {/*
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Insertar materia");
@@ -46,10 +48,10 @@ public class MiPlan {
             }
         }
         alertaMateriaNoEncontrada();*/
-        AVLTreeNode temp = plan.getCodigos().find(codigo);
+        BinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(codigo);
         if (temp != null) {
-            plan.getCodigos().remove(codigo);
-            plan.getSemestres()[temp.getSemestre() - 1].remove(temp.getPosición());
+            plan.getIdentificadores().remove(codigo);
+            plan.getSemestres()[temp.getElement().getSemestre() - 1].remove(temp.getElement().getPosición());
             System.out.printf("%s%d\n", "Fin eliminar materia = \t\t", System.currentTimeMillis());
 
         } else {
@@ -88,10 +90,10 @@ public class MiPlan {
             }
         }*/
 
-        AVLTreeNode temp = plan.getCodigos().find(codigo);
+        BinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(codigo);
         if (temp != null) {
-            int semestre = temp.getSemestre();
-            int pos = temp.getPosición();
+            int semestre = temp.getElement().getSemestre();
+            int pos = temp.getElement().getPosición();
             System.out.printf("%s%d\n", "Fin consultar materia = \t", System.currentTimeMillis());
             Materia mat = plan.getSemestres()[semestre - 1].get(pos);/*
             Alert dialogo = new Alert(AlertType.INFORMATION);

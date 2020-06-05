@@ -1,16 +1,14 @@
 package Equipo7_Bueno_Diaz_Tovar.logic;
 
-import Equipo7_Bueno_Diaz_Tovar.data.AVLTreeNode;
-import Equipo7_Bueno_Diaz_Tovar.data.Materia;
-import Equipo7_Bueno_Diaz_Tovar.data.Plan;
+import Equipo7_Bueno_Diaz_Tovar.data.*;
 import java.util.ArrayList;
 
 public class MiAvance {
 
     public static void actualizarNota(Plan plan, int codigo, int nota) {
-        AVLTreeNode materia = plan.getCodigos().find(codigo);
-        int semestre = materia.getSemestre();
-        int pos = materia.getPosición();
+        BinaryTreeNode<Identificador> materia = plan.getIdentificadores().find(codigo);
+        int semestre = materia.getElement().getSemestre();
+        int pos = materia.getElement().getPosición();
         plan.getSemestres()[semestre - 1].get(pos).setNota(nota);
         if (plan.getSemestres()[semestre - 1].get(pos).getNota().size() == 0) {
             plan.getMateriasVistas()[semestre - 1].add(plan.getSemestres()[semestre - 1].get(pos));

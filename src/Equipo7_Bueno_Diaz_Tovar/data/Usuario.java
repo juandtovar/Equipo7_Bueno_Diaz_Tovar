@@ -1,5 +1,7 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
+import Equipo7_Bueno_Diaz_Tovar.data.Plan;
+
 public class Usuario {
 
     private String nombre;

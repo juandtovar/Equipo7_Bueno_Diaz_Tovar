@@ -1,131 +1,13 @@
 package com.example.unet.data;
 
-public class AVLTree {
-
-    private AVLTreeNode root;
-    private int size;
+public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 
     public AVLTree() {
-        this.root = null;
-        this.size = 0;
+
     }
 
-    public boolean isEmpty() {
-        return root == null;
-    }
-
-    public void inOrder() {
-        theInOrder(this.root);
-    }
-
-    public static void theInOrder(AVLTreeNode t) {
-        if (t != null) {
-            theInOrder(t.getLeft());
-            System.out.printf("%d %d %d\n", t.getCodigo(), t.getSemestre(), t.getPosición());
-            theInOrder(t.getRight());
-        }
-    }
-
-    public AVLTreeNode find(int codigo) {
-        AVLTreeNode temp = root;
-        while (temp != null) {
-            if (temp.getCodigo() == codigo) {
-                return temp;
-            } else if (temp.getCodigo() < codigo) {
-                temp = temp.getRight();
-            } else {
-                temp = temp.getLeft();
-            }
-        }
-        return null;
-    }
-
-    public boolean contains(int x) {
-        AVLTreeNode temp = root;
-        while (temp != null) {
-            if (x == temp.getCodigo()) {
-                return true;
-            }
-            if (x < temp.getCodigo()) {
-                temp = temp.getLeft();
-            } else {
-                temp = temp.getRight();
-            }
-        }
-        return false;
-    }
-
-    public void add(int codigo, int semestre, int pos) {
-        root = add(root, codigo, semestre, pos);
-    }
-
-    private AVLTreeNode add(AVLTreeNode nodo, int codigo, int semestre, int pos) {
-        if (nodo == null) {
-            size++;
-            return new AVLTreeNode(codigo, semestre, pos);
-        }
-        if(nodo.getCodigo()==codigo){
-            return null;
-        }
-        if (codigo < nodo.getCodigo()) {
-            nodo.setLeft(add(nodo.getLeft(), codigo, semestre, pos));
-        } else if (codigo > nodo.getCodigo()) {
-            nodo.setRight(add(nodo.getRight(), codigo, semestre, pos));
-        }
-        return balance(nodo);
-    }
-
-    private AVLTreeNode balance(AVLTreeNode nodo) {
-        if (nodo == null) {
-            return nodo;
-        }
-        if (height(nodo.getLeft()) - height(nodo.getRight()) > 1) {
-            if (height(nodo.getLeft().getLeft()) >= height(nodo.getLeft().getRight())) {
-                nodo = simpleRotationLeft(nodo);
-            } else {
-                nodo = doubleRotationLeft(nodo);
-            }
-        } else if (height(nodo.getRight()) - height(nodo.getLeft()) > 1) {
-
-            if (height(nodo.getRight().getRight())
-                    >= height(nodo.getRight().getLeft())) {
-
-                nodo = simpleRotationRight(nodo);
-            } else {
-                nodo = doubleRotationRight(nodo);
-            }
-        }
-
-        nodo.setHeight(Math.max(height(nodo.getLeft()), height(nodo.getRight())) + 1);
-        return nodo;
-    }
-
-    public void remove(int x) {
-        root = remove(root, x);
-    }
-
-    private AVLTreeNode remove(AVLTreeNode node, int x) {
-        if (node == null) {
-            return null;
-        }
-        if (x < node.getCodigo()) {
-            node.setLeft(remove(node.getLeft(), x));
-        } else if (x > node.getCodigo()) {
-            node.setRight(remove(node.getRight(), x));
-        } else {
-            if (node.getLeft() != null && node.getRight() != null) {
-                node.setCodigo(getMin(node.getRight()));
-                node.setRight(remove(node.getRight(), node.getCodigo()));
-            } else {
-                node = (node.getLeft() != null) ? node.getLeft() : node.getRight();
-                size--;
-            }
-        }
-        return balance(node);
-    }
-
-    private AVLTreeNode simpleRotationLeft(AVLTreeNode x) {
-        AVLTreeNode y = x.getLeft();
+    private BinaryTreeNode simpleRotationLeft(BinaryTreeNode x) {
+        BinaryTreeNode y = x.getLeft();
         x.setLeft(y.getRight());
         y.setRight(x);
         x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
@@ -133,8 +15,8 @@ public class AVLTree {
         return y;
     }
 
-    private AVLTreeNode simpleRotationRight(AVLTreeNode x) {
-        AVLTreeNode y = x.getRight();
+    private BinaryTreeNode simpleRotationRight(BinaryTreeNode x) {
+        BinaryTreeNode y = x.getRight();
         x.setRight(y.getLeft());
         y.setLeft(x);
         x.setHeight(Math.max(height(x.getLeft()),
@@ -144,88 +26,78 @@ public class AVLTree {
         return y;
     }
 
-    private AVLTreeNode doubleRotationLeft(AVLTreeNode x) {
+    private BinaryTreeNode doubleRotationLeft(BinaryTreeNode x) {
         x.setLeft(simpleRotationRight(x.getLeft()));
         return simpleRotationLeft(x);
     }
 
-    private AVLTreeNode doubleRotationRight(AVLTreeNode x) {
+    private BinaryTreeNode doubleRotationRight(BinaryTreeNode x) {
         x.setRight(simpleRotationLeft(x.getRight()));
         return simpleRotationRight(x);
     }
 
-    public int getMin(AVLTreeNode x) {
-        AVLTreeNode y = x;
-        int min = x.getCodigo();
-        while (y != null) {
-            min = y.getCodigo();
-            y = y.getLeft();
+    private BinaryTreeNode balance(BinaryTreeNode node) {
+        if (node == null) {
+            return node;
         }
-        return min;
-    }
+        if (height(node.getLeft()) - height(node.getRight()) > 1) {
+            if (height(node.getLeft().getLeft()) >= height(node.getLeft().getRight())) {
+                node = simpleRotationLeft(node);
+            } else {
+                node = doubleRotationLeft(node);
+            }
+        } else if (height(node.getRight()) - height(node.getLeft()) > 1) {
 
-    public int getMin() {
-        return getMin(this.root);
-    }
-
-    public int getMax(AVLTreeNode x) {
-        AVLTreeNode y = x;
-        int max = y.getCodigo();
-        while (y != null) {
-            max = y.getCodigo();
-            y = y.getRight();
+            if (height(node.getRight().getRight()) >= height(node.getRight().getLeft())) {
+                node = simpleRotationRight(node);
+            } else {
+                node = doubleRotationRight(node);
+            }
         }
-        return max;
+
+        node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
+        return node;
     }
 
-    public int getMax() {
-        return getMax(this.root);
+    public void add(T element) {
+        setRoot(add(getRoot(), element));
     }
 
-    private int maxHeight(AVLTreeNode a, AVLTreeNode b) {
-        int ha;
-        int hb;
-        if (a == null) {
-            ha = -1;
-        } else {
-            ha = a.getHeight();
+    private BinaryTreeNode<T> add(BinaryTreeNode<T> nodo, T element) {
+        if (nodo == null) {
+            this.setSize(this.getSize() + 1);
+            return new BinaryTreeNode<T>(element);
         }
-        if (b == null) {
-            hb = -1;
-        } else {
-            hb = b.getHeight();
+        int comparation = element.compareTo(nodo.getElement());
+        if (comparation < 0) {
+            nodo.setLeft(add(nodo.getLeft(), element));
+        } else if (comparation > 0) {
+            nodo.setRight(add(nodo.getRight(), element));
         }
-        if (ha == hb) {
-            return -1;
-        } else if (ha > hb) {
-            return ha;
-        } else {
-            return hb;
+        return balance(nodo);
+    }
+
+    public void remove(T x) {
+        setRoot(remove(getRoot(), x));
+    }
+
+    private BinaryTreeNode<T> remove(BinaryTreeNode<T> node, T x) {
+        if (node == null) return null;
+        int comparation = x.compareTo(node.getElement());
+        if (comparation < 0)
+            node.setLeft(remove(node.getLeft(), x));
+        else if (comparation > 0)
+            node.setRight(remove(node.getRight(), x));
+        else {
+            if (node.getLeft() != null && node.getRight() != null) {
+                node.setElement(getMin(node.getRight()));
+                node.setRight(remove(node.getRight(), node.getElement()));
+            } else {
+                node = (node.getLeft() != null) ? node.getLeft() :
+                        node.getRight();
+                setSize(getSize() - 1);
+            }
         }
-    }
-
-    private int height(AVLTreeNode x) {
-        int ha;
-        if (x == null) {
-            return -1;
-        } else {
-            return 1 + Math.max(height(x.getLeft()), height(x.getRight()));
-        }
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public AVLTreeNode getRoot() {
-        return root;
-    }
-
-    public void setRoot(AVLTreeNode root) {
-        this.root = root;
+        return balance(node);
     }
 }

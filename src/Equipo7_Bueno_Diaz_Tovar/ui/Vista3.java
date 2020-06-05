@@ -2,7 +2,6 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
-import java.text.Normalizer;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -131,9 +129,7 @@ public class Vista3 implements Vista {
                         MateriaTF[1].getText(),
                         Integer.parseInt(MateriaTF[2].getText()),
                         MateriaTF[3].getText(),
-                        MateriaTF[4].getText());
-                int semestre = Integer.parseInt(MateriaTF[5].getText());
-                materia.setSemestre(semestre);
+                        MateriaTF[4].getText(), Integer.parseInt(MateriaTF[5].getText()));
                 MiPlan.insertarMateria(planActual, materia);
                 dibujarMalla();
             } catch (NumberFormatException e) {

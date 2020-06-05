@@ -1,6 +1,6 @@
-package Equipo7_Bueno_Diaz_Tovar.data;
+package Equipo7_Bueno_Diaz_Tovar.data; 
 
-import java.io.*;
+import java.io.FileInputStream;
 import java.text.Normalizer;
 import java.util.*;
 
@@ -11,26 +11,31 @@ public class Plan {
     private ArrayList<Materia>[] semestres;
     private ArrayList<Materia> optativas;
     private ArrayList<Materia>[] materiasVistas;
-    private AVLTree codigos;
+    private AVLTree<Identificador> identificadores;
     private int creditosDiscp;
     private int creditosFund;
     private int creditosElect;
     private int creditosTotales;
     private double PAPA;
+    private int maxMaterias;
+    private int nMaterias;
 
-    public Plan(String nombre, int creditosDiscp, int creditosFund, int creditosElect, int n_semestres) {
+    public Plan(String nombre, int creditosDiscp, int creditosFund, int creditosElect, int n_semestres, int maxMaterias, int nMaterias) {
         this.nombre = nombre;
         this.creditosDiscp = creditosDiscp;
         this.creditosFund = creditosFund;
         this.creditosElect = creditosElect;
+        this.creditosTotales = this.creditosDiscp + this.creditosFund + this.creditosElect;
         this.n_semestres = n_semestres;
         this.semestres = new ArrayList[n_semestres];
         this.optativas = new ArrayList<>();
-        this.codigos = new AVLTree();
+        this.identificadores = new AVLTree();
         this.materiasVistas = new ArrayList[n_semestres];
-        for(int i = 0; i < n_semestres; i++) {
+        for (int i = 0; i < n_semestres; i++) {
             this.materiasVistas[i] = new ArrayList<>();
         }
+        this.maxMaterias = maxMaterias;
+        this.nMaterias = nMaterias;
     }
 
     public void cargarMaterias(FileInputStream file) {
@@ -39,10 +44,9 @@ public class Plan {
             readFile.nextLine();
             do {
                 Materia materia = new Materia(readFile.nextInt(),Normalizer.normalize(readFile.next(), Normalizer.Form.NFD),
-                        readFile.nextInt(), readFile.next(), readFile.next());
-                int semestre = readFile.nextInt();
+                        readFile.nextInt(), readFile.next(), readFile.next(), readFile.nextInt());
                 readFile.nextLine();
-                materia.setSemestre(semestre);
+                int semestre = materia.getSemestre();
                 if (semestre == 0) {
                     this.optativas.add(materia);
                 } else {
@@ -53,21 +57,22 @@ public class Plan {
                     } else {
                         semestres[semestre - 1].add(materia);
                     }
-                    AVLTreeNode temp = new AVLTreeNode(materia.getCodigo(), materia.getSemestre(),
+                    Identificador identificador = new Identificador(materia.getCodigo(), materia.getSemestre(),
                             this.semestres[materia.getSemestre() - 1].size() - 1);
-                    this.codigos.add(temp.getCodigo(), temp.getSemestre(), temp.getPosición());
+                    BinaryTreeNode<Identificador> temp = new BinaryTreeNode();
+                    this.identificadores.add(identificador);
                 }
 
             } while (readFile.hasNext());
         }
     }
-
-    public AVLTree getCodigos() {
-        return codigos;
+    
+    public AVLTree getIdentificadores() {
+        return identificadores;
     }
 
-    public void setCodigos(AVLTree codigos) {
-        this.codigos = codigos;
+    public void setIdentificadores(AVLTree identificadores) {
+        this.identificadores = identificadores;
     }
 
     public String getNombre() {
@@ -150,4 +155,24 @@ public class Plan {
         this.materiasVistas = vistas;
     }
 
+    public int getMaxMaterias() {
+        return this.maxMaterias;
+    }
+
+    public void setMaxMaterias(int maxMaterias) {
+        this.maxMaterias = maxMaterias;
+    }
+
+    public int getnMaterias() {
+        return nMaterias;
+    }
+
+    public void setnMaterias(int nMaterias) {
+        this.nMaterias = nMaterias;
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre + ' ' + this.creditosTotales + ' ' + this.n_semestres + ' ' + maxMaterias;
+    }
 }
