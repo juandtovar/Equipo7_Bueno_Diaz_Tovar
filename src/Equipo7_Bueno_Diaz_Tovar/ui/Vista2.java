@@ -26,7 +26,6 @@ public class Vista2 implements Vista {
         layout.setSpacing(10);
         layout.getChildren().add(elegir);
         lh.getChildren().add(new Label(""));
-       
         ChainNode<Plan> temp = planes.getHead();
         do {
             Button boton = new Button(temp.getElement().getNombre()

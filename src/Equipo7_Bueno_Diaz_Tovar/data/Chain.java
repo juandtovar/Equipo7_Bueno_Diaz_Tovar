@@ -39,7 +39,7 @@ public class Chain<T> implements LinearList<T> {
                 this.setTail(node);
             }
         }
-        size++;
+        this.size++;
     }
 
     public void add(T element) {

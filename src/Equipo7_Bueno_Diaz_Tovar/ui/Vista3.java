@@ -3,6 +3,7 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 import Equipo7_Bueno_Diaz_Tovar.data.*;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,7 +28,7 @@ public class Vista3 implements Vista {
     private ScrollPane sp;
     private VBox layout = new VBox();
     private HBox layoutHor = new HBox();
-    private VBox layout_Botones = new VBox();
+    private HBox layout_Botones = new HBox();
     private VBox[] columnas;
     private TextField[] MateriaTF;
     private Label[] MateriaLB;
@@ -37,6 +38,7 @@ public class Vista3 implements Vista {
     private Button eliminar;
     private Button consultarMateria;
     private Button consultar;
+    private Button mi_avance;
 
     public Vista3(Chain<Plan> planes, String plan) {
         this.planes = planes;
@@ -49,7 +51,6 @@ public class Vista3 implements Vista {
         } while (temp1 != null);
 
         dibujarMalla();
-
     }
 
     public final void presentarVistaInicial() {
@@ -81,9 +82,9 @@ public class Vista3 implements Vista {
         for (int i = 0; i < columnas.length; i++) {
             this.columnas[i] = new VBox();
             this.columnas[i].setSpacing(10);
-            Label lb= new Label("                 " + "Semestre" + " " + (i + 1));
+            Label lb = new Label("                 " + "Semestre" + " " + (i + 1));
             lb.setPrefWidth(225);
-            lb.setFont(Font.font( java.awt.Font.SERIF, FontPosture.ITALIC, 18));
+            lb.setFont(Font.font(java.awt.Font.SERIF, FontPosture.ITALIC, 18));
             this.columnas[i].getChildren().add(lb);
             for (int j = 0; j < this.planActual.getSemestres()[i].size(); j++) {
                 Button boton = new Button(this.planActual.getSemestres()[i].get(j).getName());
@@ -99,7 +100,7 @@ public class Vista3 implements Vista {
         System.out.printf("%s%d\n", "\t\t\t\tFin mostrar materias = \t\t", System.currentTimeMillis());
 
         //Botones
-        this.layout_Botones = new VBox();
+        this.layout_Botones = new HBox();
         this.layout_Botones.setSpacing(10);
         this.insertarMateria = new Button("Insertar materia de libre elección");
         this.insertar = new Button("Insertar");
@@ -107,8 +108,13 @@ public class Vista3 implements Vista {
         this.eliminar = new Button("Eliminar");
         this.consultarMateria = new Button("Buscar materia");
         this.consultar = new Button("Buscar");
+        this.mi_avance = new Button("Mostrar Avance");
+
+        this.layout_Botones.getChildren().add(mi_avance);
+        this.layout_Botones.getChildren().add(insertarMateria);
         this.layout_Botones.getChildren().add(consultarMateria);
         this.layout_Botones.getChildren().add(eliminarMateria);
+
         this.insertarMateria.setOnAction((ActionEvent event) -> {
             for (int i = 0; i < 6; i++) {
                 MateriaTF[i].setVisible(true);
@@ -188,10 +194,13 @@ public class Vista3 implements Vista {
                 alertaEntrada("Consultar materia");
             }
         });
+        this.layout.getChildren().add(layout_Botones);
+        /*this.layout.getChildren().add(this.mi_avance);
 
         this.layout.getChildren().add(this.insertarMateria);
         this.layout.getChildren().add(this.eliminarMateria);
         this.layout.getChildren().add(this.consultarMateria);
+         */
         this.layout.getChildren().add(this.insertar);
         this.layout.getChildren().add(this.eliminar);
         this.layout.getChildren().add(this.consultar);
@@ -212,8 +221,6 @@ public class Vista3 implements Vista {
         }
 
         presentarVistaInicial();
-        
-        
 
         //Ventana
         this.sp.setContent(layout);
@@ -234,6 +241,22 @@ public class Vista3 implements Vista {
         dialogo.setContentText("Ingresa una entrada válida");
         dialogo.initStyle(StageStyle.UTILITY);
         dialogo.showAndWait();
+    }
+
+    public Plan getPlanActual() {
+        return planActual;
+    }
+
+    public void setPlanActual(Plan planActual) {
+        this.planActual = planActual;
+    }
+
+    public Button getMi_avance() {
+        return mi_avance;
+    }
+
+    public void setMi_avance(Button mi_avance) {
+        this.mi_avance = mi_avance;
     }
 
     @Override

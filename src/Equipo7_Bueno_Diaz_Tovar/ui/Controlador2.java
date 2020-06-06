@@ -12,25 +12,25 @@ public class Controlador2 {
     private Chain<Plan> planes;
     private String plan;
 
-    public Controlador2(Chain<Plan> planes_) {
-        this.planes = planes_;
+    public Controlador2(Chain<Plan> planes) {
+        this.planes = planes;
         this.vista = new Vista2(this.planes);
         ChainNode<Button> temp1 = this.vista.getBotones().getHead();
-        ChainNode<Plan> temp2 = planes.getHead();
+        ChainNode<Plan> temp2 = this.planes.getHead();
         do {
             this.plan = temp2.getElement().getNombre();
-            temp1.getElement().setOnAction(new Evento(this.planes, this.plan));
+            temp1.getElement().setOnAction(new Evento2(this.planes, this.plan));
             temp1 = temp1.getNext();
             temp2 = temp2.getNext();
         } while (temp1 != null);
     }
 
-    private class Evento implements EventHandler<ActionEvent> {
+    private class Evento2 implements EventHandler<ActionEvent> {
 
         Chain<Plan> planes;
         String plan;
 
-        public Evento(Chain<Plan> planes, String plan) {
+        public Evento2(Chain<Plan> planes, String plan) {
             this.planes = planes;
             this.plan = plan;
         }

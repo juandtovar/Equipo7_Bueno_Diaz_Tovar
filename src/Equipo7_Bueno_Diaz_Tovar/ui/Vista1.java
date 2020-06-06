@@ -24,7 +24,7 @@ public class Vista1 implements Vista {
         btCrearPlan = new Button("Crear plan");    
         btCrearPlan.setPrefWidth(100);
         layoutPrincipal.getChildren().add(btCrearPlan);
-        lh.getChildren().addAll(new Label(""), layoutPrincipal );
+        lh.getChildren().addAll(new Label(""), layoutPrincipal);
         this.escena = new Scene(lh, 200, 200);
     }
 
