@@ -7,10 +7,15 @@ import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class Vista4 implements Vista {
 
@@ -18,10 +23,12 @@ public class Vista4 implements Vista {
     private final Plan plan;
     private final ObservableList<PieChart.Data> pieChartFundamentacion, pieChartDisciplinar, pieChartLibreEleccion;
     private Label PAPA, PA;
+    private Button atras;
 
     public Vista4(Plan plan) {
         this.plan = plan;
-        HBox lh = new HBox();
+        VBox lh = new VBox();
+        HBox layout = new HBox();
         ArrayList<Double> avance = MiAvance.calcularAvance(this.plan);
         pieChartFundamentacion = FXCollections.observableArrayList(
                 new PieChart.Data("Aprobados", avance.get(0)),
@@ -44,19 +51,37 @@ public class Vista4 implements Vista {
         chart1.setTitle("Fundamentación");
         chart2.setTitle("Disciplinar");
         chart3.setTitle("Libre elección");
-        
         chart1.setLegendVisible(false);
         chart2.setLegendVisible(false);
         chart3.setLegendVisible(false);
 
-        HBox layout = new HBox();
+        atras = new Button("Atrás");
+        atras.setOnAction((ActionEvent event) -> {
+            goBack();
+        });
+        atras.setPrefWidth(225);
+        atras.setAlignment(Pos.CENTER);
+        atras.setWrapText(true);
+        atras.getStyleClass().add("button");
         lh.setSpacing(35);
         layout.setSpacing(10);
         layout.getChildren().add(chart1);
         layout.getChildren().add(chart2);
         layout.getChildren().add(chart3);
         lh.getChildren().add(layout);
+        lh.getChildren().add(atras);
+
         this.escena = new Scene(lh, 500, 500);
+    }
+
+    @Override
+    public void goBack() {
+        Controlador3 controlador = new Controlador3(Vista3.getPlanes(), this.plan.getNombre());
+        Vista vista = controlador.getVista();
+        Singleton singleton = Singleton.getSingleton();
+        Stage stage = singleton.getStage();
+        stage.setScene(vista.getScena());
+        stage.show();
     }
 
     private void applyCustomColorSequence(ObservableList<PieChart.Data> pieChartData, String... pieColors) {

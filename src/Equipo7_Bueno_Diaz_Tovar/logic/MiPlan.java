@@ -62,7 +62,7 @@ public class MiPlan {
                     + "Créditos: " + mat.getCreditos() + '\n'
                     + "Tipología: " + mat.getTipologia() + '\n';
             if (mat.getNota() != null) {
-                texto += "Nota: " + mat.getNota() + '\n';
+                texto += "Historial de notas: " + mat.getNota().toString() + '\n';
             }
             dialogo.setContentText(texto);
             dialogo.initStyle(StageStyle.UTILITY);

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class MiAvance {
 
-    public static void actualizarNota(Plan plan, int codigo, int nota) {
-        BinaryTreeNode<Identificador> materia = plan.getIdentificadores().find(new Identificador(codigo, nota, 0));
+    public static void actualizarNota(Plan plan, int codigo, double nota) {
+        BinaryTreeNode<Identificador> materia = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
         int semestre = materia.getElement().getSemestre();
         int pos = materia.getElement().getPosición();
         if (plan.getSemestres()[semestre - 1].get(pos).getNota().size() == 0) {

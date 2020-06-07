@@ -3,18 +3,22 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 import Equipo7_Bueno_Diaz_Tovar.data.Chain;
 import Equipo7_Bueno_Diaz_Tovar.data.ChainNode;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
+import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class Vista2 implements Vista {
 
     private Scene escena;
     private Label elegir;
     private Chain<Button> botones;
-    private Chain<Plan> planes;
+    private static Chain<Plan> planes;
+    private Button atras;
 
     public Vista2(Chain<Plan> planes) {
         this.botones = new Chain<>();
@@ -35,7 +39,12 @@ public class Vista2 implements Vista {
             layout.getChildren().add(boton);
             this.botones.add(boton, this.botones.getSize());
             temp = temp.getNext();
-        } while (temp != null); 
+        } while (temp != null);
+        atras = new Button("Atrás");
+        atras.setOnAction((ActionEvent event) -> {
+            goBack();
+        });
+        layout.getChildren().add(atras);
         lh.getChildren().add(layout);
         this.escena = new Scene(lh, 250, 200);
     }
@@ -43,6 +52,18 @@ public class Vista2 implements Vista {
     @Override
     public Scene getScena() {
         return this.escena;
+    }
+
+    @Override
+    public void goBack() {
+        Singleton singleton = Singleton.getSingleton();
+        Stage stage = singleton.getStage();
+        singleton.setStage(stage);
+        Controlador1 controlador = new Controlador1(planes);
+        Vista vista = controlador.getVista();
+        stage.setScene(vista.getScena());
+        stage.setTitle("Unet tu malla personalizada");
+        stage.show();
     }
 
     public void setEscena(Scene escena) {

@@ -7,7 +7,7 @@ public class Materia {
     private int creditos;
     private String tipologia;
     private int semestre;
-    private Chain<Integer> nota;
+    private Chain<Double> nota;
     private String prerrequisitos;
 
     public Materia(int codigo, String name, int creditos, String tipologia, String prerrequisitos, int semestre) {
@@ -60,15 +60,15 @@ public class Materia {
         this.semestre = semestre;
     }
 
-    public Chain<Integer> getNota() {
+    public Chain<Double> getNota() {
         return this.nota;
     }
 
-    public Integer getLastNota() {
+    public Double getLastNota() {
         return this.nota.getTail().getElement();
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota.add(nota, this.nota.getSize());
     }
 

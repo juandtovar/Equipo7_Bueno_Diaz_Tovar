@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Pila<Integer> pestañas = new Pila<>();
+
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -43,10 +45,13 @@ public class Main extends Application {
         Controlador1 controlador = new Controlador1(planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
-        
         stage.setTitle("Unet tu malla personalizada");
         stage.show();
-        
+
+    }
+
+    public static Pila<Integer> getPestañas() {
+        return pestañas;
     }
 
 }

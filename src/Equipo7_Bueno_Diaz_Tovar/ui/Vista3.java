@@ -1,9 +1,9 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
+import Equipo7_Bueno_Diaz_Tovar.logic.MiAvance;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,7 +22,7 @@ import javafx.stage.StageStyle;
 public class Vista3 implements Vista {
 
     private Scene escena;
-    private final Chain<Plan> planes;
+    private static Chain<Plan> planes;
     private String planAImprimir;
     private Plan planActual;
     private ScrollPane sp;
@@ -38,10 +38,12 @@ public class Vista3 implements Vista {
     private Button eliminar;
     private Button consultarMateria;
     private Button consultar;
+    private Button editar;
     private Button mi_avance;
+    private Button atras;
 
     public Vista3(Chain<Plan> planes, String plan) {
-        this.planes = planes;
+        Vista3.planes = planes;
         ChainNode<Plan> temp1 = this.planes.getHead();
         do {
             if (temp1.getElement().getNombre().equals(plan)) {
@@ -60,6 +62,7 @@ public class Vista3 implements Vista {
         this.insertar.setVisible(false);
         this.eliminar.setVisible(false);
         this.consultar.setVisible(false);
+        this.editar.setVisible(false);
         for (int i = 0; i < 6; i++) {
             this.MateriaTF[i].setVisible(false);
             this.MateriaLB[i].setVisible(false);
@@ -73,6 +76,22 @@ public class Vista3 implements Vista {
         this.layout = new VBox();
         this.escena = new Scene(this.sp, 1280, 700);
         escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
+
+        //Botones
+        this.layout_Botones = new HBox();
+        this.layout_Botones.setSpacing(10);
+        this.insertarMateria = new Button("Insertar materia de libre elección");
+        this.insertar = new Button("Insertar");
+        this.eliminarMateria = new Button("Eliminar materia");
+        this.eliminar = new Button("Eliminar");
+        this.consultarMateria = new Button("Buscar materia");
+        this.consultar = new Button("Buscar");
+        this.editar = new Button("Actualizar");
+        this.mi_avance = new Button("Mostrar Avance");
+        this.atras = new Button("Atrás");
+        atras.setOnAction((ActionEvent event) -> {
+            goBack();
+        });
 
         //Malla
         this.columnas = new VBox[this.planActual.getN_semestres()];
@@ -88,6 +107,20 @@ public class Vista3 implements Vista {
             this.columnas[i].getChildren().add(lb);
             for (int j = 0; j < this.planActual.getSemestres()[i].size(); j++) {
                 Button boton = new Button(this.planActual.getSemestres()[i].get(j).getName());
+                int codigo = planActual.getSemestres()[i].get(j).getCodigo();
+                boton.setOnAction((ActionEvent event) -> {
+                    try {
+                        presentarVistaInicial();
+                        this.editar.setVisible(true);
+                        this.MateriaLB[0] = new Label("Nota");
+                        this.MateriaLB[0].setVisible(true);
+                        this.MateriaTF[0].setText("");
+                        this.MateriaTF[0].setVisible(true);
+                        this.MateriaTF[1].setText(String.valueOf(codigo));
+                    } catch (NumberFormatException e) {
+                        alertaEntrada("Consultar materia");
+                    }
+                });
                 boton.setPrefWidth(225);
                 boton.setAlignment(Pos.CENTER);
                 boton.setWrapText(true);
@@ -99,21 +132,19 @@ public class Vista3 implements Vista {
         this.layout.getChildren().add(this.layoutHor);
         System.out.printf("%s%d\n", "\t\t\t\tFin mostrar materias = \t\t", System.currentTimeMillis());
 
-        //Botones
-        this.layout_Botones = new HBox();
-        this.layout_Botones.setSpacing(10);
-        this.insertarMateria = new Button("Insertar materia de libre elección");
-        this.insertar = new Button("Insertar");
-        this.eliminarMateria = new Button("Eliminar materia");
-        this.eliminar = new Button("Eliminar");
-        this.consultarMateria = new Button("Buscar materia");
-        this.consultar = new Button("Buscar");
-        this.mi_avance = new Button("Mostrar Avance");
-
         this.layout_Botones.getChildren().add(mi_avance);
         this.layout_Botones.getChildren().add(insertarMateria);
         this.layout_Botones.getChildren().add(consultarMateria);
         this.layout_Botones.getChildren().add(eliminarMateria);
+
+        this.mi_avance.setOnAction((ActionEvent event) -> {
+            Controlador4 controlador = new Controlador4(planActual);
+            Vista4 vista = controlador.getVista();
+            Singleton singleton = Singleton.getSingleton();
+            Stage stage = singleton.getStage();
+            stage.setScene(vista.getScena());
+            stage.show();
+        });
 
         this.insertarMateria.setOnAction((ActionEvent event) -> {
             for (int i = 0; i < 6; i++) {
@@ -127,6 +158,7 @@ public class Vista3 implements Vista {
             eliminar.setVisible(false);
             consultarMateria.setVisible(false);
             consultar.setVisible(false);
+            editar.setVisible(false);
         });
 
         this.insertar.setOnAction((ActionEvent event) -> {
@@ -157,6 +189,7 @@ public class Vista3 implements Vista {
             eliminar.setVisible(true);
             consultarMateria.setVisible(false);
             consultar.setVisible(false);
+            editar.setVisible(false);
         });
 
         this.eliminar.setOnAction((ActionEvent event) -> {
@@ -183,6 +216,7 @@ public class Vista3 implements Vista {
             eliminar.setVisible(false);
             consultarMateria.setVisible(false);
             consultar.setVisible(true);
+            editar.setVisible(false);
         });
 
         this.consultar.setOnAction((ActionEvent event) -> {
@@ -194,16 +228,29 @@ public class Vista3 implements Vista {
                 alertaEntrada("Consultar materia");
             }
         });
-        this.layout.getChildren().add(layout_Botones);
-        /*this.layout.getChildren().add(this.mi_avance);
 
-        this.layout.getChildren().add(this.insertarMateria);
-        this.layout.getChildren().add(this.eliminarMateria);
-        this.layout.getChildren().add(this.consultarMateria);
-         */
+        this.editar.setOnAction((ActionEvent event) -> {
+            this.MateriaLB[0] = new Label("Codigo");
+            double nota = 0;
+            try {
+                System.out.println(this.MateriaTF[0].getText());
+                nota = Double.parseDouble(this.MateriaTF[0].getText());
+                int codigo = Integer.parseInt(this.MateriaTF[1].getText());
+                System.out.println(nota);
+                System.out.println(codigo);
+                MiAvance.actualizarNota(planActual, codigo, nota);
+                presentarVistaInicial();
+            } catch (NumberFormatException e) {
+                alertaEntrada("Actualizar nota");
+            }
+        });
+
+        this.layout.getChildren().add(layout_Botones);
+        this.layout.getChildren().add(this.atras);
         this.layout.getChildren().add(this.insertar);
         this.layout.getChildren().add(this.eliminar);
         this.layout.getChildren().add(this.consultar);
+        this.layout.getChildren().add(this.editar);
 
         //Entradas de texto
         this.MateriaTF = new TextField[6];
@@ -243,6 +290,16 @@ public class Vista3 implements Vista {
         dialogo.showAndWait();
     }
 
+    @Override
+    public void goBack() {
+        Singleton singleton = Singleton.getSingleton();
+        Stage stage = singleton.getStage();
+        Controlador2 controlador = new Controlador2(planes);
+        Vista vista = controlador.getVista();
+        stage.setScene(vista.getScena());
+        stage.show();
+    }
+
     public Plan getPlanActual() {
         return planActual;
     }
@@ -251,17 +308,17 @@ public class Vista3 implements Vista {
         this.planActual = planActual;
     }
 
-    public Button getMi_avance() {
-        return mi_avance;
-    }
-
-    public void setMi_avance(Button mi_avance) {
-        this.mi_avance = mi_avance;
-    }
-
     @Override
     public Scene getScena() {
         return this.escena;
+    }
+
+    public static Chain<Plan> getPlanes() {
+        return planes;
+    }
+
+    public static void setPlanes(Chain<Plan> planes) {
+        Vista3.planes = planes;
     }
 
 }

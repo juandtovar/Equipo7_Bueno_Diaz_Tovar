@@ -75,7 +75,7 @@ public class Chain<T> implements LinearList<T> {
             removedElement = temp.getNext().getElement();
             temp.setNext(temp.getNext().getNext());
         }
-        if(i == this.size) {
+        if (i == this.size - 1) {
             this.setTail(this.tail.getNext());
         }
         setSize(this.size - 1);
@@ -97,7 +97,7 @@ public class Chain<T> implements LinearList<T> {
             return null;
         } else {
             ChainNode<T> currentNode = this.head;
-            for(int j = 0; j < i; j++) {
+            for (int j = 0; j < i; j++) {
                 currentNode = currentNode.getNext();
             }
             return currentNode.getElement();
@@ -126,5 +126,22 @@ public class Chain<T> implements LinearList<T> {
 
     public void setTail(ChainNode<T> tail) {
         this.tail = tail;
+    }
+
+    @Override
+    public String toString() {
+        ChainNode<T> currentNode = this.head;
+        String s = "{";
+        int i = 0;
+        while (currentNode != null) {
+            if (i != this.size - 1) {
+                s += currentNode.getElement().toString() + ", ";
+            } else {
+                s += currentNode.getElement().toString();
+            }
+            currentNode = currentNode.getNext();
+            i++;
+        }
+        return s + "}";
     }
 }

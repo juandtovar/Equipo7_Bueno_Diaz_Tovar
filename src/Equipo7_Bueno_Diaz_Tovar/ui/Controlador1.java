@@ -2,6 +2,7 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.Chain;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
+import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -9,9 +10,10 @@ import javafx.stage.Stage;
 public class Controlador1 {
 
     private Vista1 vista;
-    Chain<Plan> planes;
+    private Chain<Plan> planes;
 
     public Controlador1(Chain<Plan> planes) {
+        Main.getPestañas().add(1);
         this.vista = new Vista1();
         this.planes = planes;
         this.vista.getBtCrearPlan().setOnAction(new Evento1());
@@ -21,6 +23,7 @@ public class Controlador1 {
 
         @Override
         public void handle(ActionEvent event) {
+            Main.getPestañas().add(1);
             Singleton singleton = Singleton.getSingleton();
             Stage stage = singleton.getStage();
             Controlador2 controlador = new Controlador2(planes);

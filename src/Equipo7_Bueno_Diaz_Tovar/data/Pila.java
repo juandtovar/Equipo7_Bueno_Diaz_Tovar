@@ -1,35 +1,28 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class Pila {
-
-    private final int size = 50;
-    private int[] pila = new int[this.size];
-    private int pos = -1;
+public class Pila<T> extends Chain<T> {
 
     public Pila() {
-        for(int i = 0; i < this.size; i++) {
-            pila[i] = 0;
+        super();
+    }
+
+    public T peek() {
+        if (!isEmpty()) {
+            return getTail().getElement();
+        } else {
+            return null;
         }
     }
 
-    public boolean isEmpty() {
-        return pos == -1;
+    public void push(T element) {
+        add(element);
     }
 
-    public int top() {
-        return this.pila[pos];
+    public T pop() {
+        if (!isEmpty()) {
+            return remove(size() - 1);
+        } else {
+            return null;
+        }
     }
-
-    public void push(int x) {
-        pila[pos++] = x;
-    }
-
-    public int pop() {
-        int x = pila[pos];
-        pila[pos] = 0;
-        pos--;
-        return x;
-    }
-
 }
-

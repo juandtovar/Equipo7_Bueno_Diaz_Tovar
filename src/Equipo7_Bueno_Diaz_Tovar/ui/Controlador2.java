@@ -1,6 +1,7 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
+import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ public class Controlador2 {
     private String plan;
 
     public Controlador2(Chain<Plan> planes) {
+        Main.getPestañas().add(2);
         this.planes = planes;
         this.vista = new Vista2(this.planes);
         ChainNode<Button> temp1 = this.vista.getBotones().getHead();
