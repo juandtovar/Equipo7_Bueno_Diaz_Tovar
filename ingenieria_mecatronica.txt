@@ -1,56 +1,55 @@
-Codigo/ Materia/ Creditos/ Tipologia/ Prerrequisitos/ Semestre/ 
-1000004/ Calculo Diferencial/ 4/ FO/ Ninguno/ 1/ 
-1000005/ Calculo Integral/ 4/ FO/ Calculo Diferencial/ 2/ 
-1000006/ Calculo en varias variables/ 4/ FO/ Calculo Integral y algebra Lineal/ 3/ 
-1000007/ Ecuaciones Diferenciales/ 4/ FO/ Calculo Integral y algebra Lineal/ 4/ 
-1000003/ Algebra Lineal/ 4/ FO/ Calculo Diferencial/ 2/ 
-1000013/ Probabilidad y Estadistica Fundamental/ 3/ FO/ Calculo Diferencial/ 3/ 
-2015159/ Variable compleja/ 4/ FO/ Ecuaciones Diferenciales/ 5/ 
-1000019/ Fundamentos de Mecanica/ 4/ FO/ Calculo Diferencial/ 2/ 
-1000017/ Fundamentos de electricidad y magnetismo/ 4/ FO/ Calculo Integral y Fundamentos de Mecanica/ 3/ 
-2015703/ Ingenieria Economica/ 3/ FO/ Calculo Integral/ 6/ 
-2015734/ Programacion de Computadores/ 3/ FO/ Ninguno/ 1/ 
-2015711/ Dibujo Basico/ 3/ FO/ Ninguno/ 1/ 
-1000024/ Principios de Quimica/ 3/ FO/ Ninguno/ 3/ 
-2016640/ Principios de Estatica/ 3/ DO/ algebra Lineal/ 3/ 
-2017271/ Principios de dinamica/ 3/ DO/ algebra Lineal/ 4/ 
-2017277/ Resistencia de Materiales/ 3/ DO/ Principios de Estatica/ 5/ 
-2017282/ Diseno Mecatronico/ 3/ DO/ Resistencia de Materiales/ 6/ 
-2017288/ Servomecanismos/ 3/ DO/ Diseno Mecatronico/ 8/ 
-2016509/ Taller de Ingenieria Electronica/ 2/ DO/ Ingenieria y Desarrollo Sostenible/ 2/ 
-2016489/ Circuitos Electricos I/ 3/ DO/ Calculo Diferencial y Taller de Ingenieria Electronica/ 3/ 
-2016495/ Electronica Analoga I/ 4/ DO/ Circuitos Electricos I/ 4/ 
-2016498/ Electronica Digital I/ 4/ DO/ Electronica Analoga I/ 6/ 
-2016753/ Microcontroladores/ 3/ DO/ Electronica Digital I/ 7/ 
-2017278/ Tecnologia Mecanica Basica/ 3/ DO/ Ninguno/ 1/ 
-2017256/ Ciencia e Ingenieria de Materiales/ 3/ DO/ Principios de Quimica/ 5/ 
-2017280/ Automatizacion de procesos de manufactura/ 3/ DO/ Optativa - Procesos de Manufactura/ 9/ 
-2016506/ Senales y Sistemas I/ 3/ DO/ Circuitos Electricos I y Algebra Lineal/ 5/ 
-2016507/ Senales y Sistemas II/ 3/ DO/ Senales y Sistemas I y Variable Compleja/ 6/ 
-2016493/ Control/ 4/ DO/ Senales y Sistemas II/ 7/ 
-2017287/ Sensores y Actuadores/ 3/ DO/ Senales y Sistemas II/ 7/ 
-2016770/ Robotica/ 3/ DO/ Control/ 8/ 
-2016375/ Programacion orientada a Objetos/ 3/ DO/ Programacion de Computadores/ 4/ 
-2016699/ Estructuras de Datos/ 3/ DO/ Programacion orientada a Objetos/ 5/ 
-2025967/ Redes de Computadores/ 3/ DO/ Fundamentos de electricidad y magnetismo y Estructuras de datos/ 7/ 
-2017265/ Ingenieria y Desarrollo Sostenible/ 3/ DO/ Ninguno/ 1/ 
-1000020/ Fundamentos de Oscilaciones, Ondas y optica/ 4/ FOpt/ Ecuaciones Diferenciales y Fundamentos de Mecanica/ 0/ 
-1000018/ Fundamentos de Fisica Moderna/ 3/ FOpt/ Ecuaciones Diferenciales/ 0/ 
-1000021/ Fundamentos de Mecanica de Fluidos/ 3/ FOpt/ Fundamentos Mecanica/ 0/ 
-2016500/ Fisica de Semiconductores/ 3/ FOpt/ Fundamentos Mecanica/ 0/ 
-2015702/ Gerencia y Gestion de Proyectos/ 3/ FOpt/ Ingenieria Economica/ 0/ 
-2016741/ Finanzas/ 3/ FOpt/ Ingenieria Economica/ 0/ 
-2016609/ Seguridad Industrial/ 3/ FOpt/ Fundamentos de Electricidad y Magnetismo/ 0/ 
-2015970/ Metodos Numericos/ 3/ FOpt/ Ecuaciones Diferenciales/ 0/ 
-2017293/ Modelacion Matematica/ 3/ FOpt/ Ecuaciones Diferenciales/ 0/ 
-2015942/ Aplicaciones de Elementos Finitos/ 3/ FOpt/ Ecuaciones Diferenciales/ 0/ 
-2017273/ Procesos de Manufactura I/ 3/ DOpt/ Ciencia e Ingenieria de Materiales/ 0/ 
-2017274/ Procesos de Manufactura II/ 3/ DOpt/ Ciencia e Ingenieria de Materiales/ 0/ 
-2022888/ Tecnicas de Control/ 3/ DOpt/ Control/ 0/ 
-2017290/ Tecnicas de Inteligencia Artificial/ 3/ DOpt/ Control/ 0/ 
-1000000/ Optativa Fisica/ 0/ -/ -/ 5/ 
-1000000/ Optativa Ciencias economicas y administrativas/ 0/ -/ -/ 7/ 
-1000000/ Optativa Informatica y Herramientas para Ingenieria/ 0/ -/ -/ 7/ 
-1000000/ Optativa Ingenieria de Materiales y Procesos de Manufactura/ 0/ -/ -/ 6/ 
-1000000/ Optativa Automatizacion, Control y Robotica/ 0/ -/ -/ 8/ 
-2017295/ Trabajo de Grado / 6/ DO/ Ninguno/ 10/ 
+Codigo/ Materia/ Creditos/ Tipologia/ Semestre/ Prerrequisitos/ 
+1000004/ Calculo Diferencial/ 4/ FO/ 1/ / 
+1000005/ Calculo Integral/ 4/ FO/ 2/ 1000004/ 
+1000006/ Calculo en Varias Variables/ 4/ FO/ 3/ 1000005/ 1000003/ 
+1000007/ Ecuaciones Diferenciales/ 4/ FO/ 4/ 1000005/ 1000003/ 
+1000003/ Algebra Lineal/ 4/ FO/ 2/ 1000004/ 
+1000013/ Probabilidad y Estadistica Fundamental/ 3/ FO/ 3/ 1000004/ 
+2015159/ Variable Compleja/ 4/ FO/ 5/ 1000007/ 
+1000019/ Fundamentos de Mecanica/ 4/ FO/ 2/ 1000004/ 
+1000017/ Fundamentos de Electricidad y Magnetismo/ 4/ FO/ 3/ 1000005/ 1000019/ 
+2015703/ Ingenieria Economica/ 3/ FO/ 6/ 1000005/ 
+2015734/ Programacion de Computadores/ 3/ FO/ 1/ / 
+2015711/ Dibujo Basico/ 3/ FO/ 1/ / 
+1000024/ Principios de Quimica/ 3/ FO/ 3/ / 
+2016640/ Principios de Estatica/ 3/ DO/ 3/ 1000003/ 
+2017271/ Principios de Dinamica/ 3/ DO/ 4/ 1000003/ 
+2017277/ Resistencia de Materiales/ 3/ DO/ 5/ 2016640/ 
+2017282/ Diseno Mecatronico/ 3/ DO/ 6/ 2017277/ 
+2017288/ Servomecanismos/ 3/ DO/ 8/ 2017282/ 
+2016509/ Taller de Ingenieria Electronica/ 2/ DO/ 2/ 2017265/ 
+2016489/ Circuitos Electricos I/ 3/ DO/ 3/ 1000004/ 2016509/ 
+2016495/ Electronica Analoga I/ 4/ DO/ 4/ 2016489/ 
+2016498/ Electronica Digital I/ 4/ DO/ 6/ 2016495/ 
+2016753/ Microcontroladores/ 3/ DO/ 7/ 2016498/ 
+2017278/ Tecnologia Mecanica Basica/ 3/ DO/ 1/ / 
+2017256/ Ciencia e Ingenieria de Materiales/ 3/ DO/ 5/ 1000024/ 
+2017280/ Automatizacion de procesos de manufactura/ 3/ DO/ 9/ 1400000/ 
+2016506/ Senales y Sistemas I/ 3/ DO/ 5/ 2016489/ 1000003/ 
+2016507/ Senales y Sistemas II/ 3/ DO/ 6/ 2016506/ 2015159/ 
+2016493/ Control/ 4/ DO/ 7/ 2016507/ 
+2017287/ Sensores y Actuadores/ 3/ DO/ 7/ 2016507/ 
+2016770/ Robotica/ 3/ DO/ 8/ 2016507/ 
+2016375/ Programacion Orientada a Objetos/ 3/ DO/ 4/ 2015734/ 
+2016699/ Estructuras de Datos/ 3/ DO/ 5/ 2016375/ 
+2025967/ Redes de Computadores/ 3/ DO/ 7/ 2016699/ 
+2017265/ Ingenieria y Desarrollo Sostenible/ 3/ DO/ 1/ / 
+1000020/ Fundamentos de Oscilaciones, Ondas y optica/ 4/ FOpt/ 0/ 1000007/ 1000019/ 
+1000018/ Fundamentos de Fisica Moderna/ 3/ FOpt/ 0/ 1000007/ 
+1000021/ Fundamentos de Mecanica de Fluidos/ 3/ FOpt/ 0/ 1000019/ 
+2016500/ Fisica de Semiconductores/ 3/ FOpt/ 0/ 1000019/ 
+2015702/ Gerencia y Gestion de Proyectos/ 3/ FOpt/ 0/ 2015703/ 
+2016741/ Finanzas/ 3/ FOpt/ 0/ 2015703/ 
+2016609/ Seguridad Industrial/ 3/ FOpt/ 0/ 2015703/ 2015703/ 
+2015970/ Metodos Numericos/ 3/ FOpt/ 0/ 1000007/ 
+2017293/ Modelacion Matematica/ 3/ FOpt/ 0/ 1000007/ 
+2015942/ Aplicaciones de Elementos Finitos/ 3/ FOpt/ 0/ 1000007/ 
+2017273/ Procesos de Manufactura I/ 3/ DOpt/ 0/ 2017256/ 
+2017274/ Procesos de Manufactura II/ 3/ DOpt/ 0/ 2017256/ 
+2022888/ Tecnicas de Control/ 3/ DOpt/ 0/ 2016493/ 
+2017290/ Tecnicas de Inteligencia Artificial/ 3/ DOpt/ 0/ 2016493/ 
+1100000/ Optativa Fisica/ 0/ / 5/ / 
+1200000/ Optativa Ciencias economicas y administrativas/ 0/ / 7/ / 
+1300000/ Optativa Informatica y Herramientas para Ingenieria/ 0/ / 7/ / 
+1400000/ Optativa Ingenieria de Materiales y Procesos de Manufactura/ 0/ / 6/ / 
+1500000/ Optativa Automatizacion, Control y Robotica/ 0/ / 8/ / 

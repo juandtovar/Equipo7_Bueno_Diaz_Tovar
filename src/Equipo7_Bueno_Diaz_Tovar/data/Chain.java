@@ -77,10 +77,7 @@ public class Chain<T> implements LinearList<T>, Serializable {
             removedElement = temp.getNext().getElement();
             temp.setNext(temp.getNext().getNext());
         }
-        if (i == this.size - 1) {
-            this.setTail(this.tail.getNext());
-        }
-        setSize(this.size - 1);
+        size--;
         return removedElement;
     }
 

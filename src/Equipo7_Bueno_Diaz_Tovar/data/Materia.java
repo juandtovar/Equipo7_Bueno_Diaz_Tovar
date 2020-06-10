@@ -10,18 +10,20 @@ public class Materia implements Serializable {
     private String tipologia;
     private int semestre;
     private final Chain<Double> nota;
-    private String prerrequisitos;
+    private Chain<Integer> prerrequisitos;
+    private boolean vista;
 
-    public Materia(int codigo, String name, int creditos, String tipologia, String prerrequisitos, int semestre) {
+    public Materia(int codigo, String name, int creditos, String tipologia, int semestre) {
         this.name = name;
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
-        this.prerrequisitos = prerrequisitos;
+        this.prerrequisitos = new Chain<>();
         this.nota = new Chain<>();
         this.semestre = semestre;
+        this.vista = false;
     }
-
+    
     public String getName() {
         return this.name;
     }
@@ -74,12 +76,20 @@ public class Materia implements Serializable {
         this.nota.add(nota, this.nota.getSize());
     }
 
-    public String getPrerrequisitos() {
+    public Chain<Integer> getPrerrequisitos() {
         return prerrequisitos;
     }
 
-    public void setPrerrequisitos(String prerrequisitos) {
+    public void setPrerrequisitos(Chain<Integer> prerrequisitos) {
         this.prerrequisitos = prerrequisitos;
+    }
+
+    public boolean isVista() {
+        return vista;
+    }
+
+    public void setVista(boolean vista) {
+        this.vista = vista;
     }
 
     @Override

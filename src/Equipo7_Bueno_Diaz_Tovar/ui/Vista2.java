@@ -3,7 +3,7 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 import Equipo7_Bueno_Diaz_Tovar.data.Chain;
 import Equipo7_Bueno_Diaz_Tovar.data.ChainNode;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
-import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
+import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,6 +56,7 @@ public class Vista2 implements Vista {
 
     @Override
     public void goBack() {
+        Main.deletePestañas();
         Singleton singleton = Singleton.getSingleton();
         Stage stage = singleton.getStage();
         singleton.setStage(stage);

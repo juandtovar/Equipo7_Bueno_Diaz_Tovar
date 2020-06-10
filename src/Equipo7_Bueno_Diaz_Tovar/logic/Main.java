@@ -44,7 +44,7 @@ public class Main extends Application {
                         out = new ObjectOutputStream(fileOut);
                         out.writeObject(plan);
                     }
-                    
+
                     try {
                         fileInput = new FileInputStream("Info_" + plan.getNombre() + ".txt");
                         input = new ObjectInputStream(fileInput);
@@ -52,7 +52,7 @@ public class Main extends Application {
                         plan.cargarMaterias(file);
                         readPlanes.nextLine();
                         Plan aux = (Plan) input.readObject();
-                        if(MiAvance.calcularAvance(aux).get(3) != 0){
+                        if (MiAvance.calcularAvance(aux).get(3) != 0) {
                             plan = aux;
                         }
                     } catch (IOException | ClassNotFoundException ex) {
@@ -80,6 +80,16 @@ public class Main extends Application {
 
     public static Pila<Integer> getPestañas() {
         return pestañas;
+    }
+    
+    public static void deletePestañas() {
+        Main.pestañas.pop();
+        System.out.println(pestañas);
+    }
+
+    public static void setPestañas(int i) {
+        Main.pestañas.push(i);
+        System.out.println(pestañas);
     }
 
 }

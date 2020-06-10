@@ -14,7 +14,6 @@ public class Controlador2 {
     private String plan;
 
     public Controlador2(Chain<Plan> planes) {
-        Main.getPestañas().add(2);
         this.planes = planes;
         this.vista = new Vista2(this.planes);
         ChainNode<Button> temp1 = this.vista.getBotones().getHead();
@@ -39,6 +38,7 @@ public class Controlador2 {
 
         @Override
         public void handle(ActionEvent event) {
+            Main.setPestañas(2);
             Controlador3 controlador = new Controlador3(this.planes, this.plan);
             Vista vista = controlador.getVista();
             Singleton singleton = Singleton.getSingleton();

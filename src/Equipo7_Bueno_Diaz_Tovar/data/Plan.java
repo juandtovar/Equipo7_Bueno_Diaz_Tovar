@@ -2,7 +2,6 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.FileInputStream;
 import java.io.Serializable;
-import java.text.Normalizer;
 import java.util.*;
 
 public class Plan implements Serializable {
@@ -44,8 +43,21 @@ public class Plan implements Serializable {
             readFile.useDelimiter("/ ");
             readFile.nextLine();
             do {
-                Materia materia = new Materia(readFile.nextInt(), Normalizer.normalize(readFile.next(), Normalizer.Form.NFD),
-                        readFile.nextInt(), readFile.next(), readFile.next(), readFile.nextInt());
+                Materia materia = new Materia(readFile.nextInt(),
+                        readFile.next(),
+                        readFile.nextInt(),
+                        readFile.next(),
+                        readFile.nextInt());
+                int cod;
+                while (true) {
+                    try {
+                        cod = readFile.nextInt();
+                        materia.getPrerrequisitos().add(cod);
+                    } catch (InputMismatchException ex) {
+                        break;
+                    }
+                }
+                System.out.println(materia.getPrerrequisitos());
                 readFile.nextLine();
                 int semestre = materia.getSemestre();
                 if (semestre == 0) {

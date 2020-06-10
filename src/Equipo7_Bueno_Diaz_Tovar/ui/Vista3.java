@@ -1,6 +1,7 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
+import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiAvance;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
 import javafx.event.ActionEvent;
@@ -138,6 +139,7 @@ public class Vista3 implements Vista {
         this.layout_Botones.getChildren().add(eliminarMateria);
 
         this.mi_avance.setOnAction((ActionEvent event) -> {
+            Main.setPestañas(3);
             Controlador4 controlador = new Controlador4(planActual);
             Vista4 vista = controlador.getVista();
             Singleton singleton = Singleton.getSingleton();
@@ -164,11 +166,12 @@ public class Vista3 implements Vista {
 
         this.insertar.setOnAction((ActionEvent event) -> {
             try {
-                Materia materia = new Materia(Integer.parseInt(MateriaTF[0].getText()),
-                        MateriaTF[1].getText(),
-                        Integer.parseInt(MateriaTF[2].getText()),
-                        MateriaTF[3].getText(),
-                        MateriaTF[4].getText(), Integer.parseInt(MateriaTF[5].getText()));
+                Materia materia = new Materia(Integer.parseInt(MateriaLB[0].getText()),
+                MateriaLB[1].getText(),
+                Integer.parseInt(MateriaLB[2].getText()),
+               "LE",
+                Integer.parseInt(MateriaLB[3].getText()));//Co.No.Cr.Se.No
+                materia.setNota(Integer.parseInt(MateriaLB[4].getText()));
                 MiPlan.insertarMateria(planActual, materia);
                 dibujarMalla();
             } catch (NumberFormatException e) {
@@ -259,9 +262,8 @@ public class Vista3 implements Vista {
         this.MateriaLB[0] = new Label("Codigo");
         this.MateriaLB[1] = new Label("Nombre");
         this.MateriaLB[2] = new Label("Creditos");
-        this.MateriaLB[3] = new Label("Tipologia");
-        this.MateriaLB[4] = new Label("Prerrequisitos");
-        this.MateriaLB[5] = new Label("Semestre");
+        this.MateriaLB[3] = new Label("Semestre");
+        this.MateriaLB[4] = new Label("Nota");
         for (int i = 0; i < 6; i++) {
             this.MateriaTF[i] = new TextField();
             this.layout.getChildren().add(this.MateriaLB[i]);
@@ -293,6 +295,7 @@ public class Vista3 implements Vista {
 
     @Override
     public void goBack() {
+        Main.deletePestañas();
         MiAvance.salvarAvance(planActual);
         Singleton singleton = Singleton.getSingleton();
         Stage stage = singleton.getStage();

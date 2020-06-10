@@ -9,7 +9,6 @@ public class Controlador4 {
     private Plan plan;
 
     public Controlador4(Plan plan) {
-        Main.getPestañas().add(4);
         this.plan = plan;
         this.vista = new Vista4(plan);
     }

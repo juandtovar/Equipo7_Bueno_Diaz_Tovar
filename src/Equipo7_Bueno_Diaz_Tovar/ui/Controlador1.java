@@ -13,7 +13,6 @@ public class Controlador1 {
     private Chain<Plan> planes;
 
     public Controlador1(Chain<Plan> planes) {
-        Main.getPestañas().add(1);
         this.vista = new Vista1();
         this.planes = planes;
         this.vista.getBtCrearPlan().setOnAction(new Evento1());
@@ -23,7 +22,7 @@ public class Controlador1 {
 
         @Override
         public void handle(ActionEvent event) {
-            Main.getPestañas().add(1);
+            Main.setPestañas(1);
             Singleton singleton = Singleton.getSingleton();
             Stage stage = singleton.getStage();
             Controlador2 controlador = new Controlador2(planes);

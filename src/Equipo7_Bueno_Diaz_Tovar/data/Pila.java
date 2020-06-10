@@ -17,14 +17,15 @@ public class Pila<T> extends Chain<T> implements Serializable {
     }
 
     public void push(T element) {
-        add(element);
+        add(element, 0);
     }
 
     public T pop() {
         if (!isEmpty()) {
-            return remove(size() - 1);
+            return remove(0);
         } else {
             return null;
         }
     }
+
 }

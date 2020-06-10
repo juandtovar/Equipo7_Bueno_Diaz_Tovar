@@ -1,9 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
-import Equipo7_Bueno_Diaz_Tovar.data.Materia;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
+import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import Equipo7_Bueno_Diaz_Tovar.logic.MiAvance;
-import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,6 +75,7 @@ public class Vista4 implements Vista {
 
     @Override
     public void goBack() {
+        Main.deletePestañas();
         Controlador3 controlador = new Controlador3(Vista3.getPlanes(), this.plan.getNombre());
         Vista vista = controlador.getVista();
         Singleton singleton = Singleton.getSingleton();

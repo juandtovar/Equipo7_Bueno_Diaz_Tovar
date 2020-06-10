@@ -12,23 +12,8 @@ public class Controlador3 {
     private Chain<Plan> planes;
 
     public Controlador3(Chain<Plan> planes, String plan) {
-        Main.getPestañas().add(3);
         this.planes = planes;
         this.vista = new Vista3(planes, plan);
-    }
-
-    private class Evento3 implements EventHandler<ActionEvent> {
-
-        Plan plan;
-
-        public Evento3() {
-            this.plan = vista.getPlanActual();
-        }
-
-        @Override
-        public void handle(ActionEvent event) {
-            
-        }
     }
 
     public Vista3 getVista() {
