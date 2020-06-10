@@ -40,7 +40,7 @@ public class Main extends Application {
 
                     if (fichero.length() == 0) {
                         System.out.println("Vacio");
-                        fileOut = new FileOutputStream(fichero);
+                        fileOut = new FileOutputStream("Info_" + plan.getNombre() + ".txt");
                         out = new ObjectOutputStream(fileOut);
                         out.writeObject(plan);
                     }
@@ -51,7 +51,10 @@ public class Main extends Application {
                         file = new FileInputStream(plan.getNombre() + ".txt");
                         plan.cargarMaterias(file);
                         readPlanes.nextLine();
-                        plan = (Plan) input.readObject();
+                        Plan aux = (Plan) input.readObject();
+                        if(MiAvance.calcularAvance(aux).get(3) != 0){
+                            plan = aux;
+                        }
                     } catch (Exception ex) {
                         System.out.println(ex.toString());
                     }
