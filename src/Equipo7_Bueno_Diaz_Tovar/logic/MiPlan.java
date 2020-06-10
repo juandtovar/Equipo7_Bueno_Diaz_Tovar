@@ -31,6 +31,7 @@ public class MiPlan {
             dialogo.showAndWait();
         }
         System.out.printf("%s%d\n", "Fin insertar materia = \t\t", System.currentTimeMillis());
+        MiAvance.salvarAvance(plan);
     }
 
     public static void eliminarMateria(Plan plan, int codigo) {

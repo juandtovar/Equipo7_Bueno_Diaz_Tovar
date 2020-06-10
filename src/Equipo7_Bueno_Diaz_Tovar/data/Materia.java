@@ -1,6 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class Materia {
+import java.io.Serializable;
+
+public class Materia implements Serializable {
 
     private String name;
     private int codigo;
@@ -82,7 +84,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" + "name=" + name + ", codigo=" + codigo + ", creditos=" + creditos + ", tipologia=" + tipologia + ", semestre=" + semestre + ", nota=" + nota + ", prerrequisitos=" + prerrequisitos + '}' + '\n';
+        return codigo + "-" + nota.toString() + '\n';
     }
 
 }

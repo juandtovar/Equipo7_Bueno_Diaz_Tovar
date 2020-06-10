@@ -1,10 +1,11 @@
-package Equipo7_Bueno_Diaz_Tovar.data; 
+package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.text.Normalizer;
 import java.util.*;
 
-public class Plan {
+public class Plan implements Serializable {
 
     private String nombre;
     private int n_semestres;
@@ -43,7 +44,7 @@ public class Plan {
             readFile.useDelimiter("/ ");
             readFile.nextLine();
             do {
-                Materia materia = new Materia(readFile.nextInt(),Normalizer.normalize(readFile.next(), Normalizer.Form.NFD),
+                Materia materia = new Materia(readFile.nextInt(), Normalizer.normalize(readFile.next(), Normalizer.Form.NFD),
                         readFile.nextInt(), readFile.next(), readFile.next(), readFile.nextInt());
                 readFile.nextLine();
                 int semestre = materia.getSemestre();
@@ -59,14 +60,13 @@ public class Plan {
                     }
                     Identificador identificador = new Identificador(materia.getCodigo(), materia.getSemestre(),
                             this.semestres[materia.getSemestre() - 1].size() - 1);
-                    BinaryTreeNode<Identificador> temp = new BinaryTreeNode();
                     this.identificadores.add(identificador);
                 }
 
             } while (readFile.hasNext());
         }
     }
-    
+
     public AVLTree getIdentificadores() {
         return identificadores;
     }
@@ -173,6 +173,14 @@ public class Plan {
 
     @Override
     public String toString() {
-        return this.nombre + ' ' + this.creditosTotales + ' ' + this.n_semestres + ' ' + maxMaterias;
+        String s = "", sAux = "";
+        for (int i = 0; i < n_semestres; i++) {
+            if (materiasVistas.length != 0) {
+                sAux = materiasVistas[i].toString();
+                s += sAux;
+            }
+        }
+        return s;
     }
+
 }

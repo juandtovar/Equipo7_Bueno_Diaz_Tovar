@@ -1,8 +1,9 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
+import java.io.Serializable;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String nombre;
     private Plan[] planes;

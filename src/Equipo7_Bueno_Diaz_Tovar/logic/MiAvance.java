@@ -1,6 +1,10 @@
 package Equipo7_Bueno_Diaz_Tovar.logic;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class MiAvance {
@@ -60,6 +64,27 @@ public class MiAvance {
         avance.add(acumuladoElectivas);
         avance.add(acumuladoFundamentacion + acumuladoDisciplinar + acumuladoElectivas);
         return avance;
+    }
+
+    public static void salvarAvance(Plan plan) {
+        ObjectOutputStream canal;
+        FileOutputStream fileOutput = null;
+        try {
+            fileOutput = new FileOutputStream("Info_" + plan.getNombre() + ".txt");
+            canal = new ObjectOutputStream(fileOutput);
+            canal.flush();
+            canal.writeObject(plan);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fileOutput.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }

@@ -144,6 +144,7 @@ public class Vista3 implements Vista {
             Stage stage = singleton.getStage();
             stage.setScene(vista.getScena());
             stage.show();
+            MiAvance.salvarAvance(planActual);
         });
 
         this.insertarMateria.setOnAction((ActionEvent event) -> {
@@ -173,6 +174,7 @@ public class Vista3 implements Vista {
             } catch (NumberFormatException e) {
                 alertaEntrada("Insertar materia");
             }
+            MiAvance.salvarAvance(planActual);
         });
 
         this.eliminarMateria.setOnAction((ActionEvent event) -> {
@@ -200,6 +202,7 @@ public class Vista3 implements Vista {
             } catch (NumberFormatException e) {
                 alertaEntrada("Eliminar materia");
             }
+            MiAvance.salvarAvance(planActual);
         });
 
         this.consultarMateria.setOnAction((ActionEvent event) -> {
@@ -233,16 +236,14 @@ public class Vista3 implements Vista {
             this.MateriaLB[0] = new Label("Codigo");
             double nota = 0;
             try {
-                System.out.println(this.MateriaTF[0].getText());
                 nota = Double.parseDouble(this.MateriaTF[0].getText());
                 int codigo = Integer.parseInt(this.MateriaTF[1].getText());
-                System.out.println(nota);
-                System.out.println(codigo);
                 MiAvance.actualizarNota(planActual, codigo, nota);
                 presentarVistaInicial();
             } catch (NumberFormatException e) {
                 alertaEntrada("Actualizar nota");
             }
+            MiAvance.salvarAvance(planActual);
         });
 
         this.layout.getChildren().add(layout_Botones);
@@ -292,6 +293,7 @@ public class Vista3 implements Vista {
 
     @Override
     public void goBack() {
+        MiAvance.salvarAvance(planActual);
         Singleton singleton = Singleton.getSingleton();
         Stage stage = singleton.getStage();
         Controlador2 controlador = new Controlador2(planes);

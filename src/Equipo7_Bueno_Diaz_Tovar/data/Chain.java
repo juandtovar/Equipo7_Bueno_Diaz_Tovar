@@ -1,6 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class Chain<T> implements LinearList<T> {
+import java.io.Serializable;
+
+public class Chain<T> implements LinearList<T>, Serializable {
 
     private ChainNode<T> head;
     private ChainNode<T> tail;
@@ -131,7 +133,7 @@ public class Chain<T> implements LinearList<T> {
     @Override
     public String toString() {
         ChainNode<T> currentNode = this.head;
-        String s = "{";
+        String s = "";
         int i = 0;
         while (currentNode != null) {
             if (i != this.size - 1) {
@@ -142,6 +144,6 @@ public class Chain<T> implements LinearList<T> {
             currentNode = currentNode.getNext();
             i++;
         }
-        return s + "}";
+        return s;
     }
 }

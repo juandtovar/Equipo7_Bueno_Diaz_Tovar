@@ -1,6 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class Identificador implements Comparable<Identificador> {
+import java.io.Serializable;
+
+public class Identificador implements Comparable<Identificador>, Serializable {
 
     private int codigo;
     private int semestre;

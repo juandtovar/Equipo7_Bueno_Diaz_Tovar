@@ -1,6 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class BinaryTree<T> {
+import java.io.Serializable;
+
+public class BinaryTree<T> implements Serializable {
 
     private BinaryTreeNode<T> root;
     private int height;

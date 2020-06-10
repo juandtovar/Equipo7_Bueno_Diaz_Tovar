@@ -1,8 +1,9 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
+public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> implements Serializable {
 
     public AVLTree() {
 
@@ -68,7 +69,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
     private BinaryTreeNode<T> add(BinaryTreeNode<T> nodo, T element) {
         if (nodo == null) {
             this.setSize(this.getSize() + 1);
-            return new BinaryTreeNode<T>(element);
+            return new BinaryTreeNode<>(element);
         }
         int comparation = element.compareTo(nodo.getElement());
         if (comparation < 0) {

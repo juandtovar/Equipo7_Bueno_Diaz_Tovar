@@ -1,6 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class Pila<T> extends Chain<T> {
+import java.io.Serializable;
+
+public class Pila<T> extends Chain<T> implements Serializable {
 
     public Pila() {
         super();

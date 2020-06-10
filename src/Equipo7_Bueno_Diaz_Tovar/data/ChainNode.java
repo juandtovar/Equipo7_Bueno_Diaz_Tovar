@@ -1,6 +1,8 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-public class ChainNode<T> {
+import java.io.Serializable;
+
+public class ChainNode<T> implements Serializable {
 
     private T element;
     private ChainNode<T> next;
