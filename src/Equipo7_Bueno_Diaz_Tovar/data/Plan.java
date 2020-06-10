@@ -173,7 +173,7 @@ public class Plan implements Serializable {
 
     @Override
     public String toString() {
-        String s = "", sAux = "";
+        String s = "", sAux;
         for (int i = 0; i < n_semestres; i++) {
             if (materiasVistas.length != 0) {
                 sAux = materiasVistas[i].toString();

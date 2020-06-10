@@ -9,7 +9,7 @@ public class Materia implements Serializable {
     private int creditos;
     private String tipologia;
     private int semestre;
-    private Chain<Double> nota;
+    private final Chain<Double> nota;
     private String prerrequisitos;
 
     public Materia(int codigo, String name, int creditos, String tipologia, String prerrequisitos, int semestre) {

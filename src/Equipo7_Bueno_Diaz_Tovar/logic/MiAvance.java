@@ -43,14 +43,22 @@ public class MiAvance {
             try {
                 if (materiasSemestre.get(0) != null) {
                     for (int j = 0; j < materiasSemestre.size(); j++) {
-                        if ("FO".equals(plan.getMateriasVistas()[i].get(j).getTipologia())
-                                || "FOpt".equals(plan.getMateriasVistas()[i].get(j).getTipologia())) {
-                            acumuladoFundamentacion += plan.getMateriasVistas()[i].get(j).getCreditos();
-                        } else if ("DO".equals(plan.getMateriasVistas()[i].get(j).getTipologia())
-                                || "DOpt".equals(plan.getMateriasVistas()[i].get(j).getTipologia())) {
-                            acumuladoDisciplinar += plan.getMateriasVistas()[i].get(j).getCreditos();
-                        } else {
-                            acumuladoElectivas += plan.getMateriasVistas()[i].get(j).getCreditos();
+                        switch (plan.getMateriasVistas()[i].get(j).getTipologia()) {
+                            case "FOpt":
+                                acumuladoFundamentacion += plan.getMateriasVistas()[i].get(j).getCreditos();
+                                break;
+                            case "FO":
+                                acumuladoFundamentacion += plan.getMateriasVistas()[i].get(j).getCreditos();
+                                break;
+                            case "DOpt":
+                                acumuladoDisciplinar += plan.getMateriasVistas()[i].get(j).getCreditos();
+                                break;
+                            case "DO":
+                                acumuladoDisciplinar += plan.getMateriasVistas()[i].get(j).getCreditos();
+                                break;
+                            default:
+                                acumuladoElectivas += plan.getMateriasVistas()[i].get(j).getCreditos();
+                                break;
                         }
                     }
                 }
@@ -75,14 +83,14 @@ public class MiAvance {
             canal.flush();
             canal.writeObject(plan);
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            
         } catch (IOException ex) {
-            ex.printStackTrace();
+            
         } finally {
             try {
                 fileOutput.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                
             }
         }
     }

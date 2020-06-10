@@ -1,7 +1,6 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.Serializable;
-import java.util.HashSet;
 
 public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> implements Serializable {
 

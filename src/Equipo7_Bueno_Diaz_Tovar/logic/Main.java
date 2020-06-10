@@ -27,7 +27,7 @@ public class Main extends Application {
             FileOutputStream fileOut;
             ObjectInputStream input;
             ObjectOutputStream out;
-            Plan plan = null;
+            Plan plan;
             try (Scanner readPlanes = new Scanner(planesFile)) {
                 readPlanes.useDelimiter("/ ");
                 readPlanes.nextLine();
@@ -55,7 +55,7 @@ public class Main extends Application {
                         if(MiAvance.calcularAvance(aux).get(3) != 0){
                             plan = aux;
                         }
-                    } catch (Exception ex) {
+                    } catch (IOException | ClassNotFoundException ex) {
                         System.out.println(ex.toString());
                     }
 

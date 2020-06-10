@@ -12,8 +12,8 @@ public interface LinearList<T> {
 
     void add(T element, int i);
 
-    T find(T element);
-
     T find(int i);
+    
+    boolean contains(T element);
 
 }

@@ -35,7 +35,7 @@ public class Chain<T> implements LinearList<T>, Serializable {
             for (int j = 0; j < i - 1; j++) {
                 temp = temp.getNext();
             }
-            ChainNode<T> node = new ChainNode<T>(element, temp.getNext());
+            ChainNode<T> node = new ChainNode<>(element, temp.getNext());
             temp.setNext(node);
             if (i == this.size) {
                 this.setTail(node);
@@ -85,15 +85,6 @@ public class Chain<T> implements LinearList<T>, Serializable {
     }
 
     @Override
-    public T find(T element) {
-        ChainNode<T> currentNode = this.head;
-        while (currentNode != null && !currentNode.getElement().equals(element)) {
-            currentNode = currentNode.getNext();
-        }
-        return currentNode.getElement();
-    }
-
-    @Override
     public T find(int i) {
         if (i >= this.size || i < 0) {
             return null;
@@ -104,6 +95,18 @@ public class Chain<T> implements LinearList<T>, Serializable {
             }
             return currentNode.getElement();
         }
+    }
+
+    @Override
+    public boolean contains(T element) {
+        ChainNode<T> currentNode = this.head;
+        while (currentNode != null) {
+            if (currentNode.getElement().equals(element)) {
+                return true;
+            }
+            currentNode = currentNode.getNext();
+        }
+        return false;
     }
 
     public ChainNode<T> getHead() {
