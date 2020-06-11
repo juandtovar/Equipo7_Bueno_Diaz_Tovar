@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class Materia implements Serializable {
 
     private String name;
-    private int codigo;
+    private long codigo;
     private int creditos;
     private String tipologia;
     private int semestre;
     private final Chain<Double> nota;
-    private Chain<Integer> prerrequisitos;
+    private Chain<Long> prerrequisitos;
     private boolean vista;
 
-    public Materia(int codigo, String name, int creditos, String tipologia, int semestre) {
+    public Materia(long codigo, String name, int creditos, String tipologia, int semestre) {
         this.name = name;
         this.codigo = codigo;
         this.creditos = creditos;
@@ -32,11 +32,11 @@ public class Materia implements Serializable {
         this.name = name;
     }
 
-    public int getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(long codigo) {
         this.codigo = codigo;
     }
 
@@ -76,11 +76,11 @@ public class Materia implements Serializable {
         this.nota.add(nota, this.nota.getSize());
     }
 
-    public Chain<Integer> getPrerrequisitos() {
+    public Chain<Long> getPrerrequisitos() {
         return prerrequisitos;
     }
 
-    public void setPrerrequisitos(Chain<Integer> prerrequisitos) {
+    public void setPrerrequisitos(Chain<Long> prerrequisitos) {
         this.prerrequisitos = prerrequisitos;
     }
 
@@ -88,13 +88,13 @@ public class Materia implements Serializable {
         return vista;
     }
 
-    public void setVista(boolean vista) {
-        this.vista = vista;
+    public void setVista() {
+        this.vista = true;
     }
 
     @Override
     public String toString() {
-        return codigo + "-" + nota.toString() + '\n';
+        return String.valueOf(codigo);
     }
 
 }

@@ -2,9 +2,9 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.Serializable;
 
-public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> implements Serializable {
+public class LinkedAVLTree<T extends Comparable<T>> extends LinkedBinarySearchTree<T> implements Serializable {
 
-    public AVLTree() {
+    public LinkedAVLTree() {
 
     }
 
@@ -99,7 +99,6 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> implem
             } else {
                 node = (node.getLeft() != null) ? node.getLeft() : node.getRight();
                 setSize(getSize() - 1);
-                return balance(node);
             }
         }
         return balance(node);

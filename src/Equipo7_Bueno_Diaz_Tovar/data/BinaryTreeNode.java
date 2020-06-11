@@ -62,6 +62,7 @@ public class BinaryTreeNode<T> implements Serializable {
         this.parent = parent;
     }
 
+    @Override
     public String toString() {
         return element.toString();
     }

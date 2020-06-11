@@ -36,6 +36,9 @@ Codigo/ Materia/ Creditos/ Tipologia/ Semestre/ Prerrequisitos/
 2015215/ Analisis de Sistemas Dinamicos/ 3/ DO/ 8/ 2016506/ 
 2017261/ Fundamentos de Control/ 3/ DO/ 9/ 2015215/ 
 2017265/ Ingenieria y Desarrollo Sostenible/ 3/ DO/ 1/ / 
+2024045/ Taller de Proyecto Interdisciplinarios/ 3/ DO/ 6/ / 
+2017275/ Proyecto Aplicado de Ingenieria/ 4/ DO/ 9/ / 
+2017295/ Trabajo de Grado/ 6/ DO/ 10/ / 
 1000017/ Fundamentos de electricidad y magnetismo/ 4/ FOpt/ 0/ 1000019/ 1000005/ 
 1000020/ Fundamentos de oscilaciones, ondas y optica/ 4/ FOpt/ 0/ 1000019/ 1000005/ 
 1000018/ Fundamentos de fisica moderna/ 3/ FOpt/ 0/ 1000007/ 
@@ -44,7 +47,7 @@ Codigo/ Materia/ Creditos/ Tipologia/ Semestre/ Prerrequisitos/
 2017270/ Plantas Térmicas/ 3/ Dopt/ 0/ 2017262/ 
 2017269/ Motores de Combustion Interna/ 3/ Dopt/ 0/ 2017262/ 
 2017263/ Fundamentos de Turbomaquinaria/ 3/ Dopt/ 0/ 2017262/ 
-11000000/ Optativa de Fisica/ 0/ / 3/ / 
-12000000/ Optativa de Fisica/ 0/ / 5/ / 
-13000000/ Optativa Ingenieria Térmica y fluidos/ 0/ / 7/ / 
-14000000/ Optativa Ingenieria Térmica y fluidos/ 0/ / 8/ / 
+1100000/ Optativa de Fisica/ 0/ / 3/ / 
+1200000/ Optativa de Fisica/ 0/ / 5/ / 
+1300000/ Optativa Ingenieria Térmica y fluidos/ 0/ / 7/ / 
+1400000/ Optativa Ingenieria Térmica y fluidos/ 0/ / 8/ / 

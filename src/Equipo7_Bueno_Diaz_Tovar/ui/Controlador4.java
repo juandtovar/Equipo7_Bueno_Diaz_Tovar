@@ -1,7 +1,6 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
-import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 
 public class Controlador4 {
 

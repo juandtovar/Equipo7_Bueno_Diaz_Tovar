@@ -1,3 +1,3 @@
-Nombre del plan/ CDun/ CDis/ CLib/ N semestres/ 
+Nombre del plan/ CFun/ CDis/ CLib/ N semestres/ Max materias/ Materias/ 
 ingenieria_mecatronica/ 56/ 87/ 36/ 10/ 6/ 55/ 
 ingenieria_mecanica/ 58/ 86/ 36/ 10/ 7/ 50/ 

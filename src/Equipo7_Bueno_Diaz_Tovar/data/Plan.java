@@ -11,7 +11,7 @@ public class Plan implements Serializable {
     private ArrayList<Materia>[] semestres;
     private ArrayList<Materia> optativas;
     private ArrayList<Materia>[] materiasVistas;
-    private AVLTree<Identificador> identificadores;
+    private LinkedAVLTree<Identificador> identificadores;
     private int creditosDiscp;
     private int creditosFund;
     private int creditosElect;
@@ -29,7 +29,7 @@ public class Plan implements Serializable {
         this.n_semestres = n_semestres;
         this.semestres = new ArrayList[n_semestres];
         this.optativas = new ArrayList<>();
-        this.identificadores = new AVLTree();
+        this.identificadores = new LinkedAVLTree();
         this.materiasVistas = new ArrayList[n_semestres];
         for (int i = 0; i < n_semestres; i++) {
             this.materiasVistas[i] = new ArrayList<>();
@@ -43,21 +43,20 @@ public class Plan implements Serializable {
             readFile.useDelimiter("/ ");
             readFile.nextLine();
             do {
-                Materia materia = new Materia(readFile.nextInt(),
+                Materia materia = new Materia(readFile.nextLong(),
                         readFile.next(),
                         readFile.nextInt(),
                         readFile.next(),
                         readFile.nextInt());
-                int cod;
+                long cod;
                 while (true) {
                     try {
-                        cod = readFile.nextInt();
+                        cod = readFile.nextLong();
                         materia.getPrerrequisitos().add(cod);
                     } catch (InputMismatchException ex) {
                         break;
                     }
                 }
-                System.out.println(materia.getPrerrequisitos());
                 readFile.nextLine();
                 int semestre = materia.getSemestre();
                 if (semestre == 0) {
@@ -70,7 +69,8 @@ public class Plan implements Serializable {
                     } else {
                         semestres[semestre - 1].add(materia);
                     }
-                    Identificador identificador = new Identificador(materia.getCodigo(), materia.getSemestre(),
+                    Identificador identificador = new Identificador(materia.getCodigo(),
+                            materia.getSemestre(),
                             this.semestres[materia.getSemestre() - 1].size() - 1);
                     this.identificadores.add(identificador);
                 }
@@ -79,11 +79,11 @@ public class Plan implements Serializable {
         }
     }
 
-    public AVLTree getIdentificadores() {
-        return identificadores;
+    public LinkedAVLTree getIdentificadores() {
+        return this.identificadores;
     }
 
-    public void setIdentificadores(AVLTree identificadores) {
+    public void setIdentificadores(LinkedAVLTree identificadores) {
         this.identificadores = identificadores;
     }
 
@@ -185,11 +185,20 @@ public class Plan implements Serializable {
 
     @Override
     public String toString() {
-        String s = "", sAux;
+        String s = "";
         for (int i = 0; i < n_semestres; i++) {
-            if (materiasVistas.length != 0) {
-                sAux = materiasVistas[i].toString();
-                s += sAux;
+            s += "[";
+            ArrayList<Materia> sem = this.getSemestres()[i];
+            for (int j = 0; j < sem.size(); j++) {
+                if (j == sem.size() - 1) {
+                    s += sem.get(j).toString();
+                } else {
+                    s += sem.get(j).toString() + ", ";
+                }
+            }
+            s += "]";
+            if (i != n_semestres - 1) {
+                s += '\n';
             }
         }
         return s;

@@ -6,14 +6,16 @@ public interface LinearList<T> {
 
     int size();
 
+    T get(int i);
+    
     int indexOf(T element);
 
     T remove(int i);
+    
+    T remove(T element);
 
     void add(T element, int i);
-
-    T find(int i);
     
-    boolean contains(T element);
+    void add(T element);
 
 }

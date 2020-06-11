@@ -34,6 +34,9 @@ Codigo/ Materia/ Creditos/ Tipologia/ Semestre/ Prerrequisitos/
 2016699/ Estructuras de Datos/ 3/ DO/ 5/ 2016375/ 
 2025967/ Redes de Computadores/ 3/ DO/ 7/ 2016699/ 
 2017265/ Ingenieria y Desarrollo Sostenible/ 3/ DO/ 1/ / 
+2017276/ Taller de Proyecto Interdisciplinarios/ 3/ DO/ 6/ / 
+2017275/ Proyecto Aplicado de Ingenieria/ 4/ DO/ 9/ / 
+2017295/ Trabajo de Grado/ 6/ DO/ 10/ / 
 1000020/ Fundamentos de Oscilaciones, Ondas y optica/ 4/ FOpt/ 0/ 1000007/ 1000019/ 
 1000018/ Fundamentos de Fisica Moderna/ 3/ FOpt/ 0/ 1000007/ 
 1000021/ Fundamentos de Mecanica de Fluidos/ 3/ FOpt/ 0/ 1000019/ 

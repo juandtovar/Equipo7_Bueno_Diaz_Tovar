@@ -2,9 +2,6 @@ package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.Chain;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
-import Equipo7_Bueno_Diaz_Tovar.logic.Main;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 public class Controlador3 {
 

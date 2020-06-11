@@ -2,9 +2,9 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.Serializable;
 
-public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> implements Serializable {
+public class LinkedBinarySearchTree<T extends Comparable<T>> extends LinkedBinaryTree<T> implements Serializable {
 
-    public BinarySearchTree() {
+    public LinkedBinarySearchTree() {
         super();
     }
 

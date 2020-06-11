@@ -12,6 +12,8 @@ public class Main extends Application {
     public static Pila<Integer> pestañas = new Pila<>();
 
     public static void main(String[] args) {
+        Identificador id1 = new Identificador(1000004, 0, 0);
+        Identificador id2 = new Identificador(1000004, 0, 0);
         Application.launch(args);
     }
 
@@ -58,7 +60,6 @@ public class Main extends Application {
                     } catch (IOException | ClassNotFoundException ex) {
                         System.out.println(ex.toString());
                     }
-
                     System.out.printf("%s%d\n", "Plan cargado = \t\t\t", System.currentTimeMillis());
                     planes.add(plan, planes.getSize());
                 }
@@ -66,7 +67,7 @@ public class Main extends Application {
         } catch (FileNotFoundException ex) {
 
         }
-
+        
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);

@@ -1,94 +1,17 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
-import java.io.Serializable;
+public interface BinaryTree<T> {
 
-public class BinaryTree<T> implements Serializable {
+    boolean isEmpty();
 
-    private BinaryTreeNode<T> root;
-    private int height;
-    private int size = 0;
+    T root();
 
-    public boolean isEmpty() {
-        return this.root == null;
-    }
+    void preOrder();
 
-    public T root() {
-        return (root == null) ? null : root.getElement();
-    }
+    void inOrder();
 
-    public void preOrder() {
-        preOrder(this.root);
-    }
+    void postOrder();
 
-    public void preOrder(BinaryTreeNode<T> node) {
-        if (node != null) {
-            System.out.print(node.toString() + " ");
-            preOrder(node.getLeft());
-            preOrder(node.getRight());
-        }
-    }
-
-    public void postOrder() {
-        postOrder(this.root);
-    }
-
-    public void postOrder(BinaryTreeNode<T> node) {
-        if (node != null) {
-            postOrder(node.getLeft());
-            postOrder(node.getRight());
-            System.out.print(node.toString() + " ");
-        }
-    }
-
-    public void inOrder() {
-        inOrder(this.root);
-    }
-
-    public void inOrder(BinaryTreeNode<T> node) {
-        if (node != null) {
-            postOrder(node.getLeft());
-            System.out.print(node.toString() + " ");
-            postOrder(node.getRight());
-        }
-    }
-
-    public int getSize() {
-        return getSize(this.root);
-    }
-
-    public int getSize(BinaryTreeNode<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        return getSize(node.getLeft()) + getSize(node.getRight()) + 1;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getHeight() {
-        return height(this.root);
-    }
-
-    public static <T> int height(BinaryTreeNode<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        int heightL = height(node.getLeft());
-        int heightR = height(node.getRight());
-        if (heightL > heightR) {
-            return ++heightL;
-        } else {
-            return ++heightR;
-        }
-    }
-
-    public BinaryTreeNode<T> getRoot() {
-        return root;
-    }
-
-    public void setRoot(BinaryTreeNode<T> root) {
-        this.root = root;
-    }
+    void levelOrder();
+    
 }

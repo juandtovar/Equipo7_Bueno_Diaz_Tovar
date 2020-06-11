@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 public class Identificador implements Comparable<Identificador>, Serializable {
 
-    private int codigo;
+    private long codigo;
     private int semestre;
     private int posición;
 
-    public Identificador(int codigo, int semestre, int posición) {
+    public Identificador(long codigo, int semestre, int posición) {
         this.codigo = codigo;
         this.semestre = semestre;
         this.posición = posición;
     }
 
-    public int getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(long codigo) {
         this.codigo = codigo;
     }
 
@@ -51,6 +51,6 @@ public class Identificador implements Comparable<Identificador>, Serializable {
 
     @Override
     public String toString() {
-        return String.valueOf(this.codigo) + ' ' + String.valueOf(this.getPosición()) + ' ' + String.valueOf(this.getSemestre());
+        return '{' + String.valueOf(this.codigo) + ", " + String.valueOf(this.getPosición()) + ", " + String.valueOf(this.getSemestre()) + '}';
     }
 }
