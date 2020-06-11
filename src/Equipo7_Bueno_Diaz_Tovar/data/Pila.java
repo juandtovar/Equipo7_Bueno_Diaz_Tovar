@@ -10,7 +10,7 @@ public class Pila<T> extends Chain<T> implements Serializable {
 
     public T peek() {
         if (!isEmpty()) {
-            return getTail().getElement();
+            return this.getHead().getElement();
         } else {
             return null;
         }

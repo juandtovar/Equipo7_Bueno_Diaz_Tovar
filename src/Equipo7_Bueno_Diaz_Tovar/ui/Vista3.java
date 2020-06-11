@@ -137,7 +137,7 @@ public class Vista3 implements Vista {
         });
 
         this.insertar.setOnAction((ActionEvent event) -> {
-            
+
             try {
                 Materia materia = new Materia(Long.parseLong(MateriaTF[0].getText()),
                         MateriaTF[1].getText(),
@@ -258,10 +258,10 @@ public class Vista3 implements Vista {
     }
 
     public final void dibujarMalla() {
-        
-        System.out.println(planActual);
-        for(int i = 0; i < planActual.getMateriasVistas().length; i++){
-            System.out.println(planActual.getMateriasVistas()[i]);
+
+        System.out.println(planActual.toString() + '\n');
+        for (Chain<Materia> materiasVista : planActual.getMateriasVistas()) {
+            System.out.println(materiasVista);
         }
         System.out.println("");
         planActual.getIdentificadores().inOrder();
@@ -299,13 +299,16 @@ public class Vista3 implements Vista {
                         MiPlan.consultarMateria(planActual, codigo);
                         presentarVistaInicial();
                         if (materia.getNota().isEmpty() || materia.getLastNota() < 3) {
-                            this.editar.setVisible(true);
-                            this.cancelarAccion.setVisible(true);
-                            this.MateriaLB[0] = new Label("Nota");
-                            this.MateriaLB[0].setVisible(true);
-                            this.MateriaTF[0].setText("");
-                            this.MateriaTF[0].setVisible(true);
-                            this.MateriaTF[1].setText(String.valueOf(codigo));
+                            Identificador idTemp = new Identificador(codigo, 0, 0), id;
+                            id = (Identificador) planActual.getIdentificadores().find(idTemp).getElement();
+                            if (MiAvance.prerrequisitosVistos(planActual, id)) {
+                                this.editar.setVisible(true);
+                                this.cancelarAccion.setVisible(true);
+                                this.MateriaLB[0] = new Label("Nota");
+                                this.MateriaLB[0].setVisible(true);
+                                this.MateriaTF[0].setVisible(true);
+                                this.MateriaTF[1].setText(String.valueOf(codigo));
+                            }
                         }
 
                     } catch (NumberFormatException e) {

@@ -5,11 +5,10 @@ import java.io.Serializable;
 public class Chain<T> implements LinearList<T>, Serializable {
 
     private ChainNode<T> head;
-    private ChainNode<T> tail;
     private int size;
 
     public Chain() {
-        this.head = this.tail = null;
+        this.head = null;
         this.size = 0;
     }
 
@@ -95,9 +94,6 @@ public class Chain<T> implements LinearList<T>, Serializable {
     public void add(T element, int i) {
         if (i == 0) {
             this.head = new ChainNode<>(element, this.head);
-            if (this.size == 0) {
-                this.tail = this.head;
-            }
         } else {
             ChainNode<T> temp = this.head;
             for (int j = 0; j < i - 1; j++) {
@@ -105,16 +101,13 @@ public class Chain<T> implements LinearList<T>, Serializable {
             }
             ChainNode<T> node = new ChainNode<>(element, temp.getNext());
             temp.setNext(node);
-            if (i == this.size) {
-                this.setTail(this.getTail().getNext());
-            }
         }
         this.size++;
     }
 
     @Override
     public void add(T element) {
-        add(element, this.getSize());
+        add(element, this.size());
     }
 
     public ChainNode<T> getHead() {
@@ -125,26 +118,14 @@ public class Chain<T> implements LinearList<T>, Serializable {
         this.head = head;
     }
 
-    public int getSize() {
-        return this.size;
-    }
-
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public ChainNode<T> getTail() {
-        return tail;
-    }
-
-    public void setTail(ChainNode<T> tail) {
-        this.tail = tail;
     }
 
     @Override
     public String toString() {
         ChainNode<T> currentNode = this.head;
-        String s = "{";
+        String s = "[";
         int i = 0;
         while (currentNode != null) {
             if (i != this.size - 1) {
@@ -155,6 +136,6 @@ public class Chain<T> implements LinearList<T>, Serializable {
             currentNode = currentNode.getNext();
             i++;
         }
-        return s + "}\n";
+        return s + "]";
     }
 }

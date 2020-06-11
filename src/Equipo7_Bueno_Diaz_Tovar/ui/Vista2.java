@@ -37,7 +37,7 @@ public class Vista2 implements Vista {
                     .replace("ingenieria_mecatronica", "Ingeniería Mecatrónica"));
             boton.setPrefWidth(180);
             layout.getChildren().add(boton);
-            this.botones.add(boton, this.botones.getSize());
+            this.botones.add(boton, this.botones.size());
             temp = temp.getNext();
         } while (temp != null);
         atras = new Button("Atrás");

@@ -61,7 +61,7 @@ public class Main extends Application {
                         System.out.println(ex.toString());
                     }
                     System.out.printf("%s%d\n", "Plan cargado = \t\t\t", System.currentTimeMillis());
-                    planes.add(plan, planes.getSize());
+                    planes.add(plan, planes.size());
                 }
             }
         } catch (FileNotFoundException ex) {

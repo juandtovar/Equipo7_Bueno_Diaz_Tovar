@@ -8,9 +8,9 @@ public class Plan implements Serializable {
 
     private String nombre;
     private int n_semestres;
-    private ArrayList<Materia>[] semestres;
-    private ArrayList<Materia> optativas;
-    private ArrayList<Materia>[] materiasVistas;
+    private Chain<Materia>[] semestres;
+    private Chain<Materia> optativas;
+    private Chain<Materia>[] materiasVistas;
     private LinkedAVLTree<Identificador> identificadores;
     private int creditosDiscp;
     private int creditosFund;
@@ -27,12 +27,12 @@ public class Plan implements Serializable {
         this.creditosElect = creditosElect;
         this.creditosTotales = this.creditosDiscp + this.creditosFund + this.creditosElect;
         this.n_semestres = n_semestres;
-        this.semestres = new ArrayList[n_semestres];
-        this.optativas = new ArrayList<>();
+        this.semestres = new Chain[n_semestres];
+        this.optativas = new Chain<>();
         this.identificadores = new LinkedAVLTree();
-        this.materiasVistas = new ArrayList[n_semestres];
+        this.materiasVistas = new Chain[n_semestres];
         for (int i = 0; i < n_semestres; i++) {
-            this.materiasVistas[i] = new ArrayList<>();
+            this.materiasVistas[i] = new Chain<>();
         }
         this.maxMaterias = maxMaterias;
         this.nMaterias = nMaterias;
@@ -63,7 +63,7 @@ public class Plan implements Serializable {
                     this.optativas.add(materia);
                 } else {
                     if (semestres[semestre - 1] == null) {
-                        ArrayList<Materia> semestreLista = new ArrayList<>();
+                        Chain<Materia> semestreLista = new Chain<>();
                         this.semestres[semestre - 1] = semestreLista;
                         semestreLista.add(materia);
                     } else {
@@ -103,19 +103,19 @@ public class Plan implements Serializable {
         this.n_semestres = n_semestres;
     }
 
-    public ArrayList<Materia>[] getSemestres() {
+    public Chain<Materia>[] getSemestres() {
         return semestres;
     }
 
-    public void setSemestres(ArrayList<Materia>[] semestres) {
+    public void setSemestres(Chain<Materia>[] semestres) {
         this.semestres = semestres;
     }
 
-    public ArrayList<Materia> getOptativas() {
+    public Chain<Materia> getOptativas() {
         return optativas;
     }
 
-    public void setOptativas(ArrayList<Materia> optativas) {
+    public void setOptativas(Chain<Materia> optativas) {
         this.optativas = optativas;
     }
 
@@ -159,11 +159,11 @@ public class Plan implements Serializable {
         this.PAPA = PAPA;
     }
 
-    public ArrayList<Materia>[] getMateriasVistas() {
+    public Chain<Materia>[] getMateriasVistas() {
         return materiasVistas;
     }
 
-    public void setMateriasVistas(ArrayList<Materia>[] vistas) {
+    public void setMateriasVistas(Chain<Materia>[] vistas) {
         this.materiasVistas = vistas;
     }
 
@@ -188,7 +188,7 @@ public class Plan implements Serializable {
         String s = "";
         for (int i = 0; i < n_semestres; i++) {
             s += "[";
-            ArrayList<Materia> sem = this.getSemestres()[i];
+            Chain<Materia> sem = this.getSemestres()[i];
             for (int j = 0; j < sem.size(); j++) {
                 if (j == sem.size() - 1) {
                     s += sem.get(j).toString();

@@ -46,7 +46,7 @@ public class MiAvance {
 
     public static boolean prerrequisitosVistos(Plan plan, Identificador materia) {
         Materia temp = plan.getSemestres()[materia.getSemestre() - 1].get(materia.getPosición());
-        for (int i = 0; i < temp.getPrerrequisitos().getSize(); i++) {
+        for (int i = 0; i < temp.getPrerrequisitos().size(); i++) {
             long prerrequisito = temp.getPrerrequisitos().get(i);
             Identificador iden_prerrequisito = (Identificador) plan.getIdentificadores().find(new Identificador(prerrequisito, 0, 0)).getElement();
             Materia mat = plan.getSemestres()[iden_prerrequisito.getSemestre() - 1].get(iden_prerrequisito.getPosición());
@@ -61,7 +61,7 @@ public class MiAvance {
         int acumulado = 0;
         int creditosVistos = 0;
         for (int i = 0; i < plan.getN_semestres(); i++) {
-            ArrayList<Materia> materiasSemestre = plan.getMateriasVistas()[i];
+            Chain<Materia> materiasSemestre = plan.getMateriasVistas()[i];
             if (!materiasSemestre.isEmpty()) {
                 for (int j = 0; j < materiasSemestre.size(); j++) {
                     acumulado += plan.getMateriasVistas()[i].get(j).getLastNota() * plan.getMateriasVistas()[i].get(j).getCreditos();
@@ -77,7 +77,7 @@ public class MiAvance {
         double acumuladoDisciplinar = 0;
         double acumuladoElectivas = 0;
         for (int i = 0; i < plan.getN_semestres(); i++) {
-            ArrayList<Materia> materiasSemestre = plan.getMateriasVistas()[i];
+            Chain<Materia> materiasSemestre = plan.getMateriasVistas()[i];
             try {
                 if (materiasSemestre.get(0) != null) {
                     for (int j = 0; j < materiasSemestre.size(); j++) {

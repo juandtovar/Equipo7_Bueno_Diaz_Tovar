@@ -69,11 +69,11 @@ public class Materia implements Serializable {
     }
 
     public Double getLastNota() {
-        return this.nota.getTail().getElement();
+        return this.nota.get(this.nota.size() - 1);
     }
 
     public void setNota(double nota) {
-        this.nota.add(nota, this.nota.getSize());
+        this.nota.add(nota, this.nota.size());
     }
 
     public Chain<Long> getPrerrequisitos() {
