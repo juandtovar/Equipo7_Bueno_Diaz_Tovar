@@ -2,24 +2,23 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.Serializable;
 
-public class BinaryTreeNode<T> implements Serializable {
+public class LinkedBinaryTreeNode<T> implements Serializable {
 
     private T element;
     private int height;
-    private BinaryTreeNode<T> left;
-    private BinaryTreeNode<T> right;
-    private BinaryTreeNode<T> parent;
+    private LinkedBinaryTreeNode<T> left;
+    private LinkedBinaryTreeNode<T> right;
+    private LinkedBinaryTreeNode<T> parent;
 
-    public BinaryTreeNode() {
+    public LinkedBinaryTreeNode() {
 
     }
 
-    public BinaryTreeNode(T element) {
+    public LinkedBinaryTreeNode(T element) {
         this.element = element;
         this.left = null;
         this.right = null;
         this.parent = null;
-        this.height = 0;
     }
 
     public T getElement() {
@@ -38,27 +37,27 @@ public class BinaryTreeNode<T> implements Serializable {
         this.height = height;
     }
 
-    public BinaryTreeNode<T> getLeft() {
+    public LinkedBinaryTreeNode<T> getLeft() {
         return left;
     }
 
-    public void setLeft(BinaryTreeNode<T> left) {
+    public void setLeft(LinkedBinaryTreeNode<T> left) {
         this.left = left;
     }
 
-    public BinaryTreeNode<T> getRight() {
+    public LinkedBinaryTreeNode<T> getRight() {
         return right;
     }
 
-    public void setRight(BinaryTreeNode<T> right) {
+    public void setRight(LinkedBinaryTreeNode<T> right) {
         this.right = right;
     }
 
-    public BinaryTreeNode<T> getParent() {
+    public LinkedBinaryTreeNode<T> getParent() {
         return parent;
     }
 
-    public void setParent(BinaryTreeNode<T> parent) {
+    public void setParent(LinkedBinaryTreeNode<T> parent) {
         this.parent = parent;
     }
 

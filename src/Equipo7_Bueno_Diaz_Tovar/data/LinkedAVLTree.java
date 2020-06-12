@@ -8,8 +8,8 @@ public class LinkedAVLTree<T extends Comparable<T>> extends LinkedBinarySearchTr
 
     }
 
-    private BinaryTreeNode simpleRotationLeft(BinaryTreeNode x) {
-        BinaryTreeNode y = x.getLeft();
+    private LinkedBinaryTreeNode simpleRotationLeft(LinkedBinaryTreeNode x) {
+        LinkedBinaryTreeNode y = x.getLeft();
         x.setLeft(y.getRight());
         y.setRight(x);
         x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
@@ -17,8 +17,8 @@ public class LinkedAVLTree<T extends Comparable<T>> extends LinkedBinarySearchTr
         return y;
     }
 
-    private BinaryTreeNode simpleRotationRight(BinaryTreeNode x) {
-        BinaryTreeNode y = x.getRight();
+    private LinkedBinaryTreeNode simpleRotationRight(LinkedBinaryTreeNode x) {
+        LinkedBinaryTreeNode y = x.getRight();
         x.setRight(y.getLeft());
         y.setLeft(x);
         x.setHeight(Math.max(height(x.getLeft()),
@@ -28,36 +28,37 @@ public class LinkedAVLTree<T extends Comparable<T>> extends LinkedBinarySearchTr
         return y;
     }
 
-    private BinaryTreeNode doubleRotationLeft(BinaryTreeNode x) {
+    private LinkedBinaryTreeNode doubleRotationLeft(LinkedBinaryTreeNode x) {
         x.setLeft(simpleRotationRight(x.getLeft()));
         return simpleRotationLeft(x);
     }
 
-    private BinaryTreeNode doubleRotationRight(BinaryTreeNode x) {
+    private LinkedBinaryTreeNode doubleRotationRight(LinkedBinaryTreeNode x) {
         x.setRight(simpleRotationLeft(x.getRight()));
         return simpleRotationRight(x);
     }
 
-    private BinaryTreeNode balance(BinaryTreeNode node) {
+    private LinkedBinaryTreeNode balance(LinkedBinaryTreeNode node) {
         if (node == null) {
             return node;
         }
         if (height(node.getLeft()) - height(node.getRight()) > 1) {
-            if (height(node.getLeft().getLeft()) >= height(node.getLeft().getRight())) {
+            if (height(node.getLeft().getLeft())
+                    >= height(node.getLeft().getRight())) {
                 node = simpleRotationLeft(node);
             } else {
                 node = doubleRotationLeft(node);
             }
         } else if (height(node.getRight()) - height(node.getLeft()) > 1) {
-
-            if (height(node.getRight().getRight()) >= height(node.getRight().getLeft())) {
+            if (height(node.getRight().getRight())
+                    >= height(node.getRight().getLeft())) {
                 node = simpleRotationRight(node);
             } else {
                 node = doubleRotationRight(node);
             }
         }
-
-        node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
+        node.setHeight(Math.max(height(node.getLeft()),
+                height(node.getRight())) + 1);
         return node;
     }
 
@@ -65,25 +66,25 @@ public class LinkedAVLTree<T extends Comparable<T>> extends LinkedBinarySearchTr
         setRoot(add(getRoot(), element));
     }
 
-    private BinaryTreeNode<T> add(BinaryTreeNode<T> nodo, T element) {
-        if (nodo == null) {
+    private LinkedBinaryTreeNode<T> add(LinkedBinaryTreeNode<T> node, T element) {
+        if (node == null) {
             this.setSize(this.getSize() + 1);
-            return new BinaryTreeNode<>(element);
+            return new LinkedBinaryTreeNode<>(element);
         }
-        int comparation = element.compareTo(nodo.getElement());
+        int comparation = element.compareTo(node.getElement());
         if (comparation < 0) {
-            nodo.setLeft(add(nodo.getLeft(), element));
+            node.setLeft(add(node.getLeft(), element));
         } else if (comparation > 0) {
-            nodo.setRight(add(nodo.getRight(), element));
+            node.setRight(add(node.getRight(), element));
         }
-        return balance(nodo);
+        return balance(node);
     }
 
     public void remove(T element) {
         setRoot(remove(getRoot(), element));
     }
 
-    private BinaryTreeNode<T> remove(BinaryTreeNode<T> node, T element) {
+    private LinkedBinaryTreeNode<T> remove(LinkedBinaryTreeNode<T> node, T element) {
         if (node == null) {
             return null;
         }

@@ -1,6 +1,6 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
-import Equipo7_Bueno_Diaz_Tovar.data.Chain;
+import Equipo7_Bueno_Diaz_Tovar.data.SingleLinkedList;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
 import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import javafx.event.ActionEvent;
@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 public class Controlador1 {
 
     private Vista1 vista;
-    private Chain<Plan> planes;
+    private SingleLinkedList<Plan> planes;
 
-    public Controlador1(Chain<Plan> planes) {
+    public Controlador1(SingleLinkedList<Plan> planes) {
         this.vista = new Vista1();
         this.planes = planes;
         this.vista.getBtCrearPlan().setOnAction(new Evento1());
@@ -40,11 +40,11 @@ public class Controlador1 {
         this.vista = vista;
     }
 
-    public Chain<Plan> getPlanes() {
+    public SingleLinkedList<Plan> getPlanes() {
         return planes;
     }
 
-    public void setPlanes(Chain<Plan> planes) {
+    public void setPlanes(SingleLinkedList<Plan> planes) {
         this.planes = planes;
     }
 

@@ -1,4 +1,4 @@
-package Equipo7_Bueno_Diaz_Tovar.data;
+package Equipo7_Bueno_Diaz_Tovar.data.interfaces;
 
 public interface LinearList<T> {
 
@@ -11,8 +11,6 @@ public interface LinearList<T> {
     int indexOf(T element);
 
     T remove(int i);
-    
-    T remove(T element);
 
     void add(T element, int i);
     

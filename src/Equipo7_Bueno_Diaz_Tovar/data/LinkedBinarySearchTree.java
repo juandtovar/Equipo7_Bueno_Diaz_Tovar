@@ -4,14 +4,23 @@ import java.io.Serializable;
 
 public class LinkedBinarySearchTree<T extends Comparable<T>> extends LinkedBinaryTree<T> implements Serializable {
 
+    private int size;
+
     public LinkedBinarySearchTree() {
         super();
+        this.size = 0;
     }
 
-    public BinaryTreeNode<T> find(T element) {
-        BinaryTreeNode<T> temp = getRoot();
+    @Override
+    public int getSize() {
+        return super.getSize();
+    }
+
+    public LinkedBinaryTreeNode<T> find(T element) {
+        LinkedBinaryTreeNode<T> temp = getRoot();
+        int com;
         while (temp != null) {
-            int com = element.compareTo(temp.getElement());
+            com = element.compareTo(temp.getElement());
             if (com == 0) {
                 return temp;
             } else if (com > 0) {
@@ -24,9 +33,10 @@ public class LinkedBinarySearchTree<T extends Comparable<T>> extends LinkedBinar
     }
 
     public boolean contains(T element) {
-        BinaryTreeNode<T> temp = getRoot();
+        LinkedBinaryTreeNode<T> temp = getRoot();
+        int com;
         while (temp != null) {
-            int com = element.compareTo(temp.getElement());
+            com = element.compareTo(temp.getElement());
             if (com == 0) {
                 return true;
             }
@@ -43,12 +53,8 @@ public class LinkedBinarySearchTree<T extends Comparable<T>> extends LinkedBinar
         return getMin(getRoot());
     }
 
-    public T getMax() {
-        return getMax(getRoot());
-    }
-
-    public T getMin(BinaryTreeNode<T> nodeInicial) {
-        BinaryTreeNode<T> node = nodeInicial;
+    public T getMin(LinkedBinaryTreeNode<T> nodeInicial) {
+        LinkedBinaryTreeNode<T> node = nodeInicial;
         T minElement = null;
         while (node != null) {
             minElement = node.getElement();
@@ -57,14 +63,22 @@ public class LinkedBinarySearchTree<T extends Comparable<T>> extends LinkedBinar
         return minElement;
     }
 
-    public T getMax(BinaryTreeNode<T> nodeInicial) {
-        BinaryTreeNode<T> node = nodeInicial;
+    public T getMax() {
+        return getMax(getRoot());
+    }
+
+    public T getMax(LinkedBinaryTreeNode<T> nodeInicial) {
+        LinkedBinaryTreeNode<T> node = nodeInicial;
         T maxElement = null;
         while (node != null) {
             maxElement = node.getElement();
             node = node.getRight();
         }
         return maxElement;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
 }

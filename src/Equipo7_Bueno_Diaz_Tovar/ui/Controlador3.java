@@ -1,14 +1,14 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
-import Equipo7_Bueno_Diaz_Tovar.data.Chain;
+import Equipo7_Bueno_Diaz_Tovar.data.SingleLinkedList;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
 
 public class Controlador3 {
 
     private Vista3 vista;
-    private Chain<Plan> planes;
+    private SingleLinkedList<Plan> planes;
 
-    public Controlador3(Chain<Plan> planes, String plan) {
+    public Controlador3(SingleLinkedList<Plan> planes, String plan) {
         this.planes = planes;
         this.vista = new Vista3(planes, plan);
     }
@@ -21,11 +21,11 @@ public class Controlador3 {
         this.vista = vista;
     }
 
-    public Chain<Plan> getPlanes() {
+    public SingleLinkedList<Plan> getPlanes() {
         return planes;
     }
 
-    public void setPlanes(Chain<Plan> planes) {
+    public void setPlanes(SingleLinkedList<Plan> planes) {
         this.planes = planes;
     }
 

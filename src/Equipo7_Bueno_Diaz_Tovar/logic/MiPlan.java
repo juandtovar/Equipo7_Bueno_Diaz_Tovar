@@ -9,7 +9,7 @@ public class MiPlan {
 
     public static void insertarMateria(Plan plan, Materia materia) {
         System.out.printf("%s%d\n", "Inicio insertar materia = \t", System.currentTimeMillis());
-        BinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(materia.getCodigo(), 0, 0));
+        LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(materia.getCodigo(), 0, 0));
         if (temp != null) {
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Insertar materia");
@@ -36,13 +36,14 @@ public class MiPlan {
 
     public static void eliminarMateria(Plan plan, long codigo) {
         System.out.printf("%s%d\n", "Inicio eliminar materia = \t", System.currentTimeMillis());
-        BinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
+        LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
         if (temp != null) {
             int pos = temp.getElement().getPosición();
             int sem = temp.getElement().getSemestre();
             if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
                 try {
-                    plan.getMateriasVistas()[sem - 1].remove(plan.getSemestres()[sem - 1].get(pos));
+                    int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
+                    plan.getMateriasVistas()[sem - 1].remove(i);
                 } catch (Exception ex) {
 
                 }
@@ -70,7 +71,7 @@ public class MiPlan {
 
     public static void consultarMateria(Plan plan, long codigo) {
         System.out.printf("%s%d\n", "Inicio consultar materia = \t", System.currentTimeMillis());
-        BinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
+        LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
         if (temp != null) {
             int semestre = temp.getElement().getSemestre();
             int pos = temp.getElement().getPosición();

@@ -9,18 +9,16 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static Pila<Integer> pestañas = new Pila<>();
+    public static LinkedStack<Integer> pestañas = new LinkedStack<>();
 
     public static void main(String[] args) {
-        Identificador id1 = new Identificador(1000004, 0, 0);
-        Identificador id2 = new Identificador(1000004, 0, 0);
         Application.launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         System.out.printf("%s%d\n", "Inicio cargar materias = \t", System.currentTimeMillis());
-        Chain<Plan> planes = new Chain<>();
+        SingleLinkedList<Plan> planes = new SingleLinkedList<>();
         //CARGAR INFO BÁSICA PLAN
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
@@ -67,7 +65,7 @@ public class Main extends Application {
         } catch (FileNotFoundException ex) {
 
         }
-        
+
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);
@@ -79,10 +77,10 @@ public class Main extends Application {
 
     }
 
-    public static Pila<Integer> getPestañas() {
+    public static LinkedStack<Integer> getPestañas() {
         return pestañas;
     }
-    
+
     public static void deletePestañas() {
         Main.pestañas.pop();
         System.out.println(pestañas);

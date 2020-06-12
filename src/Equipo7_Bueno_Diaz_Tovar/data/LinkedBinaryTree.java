@@ -1,12 +1,11 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
+import Equipo7_Bueno_Diaz_Tovar.data.interfaces.BinaryTree;
 import java.io.Serializable;
 
 public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
 
-    private BinaryTreeNode<T> root;
-    private int height;
-    private int size = 0;
+    private LinkedBinaryTreeNode<T> root;
 
     @Override
     public boolean isEmpty() {
@@ -23,7 +22,7 @@ public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
         preOrder(this.root);
     }
 
-    public void preOrder(BinaryTreeNode<T> node) {
+    public void preOrder(LinkedBinaryTreeNode<T> node) {
         if (node != null) {
             System.out.print(node.toString() + " ");
             preOrder(node.getLeft());
@@ -36,7 +35,7 @@ public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
         postOrder(this.root);
     }
 
-    public void postOrder(BinaryTreeNode<T> node) {
+    public void postOrder(LinkedBinaryTreeNode<T> node) {
         if (node != null) {
             postOrder(node.getLeft());
             postOrder(node.getRight());
@@ -50,26 +49,27 @@ public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
         System.out.println("");
     }
 
-    public void inOrder(BinaryTreeNode<T> node) {
+    public void inOrder(LinkedBinaryTreeNode<T> node) {
         if (node != null) {
-            postOrder(node.getLeft());
+            inOrder(node.getLeft());
             System.out.print(node.toString() + " ");
-            postOrder(node.getRight());
+            inOrder(node.getRight());
         }
     }
 
     @Override
     public void levelOrder() {
-        Pila<BinaryTreeNode<T>> pila = new Pila<>();
-        pila.push(this.root);
-        while (!pila.isEmpty()) {
-            BinaryTreeNode<T> temp = (BinaryTreeNode<T>) pila.pop();
-            System.out.println(temp + " ");
-            if (temp.getLeft() != null) {
-                pila.push(temp.getLeft());
+        LinkedQueue<LinkedBinaryTreeNode<T>> queue = new LinkedQueue<>();
+        queue.put(this.root);
+        LinkedBinaryTreeNode<T> node;
+        while (!queue.isEmpty()) {
+            node = (LinkedBinaryTreeNode<T>) queue.remove();
+            System.out.print(node + " ");
+            if (node.getLeft() != null) {
+                queue.put(node.getLeft());
             }
-            if (temp.getRight() != null) {
-                pila.push(temp.getRight());
+            if (node.getRight() != null) {
+                queue.put(node.getRight());
             }
         }
     }
@@ -78,22 +78,18 @@ public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
         return getSize(this.root);
     }
 
-    public int getSize(BinaryTreeNode<T> node) {
+    public int getSize(LinkedBinaryTreeNode<T> node) {
         if (node == null) {
             return 0;
         }
         return getSize(node.getLeft()) + getSize(node.getRight()) + 1;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public int getHeight() {
         return height(this.root);
     }
 
-    public static <T> int height(BinaryTreeNode<T> node) {
+    public int height(LinkedBinaryTreeNode<T> node) {
         if (node == null) {
             return 0;
         }
@@ -106,11 +102,11 @@ public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
         }
     }
 
-    public BinaryTreeNode<T> getRoot() {
+    public LinkedBinaryTreeNode<T> getRoot() {
         return root;
     }
 
-    public void setRoot(BinaryTreeNode<T> root) {
+    public void setRoot(LinkedBinaryTreeNode<T> root) {
         this.root = root;
     }
 }

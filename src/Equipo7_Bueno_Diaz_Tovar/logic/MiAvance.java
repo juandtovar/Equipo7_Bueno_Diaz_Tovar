@@ -13,7 +13,7 @@ import javafx.stage.StageStyle;
 public class MiAvance {
 
     public static void actualizarNota(Plan plan, long codigo, double nota) {
-        BinaryTreeNode<Identificador> materia = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
+        LinkedBinaryTreeNode<Identificador> materia = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
         int semestre = materia.getElement().getSemestre();
         int pos = materia.getElement().getPosición();
         if (prerrequisitosVistos(plan, materia.getElement())) {
@@ -61,7 +61,7 @@ public class MiAvance {
         int acumulado = 0;
         int creditosVistos = 0;
         for (int i = 0; i < plan.getN_semestres(); i++) {
-            Chain<Materia> materiasSemestre = plan.getMateriasVistas()[i];
+            SingleLinkedList<Materia> materiasSemestre = plan.getMateriasVistas()[i];
             if (!materiasSemestre.isEmpty()) {
                 for (int j = 0; j < materiasSemestre.size(); j++) {
                     acumulado += plan.getMateriasVistas()[i].get(j).getLastNota() * plan.getMateriasVistas()[i].get(j).getCreditos();
@@ -77,7 +77,7 @@ public class MiAvance {
         double acumuladoDisciplinar = 0;
         double acumuladoElectivas = 0;
         for (int i = 0; i < plan.getN_semestres(); i++) {
-            Chain<Materia> materiasSemestre = plan.getMateriasVistas()[i];
+            SingleLinkedList<Materia> materiasSemestre = plan.getMateriasVistas()[i];
             try {
                 if (materiasSemestre.get(0) != null) {
                     for (int j = 0; j < materiasSemestre.size(); j++) {

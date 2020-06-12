@@ -1,9 +1,7 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
 import Equipo7_Bueno_Diaz_Tovar.data.*;
-import Equipo7_Bueno_Diaz_Tovar.logic.Main;
-import Equipo7_Bueno_Diaz_Tovar.logic.MiAvance;
-import Equipo7_Bueno_Diaz_Tovar.logic.MiPlan;
+import Equipo7_Bueno_Diaz_Tovar.logic.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,11 +21,11 @@ import javafx.stage.StageStyle;
 public class Vista3 implements Vista {
 
     private Scene escena;
-    private static Chain<Plan> planes;
+    private static SingleLinkedList<Plan> planes;
     private String planAImprimir;
     private Plan planActual;
     private ScrollPane sp;
-    private VBox layout = new VBox();
+    private VBox layout;
     private HBox layoutHor, layoutBotonesPrincipales, layoutBotonesSecundarios;
     private VBox[] columnas;
     private TextField[] MateriaTF;
@@ -37,9 +35,9 @@ public class Vista3 implements Vista {
     private Button consultarMateria, consultar;
     private Button editar, mi_avance, atras, cancelarAccion;
 
-    public Vista3(Chain<Plan> planes, String plan) {
+    public Vista3(SingleLinkedList<Plan> planes, String plan) {
         Vista3.planes = planes;
-        ChainNode<Plan> temp1 = Vista3.planes.getHead();
+        SingleLinkedListNode<Plan> temp1 = Vista3.planes.getHead();
         do {
             if (temp1.getElement().getNombre().equals(plan)) {
                 this.planActual = temp1.getElement();
@@ -259,13 +257,7 @@ public class Vista3 implements Vista {
 
     public final void dibujarMalla() {
 
-        System.out.println(planActual.toString() + '\n');
-        for (Chain<Materia> materiasVista : planActual.getMateriasVistas()) {
-            System.out.println(materiasVista);
-        }
-        System.out.println("");
-        planActual.getIdentificadores().inOrder();
-
+        this.layout = new VBox();
         this.layoutHor = new HBox();
         this.layoutBotonesPrincipales = new HBox();
         this.layoutBotonesSecundarios = new HBox();
@@ -338,21 +330,21 @@ public class Vista3 implements Vista {
         this.planActual = planActual;
     }
 
-    public static Chain<Plan> getPlanes() {
-        return planes;
+    public static SingleLinkedList<Plan> getPlanes() {
+        return Vista3.planes;
     }
 
-    public static void setPlanes(Chain<Plan> planes) {
+    public static void setPlanes(SingleLinkedList<Plan> planes) {
         Vista3.planes = planes;
     }
 
     @Override
     public void goBack() {
         Main.deletePestañas();
-        MiAvance.salvarAvance(planActual);
+        MiAvance.salvarAvance(this.planActual);
         Singleton singleton = Singleton.getSingleton();
         Stage stage = singleton.getStage();
-        Controlador2 controlador = new Controlador2(planes);
+        Controlador2 controlador = new Controlador2(Vista3.planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
         stage.show();

@@ -1,7 +1,7 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
-import Equipo7_Bueno_Diaz_Tovar.data.Chain;
-import Equipo7_Bueno_Diaz_Tovar.data.ChainNode;
+import Equipo7_Bueno_Diaz_Tovar.data.SingleLinkedList;
+import Equipo7_Bueno_Diaz_Tovar.data.SingleLinkedListNode;
 import Equipo7_Bueno_Diaz_Tovar.data.Plan;
 import Equipo7_Bueno_Diaz_Tovar.logic.Main;
 import javafx.event.ActionEvent;
@@ -16,13 +16,13 @@ public class Vista2 implements Vista {
 
     private Scene escena;
     private Label elegir;
-    private Chain<Button> botones;
-    private static Chain<Plan> planes;
-    private Button atras;
+    private SingleLinkedList<Button> botones;
+    private static SingleLinkedList<Plan> planes;
+    private final Button atras;
 
-    public Vista2(Chain<Plan> planes) {
-        this.botones = new Chain<>();
-        this.planes = planes;
+    public Vista2(SingleLinkedList<Plan> planes) {
+        this.botones = new SingleLinkedList<>();
+        Vista2.planes = planes;
         this.elegir = new Label("                Eliga su plan");
         HBox lh = new HBox();
         VBox layout = new VBox();
@@ -30,7 +30,7 @@ public class Vista2 implements Vista {
         layout.setSpacing(10);
         layout.getChildren().add(elegir);
         lh.getChildren().add(new Label(""));
-        ChainNode<Plan> temp = planes.getHead();
+        SingleLinkedListNode<Plan> temp = planes.getHead();
         do {
             Button boton = new Button(temp.getElement().getNombre()
                     .replace("ingenieria_mecanica", "Ingeniería Mecánica")
@@ -79,20 +79,20 @@ public class Vista2 implements Vista {
         this.elegir = elegir;
     }
 
-    public Chain<Button> getBotones() {
+    public SingleLinkedList<Button> getBotones() {
         return botones;
     }
 
-    public void setBotones(Chain<Button> botones) {
+    public void setBotones(SingleLinkedList<Button> botones) {
         this.botones = botones;
     }
 
-    public Chain<Plan> getPlanes() {
+    public SingleLinkedList<Plan> getPlanes() {
         return planes;
     }
 
-    public void setPlanes(Chain<Plan> planes) {
-        this.planes = planes;
+    public void setPlanes(SingleLinkedList<Plan> planes) {
+        Vista2.planes = planes;
     }
 
 }

@@ -2,22 +2,22 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.Serializable;
 
-public class ChainNode<T> implements Serializable {
+public class SingleLinkedListNode<T> implements Serializable {
 
     private T element;
-    private ChainNode<T> next;
+    private SingleLinkedListNode<T> next;
 
-    public ChainNode() {
+    public SingleLinkedListNode() {
         this.element = null;
         this.next = null;
     }
 
-    public ChainNode(T element) {
+    public SingleLinkedListNode(T element) {
         this.element = element;
         this.next = null;
     }
 
-    public ChainNode(T element, ChainNode<T> next) {
+    public SingleLinkedListNode(T element, SingleLinkedListNode<T> next) {
         this.element = element;
         this.next = next;
     }
@@ -30,11 +30,11 @@ public class ChainNode<T> implements Serializable {
         this.element = element;
     }
 
-    public ChainNode<T> getNext() {
+    public SingleLinkedListNode<T> getNext() {
         return next;
     }
 
-    public void setNext(ChainNode<T> next) {
+    public void setNext(SingleLinkedListNode<T> next) {
         this.next = next;
     }
 

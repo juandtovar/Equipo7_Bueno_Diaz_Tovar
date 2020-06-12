@@ -9,8 +9,8 @@ public class Materia implements Serializable {
     private int creditos;
     private String tipologia;
     private int semestre;
-    private final Chain<Double> nota;
-    private Chain<Long> prerrequisitos;
+    private final SingleLinkedList<Double> nota;
+    private SingleLinkedList<Long> prerrequisitos;
     private boolean vista;
 
     public Materia(long codigo, String name, int creditos, String tipologia, int semestre) {
@@ -18,8 +18,8 @@ public class Materia implements Serializable {
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
-        this.prerrequisitos = new Chain<>();
-        this.nota = new Chain<>();
+        this.prerrequisitos = new SingleLinkedList<>();
+        this.nota = new SingleLinkedList<>();
         this.semestre = semestre;
         this.vista = false;
     }
@@ -64,7 +64,7 @@ public class Materia implements Serializable {
         this.semestre = semestre;
     }
 
-    public Chain<Double> getNota() {
+    public SingleLinkedList<Double> getNota() {
         return this.nota;
     }
 
@@ -76,11 +76,11 @@ public class Materia implements Serializable {
         this.nota.add(nota, this.nota.size());
     }
 
-    public Chain<Long> getPrerrequisitos() {
+    public SingleLinkedList<Long> getPrerrequisitos() {
         return prerrequisitos;
     }
 
-    public void setPrerrequisitos(Chain<Long> prerrequisitos) {
+    public void setPrerrequisitos(SingleLinkedList<Long> prerrequisitos) {
         this.prerrequisitos = prerrequisitos;
     }
 

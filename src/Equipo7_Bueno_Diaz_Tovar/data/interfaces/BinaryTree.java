@@ -1,4 +1,4 @@
-package Equipo7_Bueno_Diaz_Tovar.data;
+package Equipo7_Bueno_Diaz_Tovar.data.interfaces;
 
 public interface BinaryTree<T> {
 

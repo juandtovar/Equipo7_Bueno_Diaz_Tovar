@@ -22,7 +22,7 @@ public class Vista4 implements Vista {
     private final Plan plan;
     private final ObservableList<PieChart.Data> pieChartFundamentacion, pieChartDisciplinar, pieChartLibreEleccion;
     private Label PAPA, PA;
-    private Button atras;
+    private final Button atras;
 
     public Vista4(Plan plan) {
         this.plan = plan;

@@ -10,14 +10,14 @@ import javafx.stage.Stage;
 public class Controlador2 {
 
     private Vista2 vista;
-    private Chain<Plan> planes;
+    private SingleLinkedList<Plan> planes;
     private String plan;
 
-    public Controlador2(Chain<Plan> planes) {
+    public Controlador2(SingleLinkedList<Plan> planes) {
         this.planes = planes;
         this.vista = new Vista2(this.planes);
-        ChainNode<Button> temp1 = this.vista.getBotones().getHead();
-        ChainNode<Plan> temp2 = this.planes.getHead();
+        SingleLinkedListNode<Button> temp1 = this.vista.getBotones().getHead();
+        SingleLinkedListNode<Plan> temp2 = this.planes.getHead();
         do {
             this.plan = temp2.getElement().getNombre();
             temp1.getElement().setOnAction(new Evento2(this.planes, this.plan));
@@ -28,10 +28,10 @@ public class Controlador2 {
 
     private class Evento2 implements EventHandler<ActionEvent> {
 
-        Chain<Plan> planes;
+        SingleLinkedList<Plan> planes;
         String plan;
 
-        public Evento2(Chain<Plan> planes, String plan) {
+        public Evento2(SingleLinkedList<Plan> planes, String plan) {
             this.planes = planes;
             this.plan = plan;
         }
@@ -57,11 +57,11 @@ public class Controlador2 {
         this.vista = vista;
     }
 
-    public Chain<Plan> getPlanes() {
+    public SingleLinkedList<Plan> getPlanes() {
         return planes;
     }
 
-    public void setPlanes(Chain<Plan> planes) {
+    public void setPlanes(SingleLinkedList<Plan> planes) {
         this.planes = planes;
     }
 
