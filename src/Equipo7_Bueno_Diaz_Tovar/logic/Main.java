@@ -20,6 +20,7 @@ public class Main extends Application {
         System.out.printf("%s%d\n", "Inicio cargar materias = \t", System.currentTimeMillis());
         SingleLinkedList<Plan> planes = new SingleLinkedList<>();
         //CARGAR INFO BÁSICA PLAN
+
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
             FileInputStream file, fileInput;
@@ -72,7 +73,8 @@ public class Main extends Application {
         Controlador1 controlador = new Controlador1(planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
-        stage.setTitle("Unet tu malla personalizada");
+        stage.centerOnScreen();
+        stage.setTitle("UNet tu malla personalizada");
         stage.show();
 
     }

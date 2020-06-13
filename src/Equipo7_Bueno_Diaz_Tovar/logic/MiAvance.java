@@ -41,7 +41,7 @@ public class MiAvance {
             dialogo.initStyle(StageStyle.UTILITY);
             dialogo.showAndWait();
         }
-        salvarAvance(plan);
+        //salvarAvance(plan);
     }
 
     public static boolean prerrequisitosVistos(Plan plan, Identificador materia) {

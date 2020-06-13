@@ -40,8 +40,8 @@ public class Vista2 implements Vista {
             this.botones.add(boton, this.botones.size());
             temp = temp.getNext();
         } while (temp != null);
-        atras = new Button("Atrás");
-        atras.setOnAction((ActionEvent event) -> {
+        this.atras = new Button("Atrás");
+        this.atras.setOnAction((ActionEvent event) -> {
             goBack();
         });
         layout.getChildren().add(atras);
@@ -63,7 +63,7 @@ public class Vista2 implements Vista {
         Controlador1 controlador = new Controlador1(planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
-        stage.setTitle("Unet tu malla personalizada");
+        stage.centerOnScreen();
         stage.show();
     }
 

@@ -28,6 +28,7 @@ public class Controlador1 {
             Controlador2 controlador = new Controlador2(planes);
             Vista vista = controlador.getVista();
             stage.setScene(vista.getScena());
+            stage.centerOnScreen();
             stage.show();
         }
     }

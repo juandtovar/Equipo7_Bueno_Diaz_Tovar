@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class SingleLinkedList<T> implements LinearList<T>, Serializable {
 
     private SingleLinkedListNode<T> head;
+    private SingleLinkedListNode<T> tail;
     private int size;
 
     public SingleLinkedList() {
@@ -62,6 +63,9 @@ public class SingleLinkedList<T> implements LinearList<T>, Serializable {
             for (int j = 0; j < i - 1; j++) {
                 temp = temp.getNext();
             }
+            if(i == this.size() - 1) {
+                this.tail = temp;
+            }
             removedElement = temp.getNext().getElement();
             temp.setNext(temp.getNext().getNext());
         }
@@ -74,7 +78,16 @@ public class SingleLinkedList<T> implements LinearList<T>, Serializable {
         if (i < 0 || i > this.size) {
             throw new IndexOutOfBoundsException();
         }
-        if (i == 0) {
+        if (i == this.size()) {
+            if (this.size() == 0) {
+                this.head = new SingleLinkedListNode<>(element, this.head);
+                this.tail = this.head;
+            } else {
+                SingleLinkedListNode<T> node = new SingleLinkedListNode<>(element, null);
+                this.tail.setNext(node);
+                this.tail = this.tail.getNext();
+            }
+        } else if (i == 0) {
             this.head = new SingleLinkedListNode<>(element, this.head);
         } else {
             SingleLinkedListNode<T> temp = this.head;

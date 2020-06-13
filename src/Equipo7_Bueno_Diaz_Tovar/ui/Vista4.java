@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Vista4 implements Vista {
+public final class Vista4 implements Vista {
 
     private final Scene escena;
     private final Plan plan;
@@ -25,6 +25,7 @@ public class Vista4 implements Vista {
     private final Button atras;
 
     public Vista4(Plan plan) {
+
         this.plan = plan;
         VBox lh = new VBox();
         HBox layout = new HBox();
@@ -69,17 +70,24 @@ public class Vista4 implements Vista {
         layout.getChildren().add(chart3);
         lh.getChildren().add(layout);
         lh.getChildren().add(atras);
+        for (int i = 0; i < 7; i++) {
+            lh.getChildren().add(new Button(String.valueOf(i)));
+        }
+        this.escena = new Scene(lh);
 
-        this.escena = new Scene(lh, 500, 500);
+        Singleton singleton = Singleton.getSingleton();
+        Stage stage = singleton.getStage();
+        stage.setScene(this.getScena());
+        stage.setMaximized(true);
     }
 
     @Override
     public void goBack() {
         Main.deletePestañas();
-        Controlador3 controlador = new Controlador3(Vista3.getPlanes(), this.plan.getNombre());
-        Vista vista = controlador.getVista();
         Singleton singleton = Singleton.getSingleton();
         Stage stage = singleton.getStage();
+        Controlador3 controlador = new Controlador3(Vista3.getPlanes(), this.plan.getNombre());
+        Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
         stage.show();
     }

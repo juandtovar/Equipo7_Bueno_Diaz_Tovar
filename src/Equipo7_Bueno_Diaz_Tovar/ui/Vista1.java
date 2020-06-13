@@ -1,13 +1,10 @@
 package Equipo7_Bueno_Diaz_Tovar.ui;
 
-import Equipo7_Bueno_Diaz_Tovar.logic.Main;
-import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class Vista1 implements Vista {
 
@@ -21,7 +18,7 @@ public class Vista1 implements Vista {
         lh.setSpacing(50);
         layoutPrincipal = new VBox();
         layoutPrincipal.setSpacing(10);
-        titulo = new Label("Bienvenido a Unet");
+        titulo = new Label("Bienvenido a UNet");
         titulo.setStyle("-fx-text-size: 16");
         layoutPrincipal.getChildren().addAll(new Label(""), titulo);
         btCrearPlan = new Button("Crear plan");
@@ -33,9 +30,9 @@ public class Vista1 implements Vista {
 
     @Override
     public void goBack() {
-        
+
     }
-    
+
     @Override
     public Scene getScena() {
         return this.escena;

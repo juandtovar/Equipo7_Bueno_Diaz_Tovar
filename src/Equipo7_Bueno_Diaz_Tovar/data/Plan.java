@@ -53,11 +53,15 @@ public class Plan implements Serializable {
                     try {
                         cod = readFile.nextLong();
                         materia.getPrerrequisitos().add(cod);
-                    } catch (InputMismatchException ex) {
+                    } catch (Exception ex) {
                         break;
                     }
                 }
-                readFile.nextLine();
+                try {
+                    readFile.nextLine();
+                } catch (Exception ex) {
+
+                }
                 int semestre = materia.getSemestre();
                 if (semestre == 0) {
                     this.optativas.add(materia);
@@ -74,7 +78,6 @@ public class Plan implements Serializable {
                             this.semestres[materia.getSemestre() - 1].size() - 1);
                     this.identificadores.add(identificador);
                 }
-
             } while (readFile.hasNext());
         }
     }

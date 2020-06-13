@@ -31,42 +31,38 @@ public class MiPlan {
             dialogo.showAndWait();
         }
         System.out.printf("%s%d\n", "Fin insertar materia = \t\t", System.currentTimeMillis());
-        MiAvance.salvarAvance(plan);
     }
 
     public static void eliminarMateria(Plan plan, long codigo) {
         System.out.printf("%s%d\n", "Inicio eliminar materia = \t", System.currentTimeMillis());
         LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
-        if (temp != null) {
-            int pos = temp.getElement().getPosición();
-            int sem = temp.getElement().getSemestre();
-            if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
-                try {
-                    int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
-                    plan.getMateriasVistas()[sem - 1].remove(i);
-                } catch (Exception ex) {
+        int pos = temp.getElement().getPosición();
+        int sem = temp.getElement().getSemestre();
+        if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
+            try {
+                int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
+                plan.getMateriasVistas()[sem - 1].remove(i);
+            } catch (Exception ex) {
 
-                }
-                plan.getIdentificadores().remove(new Identificador(codigo, 0, 0));
-                plan.getSemestres()[sem - 1].remove(pos);
-                for (int i = pos; i < plan.getSemestres()[sem - 1].size(); i++) {
-                    long cod = plan.getSemestres()[sem - 1].get(i).getCodigo();
-                    temp = plan.getIdentificadores().find(new Identificador(cod, 0, 0));
-                    temp.getElement().setPosición(temp.getElement().getPosición() - 1);
-                }
-
-            } else {
-                Alert dialogo = new Alert(AlertType.INFORMATION);
-                dialogo.setTitle("Eliminar materia");
-                dialogo.setHeaderText(null);
-                dialogo.setContentText("Esta materia es obligatoria dentro del plan de estudios");
-                dialogo.initStyle(StageStyle.UTILITY);
-                dialogo.showAndWait();
             }
-            System.out.printf("%s%d\n", "Fin eliminar materia = \t\t", System.currentTimeMillis());
+            plan.getIdentificadores().remove(new Identificador(codigo, 0, 0));
+            plan.getSemestres()[sem - 1].remove(pos);
+            for (int i = pos; i < plan.getSemestres()[sem - 1].size(); i++) {
+                long cod = plan.getSemestres()[sem - 1].get(i).getCodigo();
+                temp = plan.getIdentificadores().find(new Identificador(cod, 0, 0));
+                temp.getElement().setPosición(temp.getElement().getPosición() - 1);
+            }
         } else {
-            alertaMateriaNoEncontrada();
+            Alert dialogo = new Alert(AlertType.INFORMATION);
+            dialogo.setTitle("Eliminar materia");
+            dialogo.setHeaderText(null);
+            dialogo.setContentText("Esta materia es obligatoria dentro del plan de estudios");
+            dialogo.initStyle(StageStyle.UTILITY);
+            dialogo.showAndWait();
         }
+        System.out.printf("%s%d\n", "Fin eliminar materia = \t\t", System.currentTimeMillis());
+
+        MiAvance.salvarAvance(plan);
     }
 
     public static void consultarMateria(Plan plan, long codigo) {
