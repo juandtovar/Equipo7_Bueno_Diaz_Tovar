@@ -12,6 +12,7 @@ public class Plan implements Serializable {
     private SingleLinkedList<Materia> optativas;
     private SingleLinkedList<Materia>[] materiasVistas;
     private LinkedAVLTree<Identificador> identificadores;
+    private long[] numeroDesbloqueos;
     private int creditosDiscp;
     private int creditosFund;
     private int creditosElect;
@@ -19,6 +20,7 @@ public class Plan implements Serializable {
     private double PAPA;
     private int maxMaterias;
     private int nMaterias;
+    private MaxHeap<Materia> materiasUrgentes;
 
     public Plan(String nombre, int creditosDiscp, int creditosFund, int creditosElect, int n_semestres, int maxMaterias, int nMaterias) {
         this.nombre = nombre;
@@ -36,6 +38,8 @@ public class Plan implements Serializable {
         }
         this.maxMaterias = maxMaterias;
         this.nMaterias = nMaterias;
+        this.numeroDesbloqueos = new long[nMaterias];
+        this.materiasUrgentes = new MaxHeap<>(nMaterias);
     }
 
     public void cargarMaterias(FileInputStream file) {
@@ -53,6 +57,10 @@ public class Plan implements Serializable {
                     try {
                         cod = readFile.nextLong();
                         materia.getPrerrequisitos().add(cod);
+                        LinkedBinaryTreeNode<Identificador> idNode = this.getIdentificadores().find(new Identificador(cod, 0, 0));
+                        int pos = idNode.getElement().getPosición();
+                        int sem = idNode.getElement().getSemestre();
+                        this.getSemestres()[sem - 1].get(pos).setDesbloqueos();
                     } catch (Exception ex) {
                         break;
                     }
@@ -79,6 +87,23 @@ public class Plan implements Serializable {
                     this.identificadores.add(identificador);
                 }
             } while (readFile.hasNext());
+        }
+
+        LinkedQueue<LinkedBinaryTreeNode<Identificador>> queue = new LinkedQueue<>();
+        queue.put((LinkedBinaryTreeNode<Identificador>) this.getIdentificadores().getRoot());
+        LinkedBinaryTreeNode<Identificador> temp;
+        while (!queue.isEmpty()) {
+            temp = (LinkedBinaryTreeNode<Identificador>) queue.remove();
+            int pos = temp.getElement().getPosición();
+            int sem = temp.getElement().getSemestre();
+            Materia materia = this.getSemestres()[sem - 1].get(pos);
+            this.materiasUrgentes.add(materia);
+            if (temp.getLeft() != null) {
+                queue.put(temp.getLeft());
+            }
+            if (temp.getRight() != null) {
+                queue.put(temp.getRight());
+            }
         }
     }
 
@@ -184,6 +209,22 @@ public class Plan implements Serializable {
 
     public void setnMaterias(int nMaterias) {
         this.nMaterias = nMaterias;
+    }
+
+    public long[] getNumeroDesbloqueos() {
+        return numeroDesbloqueos;
+    }
+
+    public void setNumeroDesbloqueos(long[] numeroDesbloqueos) {
+        this.numeroDesbloqueos = numeroDesbloqueos;
+    }
+
+    public MaxHeap<Materia> getMateriasUrgentes() {
+        return materiasUrgentes;
+    }
+
+    public void setMateriasUrgentes(MaxHeap<Materia> materiasUrgentes) {
+        this.materiasUrgentes = materiasUrgentes;
     }
 
     @Override

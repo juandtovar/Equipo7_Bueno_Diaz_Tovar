@@ -1,9 +1,10 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
 import Equipo7_Bueno_Diaz_Tovar.data.interfaces.PriorityQueue;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T> {
+public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T>, Serializable {
 
     public T[] heap;
     int size;
@@ -27,7 +28,6 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 
     @Override
     public void add(T x) {
-        System.out.println(this.toString());
         if (this.size == this.heap.length - 1) {
             T[] old = this.heap;
             this.heap = (T[]) new Comparable[2 * (this.size + 1)];
@@ -35,13 +35,10 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T> {
         }
         int temp = ++this.size;
         while (temp != 1 && this.heap[temp / 2].compareTo(x) < 0) {
-            System.out.print(temp + " ");
-            System.out.println(this);
             this.heap[temp] = this.heap[temp / 2];
             temp /= 2;
         }
         this.heap[temp] = x;
-        System.out.println(this.toString());
     }
 
     @Override
@@ -60,11 +57,9 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T> {
         int child = 2;
         while (child <= this.size) {
             if (child < this.size && this.heap[child].compareTo(this.heap[child + 1]) < 0) {
-                System.out.println("++");
                 child++;
             }
             if (last.compareTo(this.heap[child]) >= 0) {
-                System.out.println("E");
                 break;
             }
             this.heap[temp] = this.heap[child];
@@ -74,6 +69,11 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T> {
         this.heap[temp] = last;
         return max;
     }
+    
+    public void changePriority (T element, int priority) {
+        
+    }
+    
 
     @Override
     public String toString() {

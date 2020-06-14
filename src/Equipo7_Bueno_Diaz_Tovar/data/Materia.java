@@ -2,7 +2,7 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import java.io.Serializable;
 
-public class Materia implements Serializable {
+public class Materia implements Serializable, Comparable<Materia> {
 
     private String name;
     private long codigo;
@@ -12,6 +12,7 @@ public class Materia implements Serializable {
     private final SingleLinkedList<Double> nota;
     private SingleLinkedList<Long> prerrequisitos;
     private boolean vista;
+    private int desbloqueos;
 
     public Materia(long codigo, String name, int creditos, String tipologia, int semestre) {
         this.name = name;
@@ -23,7 +24,7 @@ public class Materia implements Serializable {
         this.semestre = semestre;
         this.vista = false;
     }
-    
+
     public String getName() {
         return this.name;
     }
@@ -92,9 +93,40 @@ public class Materia implements Serializable {
         this.vista = true;
     }
 
+    public long getDesbloqueos() {
+        return desbloqueos;
+    }
+
+    public void setDesbloqueos(int desbloqueos) {
+        this.desbloqueos = desbloqueos;
+    }
+
+    public void setDesbloqueos() {
+        this.desbloqueos++;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(codigo);
+    }
+
+    @Override
+    public int compareTo(Materia o) {
+        if (this.isVista()) {
+            return 1;
+        } else if (this.getSemestre() < o.getSemestre()) {
+            return 1;
+        } else if (this.getSemestre() > o.getSemestre()) {
+            return -1;
+        } else if (this.getDesbloqueos() > o.getDesbloqueos()) {
+            return 1;
+        } else if (this.getDesbloqueos() < o.getDesbloqueos()) {
+            return -1;
+        } else if (this.getCodigo() > o.getCodigo()) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
 }

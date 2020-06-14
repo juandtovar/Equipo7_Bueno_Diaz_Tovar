@@ -46,7 +46,6 @@ public class LinkedBinaryTree<T> implements BinaryTree<T>, Serializable {
     @Override
     public void inOrder() {
         inOrder(this.root);
-        System.out.println("");
     }
 
     public void inOrder(LinkedBinaryTreeNode<T> node) {
