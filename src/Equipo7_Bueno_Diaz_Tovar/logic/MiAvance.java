@@ -24,6 +24,7 @@ public class MiAvance {
                 plan.getSemestres()[semestre - 1].get(pos).setNota(nota);
                 if (nota >= 3.0) {
                     plan.getSemestres()[semestre - 1].get(pos).setVista();
+                    plan.getMateriasUrgentes().remove(plan.getSemestres()[semestre - 1].get(pos));
                 }
             } else {
                 Alert dialogo = new Alert(AlertType.INFORMATION);
@@ -41,7 +42,7 @@ public class MiAvance {
             dialogo.initStyle(StageStyle.UTILITY);
             dialogo.showAndWait();
         }
-        //salvarAvance(plan);
+        salvarAvance(plan);
     }
 
     public static boolean prerrequisitosVistos(Plan plan, Identificador materia) {
@@ -116,9 +117,7 @@ public class MiAvance {
 
     public static void salvarAvance(Plan plan) {
         ObjectOutputStream canal;
-        FileOutputStream fileOutput = null;
-        try {
-            fileOutput = new FileOutputStream("Info_" + plan.getNombre() + ".txt");
+        try (FileOutputStream fileOutput = new FileOutputStream("Info_" + plan.getNombre() + ".txt")) {
             canal = new ObjectOutputStream(fileOutput);
             canal.flush();
             canal.writeObject(plan);
@@ -126,12 +125,6 @@ public class MiAvance {
 
         } catch (IOException ex) {
 
-        } finally {
-            try {
-                fileOutput.close();
-            } catch (IOException ex) {
-
-            }
         }
     }
 

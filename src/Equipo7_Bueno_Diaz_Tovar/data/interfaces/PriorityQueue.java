@@ -4,11 +4,10 @@ public interface PriorityQueue<T extends Comparable<T>> {
 
     boolean isEmpty();
 
-    void add(T x);
-
     T getMax();
 
+    void add(T x);
+
     T removeMax();
-    
-    
+
 }

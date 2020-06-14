@@ -34,7 +34,7 @@ public class Vista3 implements Vista {
     private Button insertarMateria, insertar;
     private Button eliminarMateria, eliminar;
     private Button consultarMateria, consultar;
-    private Button editar, mi_avance, atras, cancelarAccion;
+    private Button editar, mi_avance, atras, cancelarAccion, materiaUrgente;
 
     public Vista3(SingleLinkedList<Plan> planes, String plan) {
         Vista3.planes = planes;
@@ -80,6 +80,7 @@ public class Vista3 implements Vista {
         for (int i = 0; i < 5; i++) {
             this.MateriaTF[i].setVisible(false);
             this.MateriaLB[i].setVisible(false);
+            this.MateriaTF[i].setText("");
         }
         this.MateriaLB[0].setText("Codigo");
         this.MateriaLB[1].setText("Nombre");
@@ -102,6 +103,7 @@ public class Vista3 implements Vista {
         this.editar = new Button("Actualizar");
         this.mi_avance = new Button("Mostrar Avance");
         this.atras = new Button("Atrás");
+        this.materiaUrgente = new Button("Materia de mayor prioridad");
         this.atras.setOnAction((ActionEvent event) -> {
             goBack();
         });
@@ -175,18 +177,24 @@ public class Vista3 implements Vista {
 
         this.insertar.setOnAction((ActionEvent event) -> {
             try {
-                Materia materia = new Materia(Long.parseLong(MateriaTF[0].getText()),
-                        MateriaTF[1].getText(),
-                        Integer.parseInt(MateriaTF[2].getText()),
-                        "LE",
-                        Integer.parseInt(MateriaTF[3].getText()));
-                MiPlan.insertarMateria(planActual, materia);
-                MiAvance.actualizarNota(planActual, materia.getCodigo(), Double.parseDouble(MateriaTF[4].getText()));
-                agregarBoton(materia);
+                if (Double.parseDouble(MateriaTF[4].getText()) >= 0 && Double.parseDouble(MateriaTF[4].getText()) <= 5) {
+                    Materia materia = new Materia(Long.parseLong(MateriaTF[0].getText()),
+                            MateriaTF[1].getText(),
+                            Integer.parseInt(MateriaTF[2].getText()),
+                            "LE",
+                            Integer.parseInt(MateriaTF[3].getText()));
+                    MiPlan.insertarMateria(planActual, materia);
+                    if (Integer.parseInt(MateriaTF[3].getText()) < this.planActual.getN_semestres()) {
+                        MiAvance.actualizarNota(planActual, materia.getCodigo(), Double.parseDouble(MateriaTF[4].getText()));
+                        agregarBoton(materia);
+                    }
+                    presentarVistaInicial();
+                } else {
+                    alertaNota();
+                }
             } catch (NumberFormatException e) {
                 alertaEntrada("Insertar materia");
             }
-            MiAvance.salvarAvance(planActual);
         });
 
         this.eliminarMateria.setOnAction((ActionEvent event) -> {
@@ -226,7 +234,6 @@ public class Vista3 implements Vista {
             } catch (NumberFormatException e) {
                 alertaEntrada("Eliminar materia");
             }
-            MiAvance.salvarAvance(planActual);
         });
 
         this.consultarMateria.setOnAction((ActionEvent event) -> {
@@ -258,17 +265,19 @@ public class Vista3 implements Vista {
         });
 
         this.editar.setOnAction((ActionEvent event) -> {
-            this.MateriaLB[0].setText("Codigo");
-            this.MateriaLB[0].setVisible(false);
             try {
                 double nota = Double.parseDouble(this.MateriaTF[0].getText());
-                int codigo = Integer.parseInt(this.MateriaTF[1].getText());
-                MiAvance.actualizarNota(planActual, codigo, nota);
-                presentarVistaInicial();
+                if (nota >= 0 && nota <= 5) {
+                    int codigo = Integer.parseInt(this.MateriaTF[1].getText());
+                    MiAvance.actualizarNota(this.planActual, codigo, nota);
+                    presentarVistaInicial();
+                } else {
+                    this.MateriaTF[0].setText("");
+                    alertaNota();
+                }
             } catch (NumberFormatException e) {
                 alertaEntrada("Actualizar nota");
             }
-            MiAvance.salvarAvance(planActual);
         });
 
         this.mi_avance.setOnAction((ActionEvent event) -> {
@@ -281,6 +290,10 @@ public class Vista3 implements Vista {
             stage.show();
             MiAvance.salvarAvance(planActual);
         });
+
+        this.materiaUrgente.setOnAction((ActionEvent event) -> {
+            MiPlan.consultarMateria(this.planActual, this.planActual.getMateriasUrgentes().getMax().getCodigo());
+        });
     }
 
     public void agregarAVentana() {
@@ -289,6 +302,7 @@ public class Vista3 implements Vista {
         this.layoutBotonesPrincipales.getChildren().add(this.insertarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.consultarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.eliminarMateria);
+        this.layoutBotonesPrincipales.getChildren().add(this.materiaUrgente);
         this.layoutBotonesSecundarios.getChildren().add(this.cancelarAccion);
         this.layoutBotonesSecundarios.getChildren().add(this.insertar);
         this.layoutBotonesSecundarios.getChildren().add(this.consultar);
@@ -365,6 +379,15 @@ public class Vista3 implements Vista {
         dialogo.setTitle(advertencia);
         dialogo.setHeaderText(null);
         dialogo.setContentText("Ingresa una entrada válida");
+        dialogo.initStyle(StageStyle.UTILITY);
+        dialogo.showAndWait();
+    }
+
+    public void alertaNota() {
+        Alert dialogo = new Alert(Alert.AlertType.INFORMATION);
+        dialogo.setTitle("Insertar materia");
+        dialogo.setHeaderText(null);
+        dialogo.setContentText("Ingrese una nota válida");
         dialogo.initStyle(StageStyle.UTILITY);
         dialogo.showAndWait();
     }

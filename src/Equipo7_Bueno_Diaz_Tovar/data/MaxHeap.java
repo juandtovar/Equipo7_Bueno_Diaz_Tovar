@@ -2,6 +2,7 @@ package Equipo7_Bueno_Diaz_Tovar.data;
 
 import Equipo7_Bueno_Diaz_Tovar.data.interfaces.PriorityQueue;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T>, Serializable {
@@ -27,23 +28,19 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T>, Seria
     }
 
     @Override
+    public T getMax() {
+        return this.heap[1];
+    }
+
+    @Override
     public void add(T x) {
         if (this.size == this.heap.length - 1) {
             T[] old = this.heap;
             this.heap = (T[]) new Comparable[2 * (this.size + 1)];
             System.arraycopy(old, 0, this.heap, 0, this.size + 1);
         }
-        int temp = ++this.size;
-        while (temp != 1 && this.heap[temp / 2].compareTo(x) < 0) {
-            this.heap[temp] = this.heap[temp / 2];
-            temp /= 2;
-        }
-        this.heap[temp] = x;
-    }
-
-    @Override
-    public T getMax() {
-        return this.heap[1];
+        this.heap[++this.size] = x;
+        siftUp(indexOf(x));
     }
 
     @Override
@@ -52,37 +49,65 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T>, Seria
             return null;
         }
         T max = this.heap[1];
-        T last = this.heap[this.size--];
-        int temp = 1;
-        int child = 2;
-        while (child <= this.size) {
-            if (child < this.size && this.heap[child].compareTo(this.heap[child + 1]) < 0) {
-                child++;
-            }
-            if (last.compareTo(this.heap[child]) >= 0) {
-                break;
-            }
-            this.heap[temp] = this.heap[child];
-            temp = child;
-            child *= 2;
-        }
-        this.heap[temp] = last;
+        this.heap[1] = this.heap[this.size--];
+        siftDown(1);
         return max;
     }
-    
-    public void changePriority (T element, int priority) {
-        
+
+    public int indexOf(T element) {
+        return java.util.Arrays.asList(this.heap).indexOf(element);
     }
-    
+
+    public void siftUp(int i) {
+        if (i > 1) {
+            while (i > 1 && this.heap[i / 2].compareTo(this.heap[i]) < 0) {
+                T temp = this.heap[i / 2];
+                this.heap[i / 2] = this.heap[i];
+                this.heap[i] = temp;
+                i /= 2;
+            }
+        }
+    }
+
+    private void siftDown(int i) {
+        for (int childIndex = 2 * i; childIndex <= this.size; childIndex *= 2) {
+            if (childIndex < this.size && this.heap[childIndex].compareTo(this.heap[childIndex + 1]) < 0) {
+                childIndex++;
+            }
+            if (this.heap[i].compareTo(this.heap[childIndex]) < 0) {
+                T temp = this.heap[i];
+                this.heap[i] = this.heap[childIndex];
+                this.heap[childIndex] = temp;
+                i = childIndex;
+            }
+        }
+    }
+
+    public void siftUp(T element) {
+        siftUp(indexOf(element));
+    }
+
+    public void siftDown(T element) {
+        siftDown(indexOf(element));
+    }
+
+    public T remove(T element) {
+        siftUp(indexOf(element));
+        return removeMax();
+    }
+
+    public T[] getHeap() {
+        return heap;
+    }
 
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append('[');
         if (this.size > 0) {
-            s.append(this.heap[1]);
-            for (int i = 2; i <= size; i++) {
-                s.append(", ").append(Objects.toString(this.heap[i]));
+            s.append("(").append(this.heap[1]).append(")");
+            for (int i = 2; i <= this.size; i++) {
+                s.append(", ").append("(").append(Objects.toString(this.heap[i])).append(")");
             }
         }
         s.append("]");

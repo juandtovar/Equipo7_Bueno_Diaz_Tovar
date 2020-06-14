@@ -23,6 +23,7 @@ public class Materia implements Serializable, Comparable<Materia> {
         this.nota = new SingleLinkedList<>();
         this.semestre = semestre;
         this.vista = false;
+        this.desbloqueos = 0;
     }
 
     public String getName() {
@@ -107,13 +108,15 @@ public class Materia implements Serializable, Comparable<Materia> {
 
     @Override
     public String toString() {
-        return String.valueOf(codigo);
+        return String.valueOf(semestre) + " " + String.valueOf(desbloqueos) + " " + String.valueOf(codigo);
     }
 
     @Override
     public int compareTo(Materia o) {
-        if (this.isVista()) {
-            return 1;
+        if (this.getLastNota() != null) {
+            if (this.getLastNota() >= 3) {
+                return 1;
+            }
         } else if (this.getSemestre() < o.getSemestre()) {
             return 1;
         } else if (this.getSemestre() > o.getSemestre()) {
@@ -122,11 +125,12 @@ public class Materia implements Serializable, Comparable<Materia> {
             return 1;
         } else if (this.getDesbloqueos() < o.getDesbloqueos()) {
             return -1;
-        } else if (this.getCodigo() > o.getCodigo()) {
+        } else if (this.getCodigo() < o.getCodigo()) {
             return 1;
-        } else {
+        } else if (this.getCodigo() > o.getCodigo()) {
             return -1;
         }
+        return 0;
     }
 
 }
