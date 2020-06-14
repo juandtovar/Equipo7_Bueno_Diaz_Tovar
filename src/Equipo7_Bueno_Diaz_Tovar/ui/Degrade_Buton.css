@@ -1,25 +1,44 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 31/05/2020, 03:26:39 PM
-    Author     : Juan
-*/
-.button {
-  -fx-background-color: #ff8000; /* Green */
-  -fx-border: none;
-  -fx-color: white;
-  -fx-text-align: center;
-  -fx-text-decoration: none;
-  -fx-display: inline-block;
-  -fx-font-size: 10px;
-  -fx-margin: 4px 2px;
-  
-  -fx-cursor: pointer;
-  -fx-border-radius: 15px;
+.button_approved {
+    -fx-display: inline-block;
+    -fx-trext-font-size: 16px;
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-outline: none;
+    -fx-text-fill: #fff;
+    -fx-background-color: green;
+    -fx-border-insets: 0px, 0px, 12px,0px ;
+    -fx-border-radius: 20;
+    -fx-text-alignment:center;
 }
-.button:hover {
-  -fx-background-color: #4CAF50;
+
+.button_approved:hover{
+    -fx-background-color: black }
+.button_failed {
+    -fx-display: inline-block;
+    -fx-trext-font-size: 16px;
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-outline: none;
+    -fx-text-fill: #fff;
+    -fx-background-color: red;
+    -fx-border-insets: 0px, 0px, 12px,0px ;
+    -fx-border-radius: 20;
+    -fx-text-alignment:center;
 }
+
+.button_failed:hover{
+    -fx-background-color: white }
+.button_unseen {
+    -fx-display: inline-block;
+    -fx-trext-font-size: 16px;
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-outline: none;
+    -fx-text-fill: #fff;
+    -fx-background-color: blue;
+    -fx-border-insets: 0px, 0px, 12px,0px ;
+    -fx-border-radius: 20;
+    -fx-text-alignment:center;
+}
+.button_unseen:hover{
+    -fx-background-color: grey }

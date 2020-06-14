@@ -34,7 +34,8 @@ public class Vista3 implements Vista {
     private Button insertarMateria, insertar;
     private Button eliminarMateria, eliminar;
     private Button consultarMateria, consultar;
-    private Button editar, mi_avance, atras, cancelarAccion, materiaUrgente;
+    private Button editar, mi_avance, atras, cancelarAccion, materiaUrgente, modoVista;
+    boolean vistaTipologia;
 
     public Vista3(SingleLinkedList<Plan> planes, String plan) {
         Vista3.planes = planes;
@@ -65,6 +66,7 @@ public class Vista3 implements Vista {
         inicializarSetOnAction();
 
         dibujarMalla();
+
     }
 
     public final void presentarVistaInicial() {
@@ -72,6 +74,7 @@ public class Vista3 implements Vista {
         this.eliminarMateria.setVisible(true);
         this.consultarMateria.setVisible(true);
         this.mi_avance.setVisible(true);
+        this.materiaUrgente.setVisible(true);
         this.insertar.setVisible(false);
         this.eliminar.setVisible(false);
         this.consultar.setVisible(false);
@@ -104,6 +107,8 @@ public class Vista3 implements Vista {
         this.mi_avance = new Button("Mostrar Avance");
         this.atras = new Button("Atrás");
         this.materiaUrgente = new Button("Materia de mayor prioridad");
+        this.modoVista = new Button("Aprobados/Tipología");
+        this.vistaTipologia = true;
         this.atras.setOnAction((ActionEvent event) -> {
             goBack();
         });
@@ -150,11 +155,47 @@ public class Vista3 implements Vista {
         boton.setPrefWidth(225);
         boton.setAlignment(Pos.CENTER);
         boton.setWrapText(true);
-        boton.getStyleClass().add("button");
+        this.escena.getStylesheets().clear();
+        this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
+        boton.getStyleClass().add("button_2");
+        this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+        if (materia.getLastNota() >= 3) {
+            boton.getStyleClass().add("button_approved");
+        } else {
+            boton.getStyleClass().add("button_failed");
+        }
+        this.escena.getStylesheets().clear();
+        if (vistaTipologia) {
+            this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
+        } else {
+            this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+        }
         this.columnas[materia.getSemestre() - 1].getChildren().add(boton);
         Stage stage = Singleton.getSingleton().getStage();
         stage.show();
         presentarVistaInicial();
+    }
+
+    public void actualizarBoton(int codigo, double nota) {
+        LinkedBinaryTreeNode<Identificador> matNode = this.planActual.getIdentificadores().find(new Identificador(codigo, 0, 0));
+        int sem = matNode.getElement().getSemestre();
+        int pos = matNode.getElement().getPosición();
+        Button boton = (Button) this.columnas[sem - 1].getChildren().get(pos + 1);
+        this.escena.getStylesheets().clear();
+        this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+        boton.getStyleClass().clear();
+        if (nota >= 3) {
+            boton.getStyleClass().add("button_approved");
+        } else {
+            boton.getStyleClass().add("button_failed");
+        }
+        this.escena.getStylesheets().clear();
+        if (vistaTipologia) {
+            this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
+        } else {
+            this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+        }
+
     }
 
     private void inicializarSetOnAction() {
@@ -165,15 +206,17 @@ public class Vista3 implements Vista {
                 MateriaLB[i].setVisible(true);
                 MateriaTF[i].setText("");
             }
-            insertarMateria.setVisible(false);
-            insertar.setVisible(true);
-            eliminarMateria.setVisible(false);
-            eliminar.setVisible(false);
-            consultarMateria.setVisible(false);
-            consultar.setVisible(false);
-            editar.setVisible(false);
-            cancelarAccion.setVisible(true);
-        });
+            this.insertarMateria.setVisible(false);
+            this.insertar.setVisible(true);
+            this.eliminarMateria.setVisible(false);
+            this.eliminar.setVisible(false);
+            this.consultarMateria.setVisible(false);
+            this.consultar.setVisible(false);
+            this.editar.setVisible(false);
+            this.cancelarAccion.setVisible(true);
+            this.materiaUrgente.setVisible(false);
+        }
+        );
 
         this.insertar.setOnAction((ActionEvent event) -> {
             try {
@@ -214,6 +257,7 @@ public class Vista3 implements Vista {
             consultar.setVisible(false);
             editar.setVisible(false);
             cancelarAccion.setVisible(true);
+            this.materiaUrgente.setVisible(false);
         });
 
         this.eliminar.setOnAction((ActionEvent event) -> {
@@ -252,6 +296,7 @@ public class Vista3 implements Vista {
             consultar.setVisible(true);
             editar.setVisible(false);
             cancelarAccion.setVisible(true);
+            this.materiaUrgente.setVisible(false);
         });
 
         this.consultar.setOnAction((ActionEvent event) -> {
@@ -270,6 +315,7 @@ public class Vista3 implements Vista {
                 if (nota >= 0 && nota <= 5) {
                     int codigo = Integer.parseInt(this.MateriaTF[1].getText());
                     MiAvance.actualizarNota(this.planActual, codigo, nota);
+                    actualizarBoton(codigo, nota);
                     presentarVistaInicial();
                 } else {
                     this.MateriaTF[0].setText("");
@@ -287,12 +333,24 @@ public class Vista3 implements Vista {
             Singleton singleton = Singleton.getSingleton();
             Stage stage = singleton.getStage();
             stage.setScene(vista.getScena());
+            stage.centerOnScreen();
+            stage.setMaximized(true);
             stage.show();
             MiAvance.salvarAvance(planActual);
         });
 
         this.materiaUrgente.setOnAction((ActionEvent event) -> {
             MiPlan.consultarMateria(this.planActual, this.planActual.getMateriasUrgentes().getMax().getCodigo());
+        });
+
+        this.modoVista.setOnAction((ActionEvent event) -> {
+            this.escena.getStylesheets().clear();
+            if (this.vistaTipologia) {
+                this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+            } else {
+                this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
+            }
+            this.vistaTipologia = !this.vistaTipologia;
         });
     }
 
@@ -303,6 +361,7 @@ public class Vista3 implements Vista {
         this.layoutBotonesPrincipales.getChildren().add(this.consultarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.eliminarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.materiaUrgente);
+        this.layoutBotonesPrincipales.getChildren().add(this.modoVista);
         this.layoutBotonesSecundarios.getChildren().add(this.cancelarAccion);
         this.layoutBotonesSecundarios.getChildren().add(this.insertar);
         this.layoutBotonesSecundarios.getChildren().add(this.consultar);
@@ -320,11 +379,6 @@ public class Vista3 implements Vista {
 
         presentarVistaInicial();
 
-        Singleton singleton = Singleton.getSingleton();
-        Stage stage = singleton.getStage();
-        stage.setScene(this.getScena());
-        stage.centerOnScreen();
-        stage.setMaximized(true);
     }
 
     public final void dibujarMalla() {
@@ -364,7 +418,31 @@ public class Vista3 implements Vista {
                 boton.setPrefWidth(225);
                 boton.setAlignment(Pos.CENTER);
                 boton.setWrapText(true);
-                boton.getStyleClass().add("button");
+                switch (materia.getTipologia().substring(0, 1)) {
+                    case "F":
+                        boton.getStyleClass().add("button_3");
+                        break;
+                    case "D":
+                        boton.getStyleClass().add("button_1");
+                        break;
+                    case "L":
+                        boton.getStyleClass().add("button_2");
+                        break;
+                }
+                this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+                if (materia.getNota().size() != 0) {
+                    if (materia.getLastNota() >= 3) {
+                        boton.getStyleClass().add("button_approved");
+                        break;
+                    } else {
+                        boton.getStyleClass().add("button_failed");
+                        break;
+                    }
+                } else {
+                    boton.getStyleClass().add("button_unseen");
+                }
+                this.escena.getStylesheets().clear();
+                this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
                 this.columnas[i].getChildren().add(boton);
             }
             this.layoutHor.getChildren().add(this.columnas[i]);
@@ -417,7 +495,6 @@ public class Vista3 implements Vista {
         singleton.setStage(stage);
         Controlador2 controlador = new Controlador2(Vista3.planes);
         Vista vista = controlador.getVista();
-        stage.setMaximized(false);
         stage.setScene(vista.getScena());
         stage.centerOnScreen();
         stage.show();

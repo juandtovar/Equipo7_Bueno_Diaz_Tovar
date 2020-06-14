@@ -105,7 +105,7 @@ public class Materia implements Serializable, Comparable<Materia> {
     public void setDesbloqueos() {
         this.desbloqueos++;
     }
-
+    
     @Override
     public String toString() {
         return String.valueOf(semestre) + " " + String.valueOf(desbloqueos) + " " + String.valueOf(codigo);

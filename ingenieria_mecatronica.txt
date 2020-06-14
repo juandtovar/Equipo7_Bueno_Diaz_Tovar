@@ -19,7 +19,7 @@ Codigo/ Materia/ Creditos/ Tipologia/ Semestre/ Prerrequisitos/
 2017271/ Principios de Dinamica/ 3/ DO/ 4/ 1000003/ 
 2016495/ Electronica Analoga I/ 4/ DO/ 4/ 2016489/ 
 2015159/ Variable Compleja/ 4/ FO/ 5/ 1000007/ 
-1100000/ Optativa Fisica/ 0/ / 5/ / 
+1100000/ Optativa Fisica/ 0/ FOpt/ 5/ / 
 2016506/ Senales y Sistemas I/ 3/ DO/ 5/ 2016489/ 1000003/ 
 2017256/ Ciencia e Ingenieria de Materiales/ 3/ DO/ 5/ 1000024/ 
 2017277/ Resistencia de Materiales/ 3/ DO/ 5/ 2016640/ 
@@ -27,17 +27,17 @@ Codigo/ Materia/ Creditos/ Tipologia/ Semestre/ Prerrequisitos/
 2015703/ Ingenieria Economica/ 3/ FO/ 6/ 1000005/ 
 2017276/ Taller de Proyecto Interdisciplinarios/ 3/ DO/ 6/ / 
 2016507/ Senales y Sistemas II/ 3/ DO/ 6/ 2016506/ 2015159/ 
-1400000/ Optativa Ingenieria de Materiales y Procesos de Manufactura/ 0/ / 6/ / 
+1400000/ Optativa Ingenieria de Materiales y Procesos de Manufactura/ 0/ DOpt/ 6/ / 
 2017282/ Diseno Mecatronico/ 3/ DO/ 6/ 2017277/ 
 2016498/ Electronica Digital I/ 4/ DO/ 6/ 2016495/ 
-1200000/ Optativa Ciencias economicas y administrativas/ 0/ / 7/ / 
-1300000/ Optativa Informatica y Herramientas para Ingenieria/ 0/ / 7/ / 
+1200000/ Optativa Ciencias economicas y administrativas/ 0/ FOpt/ 7/ / 
+1300000/ Optativa Informatica y Herramientas para Ingenieria/ 0/ FOpt/ 7/ / 
 2016493/ Control/ 4/ DO/ 7/ 2016507/ 
 2017287/ Sensores y Actuadores/ 3/ DO/ 7/ 2016507/ 
 2025967/ Redes de Computadores/ 3/ DO/ 7/ 2016699/ 
 2016753/ Microcontroladores/ 3/ DO/ 7/ 2016498/ 
 2016770/ Robotica/ 3/ DO/ 8/ 2016507/ 
-1500000/ Optativa Automatizacion, Control y Robotica/ 0/ / 8/ / 
+1500000/ Optativa Automatizacion, Control y Robotica/ 0/ DOpt/ 8/ / 
 2017288/ Servomecanismos/ 3/ DO/ 8/ 2017282/ 
 2017280/ Automatizacion de procesos de manufactura/ 3/ DO/ 9/ 1400000/ 
 2017275/ Proyecto Aplicado de Ingenieria/ 4/ DO/ 9/ / 

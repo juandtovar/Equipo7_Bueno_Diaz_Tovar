@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -58,19 +59,36 @@ public class MiAvance {
         return true;
     }
 
-    public static double calcularPAPA(Plan plan) {
-        int acumulado = 0;
-        int creditosVistos = 0;
+    public static ArrayList<Double> calcularPapaPaCreditosAprobados(Plan plan) {
+        ArrayList<Double> promedios = new ArrayList<>(3);
+        double PAporN = 0;
+        double PAPAporN = 0;
+        int creditosCursados = 0;
+        double creditosAprobados = 0;
         for (int i = 0; i < plan.getN_semestres(); i++) {
             SingleLinkedList<Materia> materiasSemestre = plan.getMateriasVistas()[i];
             if (!materiasSemestre.isEmpty()) {
                 for (int j = 0; j < materiasSemestre.size(); j++) {
-                    acumulado += plan.getMateriasVistas()[i].get(j).getLastNota() * plan.getMateriasVistas()[i].get(j).getCreditos();
-                    creditosVistos += plan.getMateriasVistas()[i].get(j).getCreditos();
+                    Materia mat = plan.getMateriasVistas()[i].get(j);
+                    int creditos = plan.getMateriasVistas()[i].get(j).getCreditos();
+                    for (int k = 0; k < plan.getMateriasVistas()[i].get(j).getNota().size(); k++) {
+                        double nota = plan.getMateriasVistas()[i].get(j).getNota().get(k);
+                        PAPAporN += nota * creditos;
+                        if (nota >= 3) {
+                            PAporN += nota * creditos;
+                            creditosAprobados += creditos;
+                        }
+                        creditosCursados += creditos;
+                    }
                 }
             }
         }
-        return acumulado / creditosVistos;
+        DecimalFormat df = new DecimalFormat("#.#");
+        DecimalFormat df2 = new DecimalFormat("#");
+        promedios.add(Double.parseDouble(df.format(PAPAporN / creditosCursados).replace(',', '.')));
+        promedios.add(Double.parseDouble(df.format(PAporN / creditosAprobados).replace(',', '.')));
+        promedios.add(Double.parseDouble(df2.format(creditosAprobados)));
+        return promedios;
     }
 
     public static ArrayList<Double> calcularAvance(Plan plan) {

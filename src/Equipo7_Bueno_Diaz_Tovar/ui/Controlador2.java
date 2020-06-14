@@ -44,6 +44,8 @@ public class Controlador2 {
             Singleton singleton = Singleton.getSingleton();
             Stage stage = singleton.getStage();
             stage.setScene(vista.getScena());
+            stage.centerOnScreen();
+            stage.setMaximized(true);
             stage.show();
         }
 

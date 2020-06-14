@@ -14,39 +14,59 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public final class Vista4 implements Vista {
 
     private final Scene escena;
     private final Plan plan;
-    private final ObservableList<PieChart.Data> pieChartFundamentacion, pieChartDisciplinar, pieChartLibreEleccion;
-    private Label PAPA, PA;
-    private final Button atras;
+    private final VBox layoutPrincipal;
+    private final HBox layoutCreditosPAPA, layoutPieChart;
+    private ObservableList<PieChart.Data> pieChartFundamentacion, pieChartDisciplinar, pieChartLibreEleccion;
+    private Label PAPA, PA, creditosAprobados;
+    private Button atras;
 
     public Vista4(Plan plan) {
-
         this.plan = plan;
-        VBox lh = new VBox();
-        HBox layout = new HBox();
+        this.layoutPrincipal = new VBox();
+        this.layoutCreditosPAPA = new HBox();
+        this.layoutPieChart = new HBox();
+
+        inicializarPieChart();
+        inicializarAtras();
+        inicializarLabels();
+        this.layoutPrincipal.setSpacing(35);
+        this.layoutPrincipal.getChildren().add(this.layoutPieChart);
+        this.layoutPrincipal.getChildren().add(this.PAPA);
+        this.layoutPrincipal.getChildren().add(this.PA);
+        this.layoutPrincipal.getChildren().add(this.creditosAprobados);
+        this.layoutPrincipal.getChildren().add(this.atras);
+        this.escena = new Scene(this.layoutPrincipal);
+        Singleton singleton = Singleton.getSingleton();
+        Stage stage = singleton.getStage();
+        stage.centerOnScreen();
+    }
+
+    public void inicializarPieChart() {
         ArrayList<Double> avance = MiAvance.calcularAvance(this.plan);
-        pieChartFundamentacion = FXCollections.observableArrayList(
+        this.pieChartFundamentacion = FXCollections.observableArrayList(
                 new PieChart.Data("Aprobados", avance.get(0)),
                 new PieChart.Data("No aprobados", this.plan.getCreditosFund() - avance.get(0)));
-        pieChartDisciplinar = FXCollections.observableArrayList(
+        this.pieChartDisciplinar = FXCollections.observableArrayList(
                 new PieChart.Data("Aprobados", avance.get(1)),
                 new PieChart.Data("No aprobados", this.plan.getCreditosDiscp() - avance.get(1)));
-        pieChartLibreEleccion = FXCollections.observableArrayList(
+        this.pieChartLibreEleccion = FXCollections.observableArrayList(
                 new PieChart.Data("Aprobados", avance.get(2)),
                 new PieChart.Data("No aprobados", this.plan.getCreditosElect() - avance.get(2)));
 
-        final DoughnutChart chart1 = new DoughnutChart(pieChartFundamentacion);
-        final DoughnutChart chart2 = new DoughnutChart(pieChartDisciplinar);
-        final DoughnutChart chart3 = new DoughnutChart(pieChartLibreEleccion);
+        final DoughnutChart chart1 = new DoughnutChart(this.pieChartFundamentacion);
+        final DoughnutChart chart2 = new DoughnutChart(this.pieChartDisciplinar);
+        final DoughnutChart chart3 = new DoughnutChart(this.pieChartLibreEleccion);
 
-        applyCustomColorSequence(pieChartFundamentacion, "#2ECC71", "#EAEDED");
-        applyCustomColorSequence(pieChartDisciplinar, "#F5B041", "#EAEDED");
-        applyCustomColorSequence(pieChartLibreEleccion, "#47D7E3", "#EAEDED");
+        applyCustomColorSequence(this.pieChartFundamentacion, "#2ECC71", "#EAEDED");
+        applyCustomColorSequence(this.pieChartDisciplinar, "#F5B041", "#EAEDED");
+        applyCustomColorSequence(this.pieChartLibreEleccion, "#47D7E3", "#EAEDED");
 
         chart1.setTitle("Fundamentación");
         chart2.setTitle("Disciplinar");
@@ -55,30 +75,34 @@ public final class Vista4 implements Vista {
         chart2.setLegendVisible(false);
         chart3.setLegendVisible(false);
 
-        atras = new Button("Atrás");
-        atras.setOnAction((ActionEvent event) -> {
+        this.layoutPieChart.getChildren().add(chart1);
+        this.layoutPieChart.getChildren().add(chart2);
+        this.layoutPieChart.getChildren().add(chart3);
+
+        this.layoutPieChart.setSpacing(10);
+    }
+
+    public void inicializarAtras() {
+        this.atras = new Button("Atrás");
+        this.atras.setOnAction((ActionEvent event) -> {
             goBack();
         });
-        atras.setPrefWidth(225);
-        atras.setAlignment(Pos.CENTER);
-        atras.setWrapText(true);
-        atras.getStyleClass().add("button");
-        lh.setSpacing(35);
-        layout.setSpacing(10);
-        layout.getChildren().add(chart1);
-        layout.getChildren().add(chart2);
-        layout.getChildren().add(chart3);
-        lh.getChildren().add(layout);
-        lh.getChildren().add(atras);
-        for (int i = 0; i < 7; i++) {
-            lh.getChildren().add(new Button(String.valueOf(i)));
-        }
-        this.escena = new Scene(lh);
+        this.atras.setPrefWidth(225);
+        this.atras.setAlignment(Pos.CENTER);
+        this.atras.setWrapText(true);
+        this.atras.getStyleClass().add("button");
+    }
 
-        Singleton singleton = Singleton.getSingleton();
-        Stage stage = singleton.getStage();
-        stage.setScene(this.getScena());
-        stage.setMaximized(true);
+    public void inicializarLabels() {
+        this.PAPA = new Label("PAPA = " + String.valueOf(MiAvance.calcularPapaPaCreditosAprobados(this.plan).get(0)));
+        this.PA = new Label("PA = " + String.valueOf(MiAvance.calcularPapaPaCreditosAprobados(this.plan).get(1)));
+        int creditosAprobados = (int) Math.round(MiAvance.calcularPapaPaCreditosAprobados(this.plan).get(2));
+        this.creditosAprobados = new Label("Creditos aprobados = "
+                + String.valueOf(creditosAprobados)
+                + " de " + this.plan.getCreditosTotales());
+        this.PAPA.setFont(new Font("Arial", 39));
+        this.PA.setFont(new Font("Arial", 39));
+        this.creditosAprobados.setFont(new Font("Arial", 39));
     }
 
     @Override
@@ -89,6 +113,8 @@ public final class Vista4 implements Vista {
         Controlador3 controlador = new Controlador3(Vista3.getPlanes(), this.plan.getNombre());
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
+        stage.centerOnScreen();
+        stage.setMaximized(true);
         stage.show();
     }
 

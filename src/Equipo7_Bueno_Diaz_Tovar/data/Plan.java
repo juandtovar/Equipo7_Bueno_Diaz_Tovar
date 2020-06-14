@@ -88,7 +88,6 @@ public class Plan implements Serializable {
                 }
             } while (readFile.hasNext());
         }
-
         LinkedQueue<LinkedBinaryTreeNode<Identificador>> queue = new LinkedQueue<>();
         queue.put((LinkedBinaryTreeNode<Identificador>) this.getIdentificadores().getRoot());
         LinkedBinaryTreeNode<Identificador> temp;

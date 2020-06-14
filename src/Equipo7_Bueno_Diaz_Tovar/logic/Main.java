@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static LinkedStack<Integer> pestañas = new LinkedStack<>();
+    public static SingleLinkedList<Plan> planes = new SingleLinkedList<>();
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -18,9 +19,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         System.out.printf("%s%d\n", "Inicio cargar materias = \t", System.currentTimeMillis());
-        SingleLinkedList<Plan> planes = new SingleLinkedList<>();
         //CARGAR INFO BÁSICA PLAN
-
+        
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
             FileInputStream file, fileInput;
@@ -67,6 +67,8 @@ public class Main extends Application {
 
         }
 
+        
+        
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);
@@ -91,6 +93,10 @@ public class Main extends Application {
     public static void setPestañas(int i) {
         Main.pestañas.push(i);
         System.out.println(pestañas);
+    }
+
+    public static SingleLinkedList<Plan> getPlanes() {
+        return Main.planes;
     }
 
 }
