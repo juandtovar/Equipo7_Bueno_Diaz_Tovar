@@ -1,60 +1,27 @@
-.button_2 {
-    -fx-display: inline-block;
-    -fx-trext-font-size: 16px;
-    -fx-text-align: center;
-    -fx-text-decoration: none;
-    -fx-outline: none;
-    -fx-text-fill: #fff;
-    -fx-background-color: #3498DB;
-    -fx-border-insets: 0px, 0px, 12px,0px ;
-    -fx-border-radius: 20;
-    -fx-text-alignment:center;
-}
-.button_2:hover{
-    -fx-background-color: #2E86C1 }
 .button_1 {
-    -fx-display: inline-block;
-    -fx-trext-font-size: 16px;
-    -fx-text-align: center;
-    -fx-text-decoration: none;
-    -fx-outline: none;
     -fx-text-fill: #fff;
     -fx-background-color: #F7DC6F;
-    -fx-border-insets: 0px, 0px, 12px,0px ;
-    -fx-border-radius: 20;
-    -fx-text-alignment:center;
 }
 
 .button_1:hover{
-    -fx-background-color: #F1C40F }
+    -fx-background-color: #F1C40F
+}
+
 .button_2 {
-    -fx-display: inline-block;
-    -fx-trext-font-size: 16px;
-    -fx-text-align: center;
-    -fx-text-decoration: none;
-    -fx-outline: none;
     -fx-text-fill: #fff;
     -fx-background-color: #3498DB;
-    -fx-border-insets: 0px, 0px, 12px,0px ;
-    -fx-border-radius: 20;
-    -fx-text-alignment:center;
 }
 
 .button_2:hover{
-    -fx-background-color: #2E86C1 }
+    -fx-background-color: #2E86C1
+}
+
 .button_3 { 
-    -fx-display: inline-block;
-    -fx-trext-font-size: 16px;
-    -fx-text-align: center;
-    -fx-text-decoration: none;
-    -fx-outline: none;
     -fx-text-fill: #fff;
     -fx-background-color: #82E0AA;
-    -fx-border-insets: 0px, 0px, 12px,0px ;
-    -fx-border-radius: 20;
-    -fx-text-alignment:center;
 }
 
 .button_3:hover{
-    -fx-background-color: #2ECC71}
+    -fx-background-color: #2ECC71
+}
 

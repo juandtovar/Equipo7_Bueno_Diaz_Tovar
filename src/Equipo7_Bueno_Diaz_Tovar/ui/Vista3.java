@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -54,6 +53,7 @@ public class Vista3 implements Vista {
         this.columnas = new VBox[this.planActual.getN_semestres()];
         this.layoutHor = new HBox();
         this.escena = new Scene(this.layout, 1000, 600);
+        this.vistaTipologia = true;
 
         this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
         this.layoutHor.setSpacing(25);
@@ -108,7 +108,6 @@ public class Vista3 implements Vista {
         this.atras = new Button("Atrás");
         this.materiaUrgente = new Button("Materia de mayor prioridad");
         this.modoVista = new Button("Aprobados/Tipología");
-        this.vistaTipologia = true;
         this.atras.setOnAction((ActionEvent event) -> {
             goBack();
         });
@@ -152,25 +151,39 @@ public class Vista3 implements Vista {
                 alertaEntrada("Actualizar nota materia");
             }
         });
+        boton.setPrefHeight(25);
         boton.setPrefWidth(225);
         boton.setAlignment(Pos.CENTER);
         boton.setWrapText(true);
-        this.escena.getStylesheets().clear();
-        this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
-        boton.getStyleClass().add("button_2");
-        this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
-        if (materia.getLastNota() >= 3) {
-            boton.getStyleClass().add("button_approved");
-        } else {
-            boton.getStyleClass().add("button_failed");
-        }
-        this.escena.getStylesheets().clear();
-        if (vistaTipologia) {
-            this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
-        } else {
-            this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
-        }
         this.columnas[materia.getSemestre() - 1].getChildren().add(boton);
+        int i = materia.getSemestre() - 1;
+        int j = this.columnas[materia.getSemestre() - 1].getChildren().size() - 1;
+        if (this.vistaTipologia) {
+            switch (materia.getTipologia().substring(0, 1)) {
+                case "F":
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_3");
+                    break;
+                case "D":
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_1");
+                    break;
+                case "L":
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_2");
+                    break;
+            }
+        } else {
+            this.escena.getStylesheets().clear();
+            this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+            if (materia.getNota().size() != 0) {
+                if (materia.getLastNota() >= 3) {
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_approved");
+                } else {
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
+                }
+            } else {
+                this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen");
+            }
+            this.escena.getStylesheets().add(getClass().getResource("Presed_boton.css").toExternalForm());
+        }
         Stage stage = Singleton.getSingleton().getStage();
         stage.show();
         presentarVistaInicial();
@@ -180,22 +193,28 @@ public class Vista3 implements Vista {
         LinkedBinaryTreeNode<Identificador> matNode = this.planActual.getIdentificadores().find(new Identificador(codigo, 0, 0));
         int sem = matNode.getElement().getSemestre();
         int pos = matNode.getElement().getPosición();
+        Materia mat = this.planActual.getSemestres()[sem - 1].get(pos);
         Button boton = (Button) this.columnas[sem - 1].getChildren().get(pos + 1);
-        this.escena.getStylesheets().clear();
-        this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
-        boton.getStyleClass().clear();
-        if (nota >= 3) {
-            boton.getStyleClass().add("button_approved");
-        } else {
-            boton.getStyleClass().add("button_failed");
-        }
-        this.escena.getStylesheets().clear();
-        if (vistaTipologia) {
-            this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
-        } else {
+        boton.setPrefHeight(25);
+        boton.setPrefWidth(225);
+        int i = sem - 1;
+        int j = pos + 1;
+        if (!this.vistaTipologia) {
+            this.escena.getStylesheets().clear();
             this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+            if (mat.getNota().size() != 0) {
+                if (mat.getLastNota() >= 3) {
+                    this.columnas[i].getChildren().get(j).getStyleClass().clear();
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_approved");
+                } else {
+                    this.columnas[i].getChildren().get(j).getStyleClass().clear();
+                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
+                }
+            } else {
+                this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen");
+            }
+            this.escena.getStylesheets().add(getClass().getResource("Presed_boton.css").toExternalForm());
         }
-
     }
 
     private void inicializarSetOnAction() {
@@ -344,11 +363,44 @@ public class Vista3 implements Vista {
         });
 
         this.modoVista.setOnAction((ActionEvent event) -> {
-            this.escena.getStylesheets().clear();
-            if (this.vistaTipologia) {
-                this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+            if (!this.vistaTipologia) {
+                this.escena.getStylesheets().clear();
+                this.escena.getStylesheets().add(getClass().getResource("Presed_boton.css").toExternalForm());
+                for (int i = 0; i < this.planActual.getN_semestres(); i++) {
+                    for (int j = 1; j < this.columnas[i].getChildren().size(); j++) {
+                        this.columnas[i].getChildren().get(j).getStyleClass().clear();
+                        Materia mat = this.planActual.getSemestres()[i].get(j - 1);
+                        switch (mat.getTipologia().substring(0, 1)) {
+                            case "F":
+                                this.columnas[i].getChildren().get(j).getStyleClass().add("button_3");
+                                break;
+                            case "D":
+                                this.columnas[i].getChildren().get(j).getStyleClass().add("button_1");
+                                break;
+                            case "L":
+                                this.columnas[i].getChildren().get(j).getStyleClass().add("button_2");
+                                break;
+                        }
+                    }
+                }
             } else {
-                this.escena.getStylesheets().add(getClass().getResource("Presed_Boton.css").toExternalForm());
+                this.escena.getStylesheets().clear();
+                this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
+                for (int i = 0; i < this.planActual.getN_semestres(); i++) {
+                    for (int j = 1; j < this.columnas[i].getChildren().size(); j++) {
+                        this.columnas[i].getChildren().get(j).getStyleClass().clear();
+                        Materia mat = this.planActual.getSemestres()[i].get(j - 1);
+                        if (mat.getNota().size() != 0) {
+                            if (mat.getLastNota() >= 3) {
+                                this.columnas[i].getChildren().get(j).getStyleClass().add("button_approved");
+                            } else {
+                                this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
+                            }
+                        } else {
+                            this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen");
+                        }
+                    }
+                }
             }
             this.vistaTipologia = !this.vistaTipologia;
         });
@@ -357,11 +409,11 @@ public class Vista3 implements Vista {
     public void agregarAVentana() {
 
         this.layoutBotonesPrincipales.getChildren().add(this.mi_avance);
+        this.layoutBotonesPrincipales.getChildren().add(this.modoVista);
         this.layoutBotonesPrincipales.getChildren().add(this.insertarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.consultarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.eliminarMateria);
         this.layoutBotonesPrincipales.getChildren().add(this.materiaUrgente);
-        this.layoutBotonesPrincipales.getChildren().add(this.modoVista);
         this.layoutBotonesSecundarios.getChildren().add(this.cancelarAccion);
         this.layoutBotonesSecundarios.getChildren().add(this.insertar);
         this.layoutBotonesSecundarios.getChildren().add(this.consultar);
@@ -409,15 +461,17 @@ public class Vista3 implements Vista {
                                 this.MateriaLB[0].setVisible(true);
                                 this.MateriaTF[0].setVisible(true);
                                 this.MateriaTF[1].setText(String.valueOf(codigo));
+
                             }
                         }
                     } catch (NumberFormatException e) {
                         alertaEntrada("Actualizar nota materia");
                     }
                 });
+                boton.setPrefHeight(25);
                 boton.setPrefWidth(225);
                 boton.setAlignment(Pos.CENTER);
-                boton.setWrapText(true);
+                boton.getStyleClass().clear();
                 switch (materia.getTipologia().substring(0, 1)) {
                     case "F":
                         boton.getStyleClass().add("button_3");
@@ -433,10 +487,8 @@ public class Vista3 implements Vista {
                 if (materia.getNota().size() != 0) {
                     if (materia.getLastNota() >= 3) {
                         boton.getStyleClass().add("button_approved");
-                        break;
                     } else {
                         boton.getStyleClass().add("button_failed");
-                        break;
                     }
                 } else {
                     boton.getStyleClass().add("button_unseen");

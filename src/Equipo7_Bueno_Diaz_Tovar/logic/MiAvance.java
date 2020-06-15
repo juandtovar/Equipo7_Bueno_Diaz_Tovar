@@ -85,8 +85,16 @@ public class MiAvance {
         }
         DecimalFormat df = new DecimalFormat("#.#");
         DecimalFormat df2 = new DecimalFormat("#");
-        promedios.add(Double.parseDouble(df.format(PAPAporN / creditosCursados).replace(',', '.')));
-        promedios.add(Double.parseDouble(df.format(PAporN / creditosAprobados).replace(',', '.')));
+        if (creditosCursados != 0) {
+            promedios.add(Double.parseDouble(df.format(PAPAporN / creditosCursados).replace(',', '.')));
+        } else {
+            promedios.add(0.0);
+        }
+        if (creditosAprobados != 0) {
+            promedios.add(Double.parseDouble(df.format(PAporN / creditosAprobados).replace(',', '.')));
+        } else {
+            promedios.add(0.0);
+        }
         promedios.add(Double.parseDouble(df2.format(creditosAprobados)));
         return promedios;
     }
