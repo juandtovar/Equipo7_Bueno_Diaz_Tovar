@@ -1,24 +1,25 @@
 .button_approved {
     -fx-text-fill: #fff;
-    -fx-background-color: green;
+    -fx-background-color: #2ECC71;
 }
 
 .button_approved:hover{
-    -fx-background-color: black
+    -fx-background-color: #186A3B;
 }
 
 .button_failed {
     -fx-text-fill: #fff;
-    -fx-background-color: red;
+    -fx-background-color: #E74C3C;
 }
 
 .button_failed:hover{
-    -fx-background-color: white
+    -fx-background-color: #A93226;
 }
 
 .button_unseen {
     -fx-text-fill: #fff;
-    -fx-background-color: blue;
+    -fx-background-color: #BFC9CA;
 }
 .button_unseen:hover{
-    -fx-background-color: grey }
+    -fx-background-color: #A6ACAF;
+}
