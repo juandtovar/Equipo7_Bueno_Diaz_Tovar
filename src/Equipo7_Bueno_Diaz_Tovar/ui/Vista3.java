@@ -353,7 +353,6 @@ public class Vista3 implements Vista {
             Stage stage = singleton.getStage();
             stage.setScene(vista.getScena());
             stage.centerOnScreen();
-            stage.setMaximized(true);
             stage.show();
             MiAvance.salvarAvance(planActual);
         });

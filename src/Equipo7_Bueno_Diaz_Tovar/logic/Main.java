@@ -70,7 +70,7 @@ public class Main extends Application {
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);
-        Controlador1 controlador = new Controlador1(planes);
+        Controlador1 controlador = new Controlador1(Main.planes);
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
         stage.centerOnScreen();

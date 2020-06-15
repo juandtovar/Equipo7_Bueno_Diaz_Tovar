@@ -114,7 +114,6 @@ public final class Vista4 implements Vista {
         Vista vista = controlador.getVista();
         stage.setScene(vista.getScena());
         stage.centerOnScreen();
-        stage.setMaximized(true);
         stage.show();
     }
 

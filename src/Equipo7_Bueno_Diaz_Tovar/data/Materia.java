@@ -25,6 +25,18 @@ public class Materia implements Serializable, Comparable<Materia> {
         this.vista = false;
         this.desbloqueos = 0;
     }
+    
+    public Materia(long codigo, String name, int creditos, String tipologia, int semestre, int desbloqueos) {
+        this.name = name;
+        this.codigo = codigo;
+        this.creditos = creditos;
+        this.tipologia = tipologia;
+        this.prerrequisitos = new SingleLinkedList<>();
+        this.nota = new SingleLinkedList<>();
+        this.semestre = semestre;
+        this.vista = false;
+        this.desbloqueos = desbloqueos;
+    }
 
     public String getName() {
         return this.name;
@@ -132,5 +144,6 @@ public class Materia implements Serializable, Comparable<Materia> {
         }
         return 0;
     }
+
 
 }
