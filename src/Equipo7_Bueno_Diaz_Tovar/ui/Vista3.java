@@ -286,8 +286,17 @@ public class Vista3 implements Vista {
                     Identificador id = (Identificador) planActual.getIdentificadores().find(new Identificador(codigo, 0, 0)).getElement();
                     int sem = id.getSemestre();
                     int i = id.getPosición();
-                    this.columnas[sem - 1].getChildren().remove(i + 1);
-                    MiPlan.eliminarMateria(planActual, codigo);
+                    try {
+                        MiPlan.eliminarMateria(planActual, codigo);
+                        this.columnas[sem - 1].getChildren().remove(i + 1);
+                    } catch (Exception ex) {
+                        Alert dialogo = new Alert(Alert.AlertType.INFORMATION);
+                        dialogo.setTitle("Eliminar materia");
+                        dialogo.setHeaderText(null);
+                        dialogo.setContentText("Esta materia es obligatoria dentro del plan de estudios");
+                        dialogo.initStyle(StageStyle.UTILITY);
+                        dialogo.showAndWait();
+                    }
                 } catch (NullPointerException ex) {
                     MiPlan.alertaMateriaNoEncontrada();
                 }

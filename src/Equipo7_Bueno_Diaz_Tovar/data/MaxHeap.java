@@ -59,13 +59,20 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T>, Seria
     }
 
     public void siftUp(int i) {
-        if (i > 1) {
-            while (i > 1 && this.heap[i / 2].compareTo(this.heap[i]) < 0) {
-                T temp = this.heap[i / 2];
-                this.heap[i / 2] = this.heap[i];
-                this.heap[i] = temp;
-                i /= 2;
-            }
+        while (i > 1 && this.heap[i / 2].compareTo(this.heap[i]) < 0) {
+            T temp = this.heap[i / 2];
+            this.heap[i / 2] = this.heap[i];
+            this.heap[i] = temp;
+            i /= 2;
+        }
+    }
+    
+    public void siftUpRoot(int i) {
+        while (i > 1) {
+            T temp = this.heap[i / 2];
+            this.heap[i / 2] = this.heap[i];
+            this.heap[i] = temp;
+            i /= 2;
         }
     }
 
@@ -92,7 +99,7 @@ public class MaxHeap<T extends Comparable<T>> implements PriorityQueue<T>, Seria
     }
 
     public T remove(T element) {
-        siftUp(indexOf(element));
+        siftUpRoot(indexOf(element));
         return removeMax();
     }
 

@@ -34,12 +34,13 @@ public class MiPlan {
         MiAvance.salvarAvance(plan);
     }
 
-    public static void eliminarMateria(Plan plan, long codigo) {
+    public static void eliminarMateria(Plan plan, long codigo) throws Exception {
         System.out.printf("%s%d\n", "Inicio eliminar materia = \t", System.currentTimeMillis());
         LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
         int pos = temp.getElement().getPosición();
         int sem = temp.getElement().getSemestre();
         if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
+            plan.getMateriasUrgentes().remove(plan.getSemestres()[sem - 1].get(pos));
             try {
                 int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
                 plan.getMateriasVistas()[sem - 1].remove(i);
@@ -54,12 +55,7 @@ public class MiPlan {
                 temp.getElement().setPosición(temp.getElement().getPosición() - 1);
             }
         } else {
-            Alert dialogo = new Alert(AlertType.INFORMATION);
-            dialogo.setTitle("Eliminar materia");
-            dialogo.setHeaderText(null);
-            dialogo.setContentText("Esta materia es obligatoria dentro del plan de estudios");
-            dialogo.initStyle(StageStyle.UTILITY);
-            dialogo.showAndWait();
+            throw new Exception("MateriaObligatoria");
         }
         System.out.printf("%s%d\n", "Fin eliminar materia = \t\t", System.currentTimeMillis());
         MiAvance.salvarAvance(plan);
