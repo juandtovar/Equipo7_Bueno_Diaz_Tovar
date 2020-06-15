@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         System.out.printf("%s%d\n", "Inicio cargar materias = \t", System.currentTimeMillis());
         //CARGAR INFO BÁSICA PLAN
-        
+
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
             FileInputStream file, fileInput;
@@ -67,8 +67,6 @@ public class Main extends Application {
 
         }
 
-        
-        
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);
