@@ -135,9 +135,7 @@ public class Vista3 implements Vista {
                 MiPlan.consultarMateria(planActual, codigo);
                 presentarVistaInicial();
                 if (materia.getNota().isEmpty() || materia.getLastNota() < 3) {
-                    Identificador idTemp = new Identificador(codigo, 0, 0), id;
-                    id = (Identificador) planActual.getIdentificadores().find(idTemp).getElement();
-                    if (MiAvance.prerrequisitosVistos(planActual, id)) {
+                    if (MiAvance.prerrequisitosVistos(planActual, materia)) {
                         this.editar.setVisible(true);
                         this.cancelarAccion.setVisible(true);
                         this.MateriaLB[0] = new Label("Nota");
@@ -190,10 +188,11 @@ public class Vista3 implements Vista {
     }
 
     public void actualizarBoton(int codigo, double nota) {
-        LinkedBinaryTreeNode<Identificador> matNode = this.planActual.getIdentificadores().find(new Identificador(codigo, 0, 0));
-        int sem = matNode.getElement().getSemestre();
-        int pos = matNode.getElement().getPosición();
-        Materia mat = this.planActual.getSemestres()[sem - 1].get(pos);
+
+        int posTabla = this.planActual.getMaterias().find(new Materia(codigo, "", 0, "", 0));
+        Materia mat = this.planActual.getMaterias().getTable()[posTabla];
+        int sem = mat.getSemestre();
+        int pos = mat.getPos();
         Button boton = (Button) this.columnas[sem - 1].getChildren().get(pos + 1);
         boton.setPrefHeight(25);
         boton.setPrefWidth(225);
@@ -283,9 +282,10 @@ public class Vista3 implements Vista {
             try {
                 int codigo = Integer.parseInt(MateriaTF[0].getText());
                 try {
-                    Identificador id = (Identificador) planActual.getIdentificadores().find(new Identificador(codigo, 0, 0)).getElement();
-                    int sem = id.getSemestre();
-                    int i = id.getPosición();
+                    int posTabla = this.planActual.getMaterias().find(new Materia(codigo, "", 0, "", 0));
+                    Materia mat = this.planActual.getMaterias().getTable()[posTabla];
+                    int sem = mat.getSemestre();
+                    int i = mat.getPos();
                     try {
                         MiPlan.eliminarMateria(planActual, codigo);
                         this.columnas[sem - 1].getChildren().remove(i + 1);
@@ -460,16 +460,13 @@ public class Vista3 implements Vista {
                         MiPlan.consultarMateria(planActual, codigo);
                         presentarVistaInicial();
                         if (materia.getNota().isEmpty() || materia.getLastNota() < 3) {
-                            Identificador idTemp = new Identificador(codigo, 0, 0), id;
-                            id = (Identificador) planActual.getIdentificadores().find(idTemp).getElement();
-                            if (MiAvance.prerrequisitosVistos(planActual, id)) {
+                            if (MiAvance.prerrequisitosVistos(planActual, materia)) {
                                 this.editar.setVisible(true);
                                 this.cancelarAccion.setVisible(true);
                                 this.MateriaLB[0].setText("Nota");
                                 this.MateriaLB[0].setVisible(true);
                                 this.MateriaTF[0].setVisible(true);
                                 this.MateriaTF[1].setText(String.valueOf(codigo));
-
                             }
                         }
                     } catch (NumberFormatException e) {

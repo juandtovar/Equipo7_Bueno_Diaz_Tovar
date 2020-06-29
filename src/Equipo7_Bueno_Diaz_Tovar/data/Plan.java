@@ -11,7 +11,7 @@ public class Plan implements Serializable {
     private SingleLinkedList<Materia>[] semestres;
     private SingleLinkedList<Materia> optativas;
     private SingleLinkedList<Materia>[] materiasVistas;
-    private LinkedAVLTree<Identificador> identificadores;
+    private Set<Materia> materias;
     private long[] numeroDesbloqueos;
     private int creditosDiscp;
     private int creditosFund;
@@ -31,13 +31,13 @@ public class Plan implements Serializable {
         this.n_semestres = n_semestres;
         this.semestres = new SingleLinkedList[n_semestres];
         this.optativas = new SingleLinkedList<>();
-        this.identificadores = new LinkedAVLTree();
         this.materiasVistas = new SingleLinkedList[n_semestres];
         for (int i = 0; i < n_semestres; i++) {
             this.materiasVistas[i] = new SingleLinkedList<>();
         }
         this.maxMaterias = maxMaterias;
         this.nMaterias = nMaterias;
+        this.materias = new Set(2 * nMaterias + 1);
         this.numeroDesbloqueos = new long[nMaterias];
         this.materiasUrgentes = new MaxHeap<>(nMaterias);
     }
@@ -57,10 +57,8 @@ public class Plan implements Serializable {
                     try {
                         cod = readFile.nextLong();
                         materia.getPrerrequisitos().add(cod);
-                        LinkedBinaryTreeNode<Identificador> idNode = this.getIdentificadores().find(new Identificador(cod, 0, 0));
-                        int pos = idNode.getElement().getPosición();
-                        int sem = idNode.getElement().getSemestre();
-                        this.getSemestres()[sem - 1].get(pos).setDesbloqueos();
+                        int posTabla = this.materias.find(new Materia(cod, "", 0, "", 0));
+                        this.materias.getTable()[posTabla].setDesbloqueos();
                     } catch (Exception ex) {
                         break;
                     }
@@ -81,37 +79,17 @@ public class Plan implements Serializable {
                     } else {
                         semestres[semestre - 1].add(materia);
                     }
-                    Identificador identificador = new Identificador(materia.getCodigo(),
-                            materia.getSemestre(),
-                            this.semestres[materia.getSemestre() - 1].size() - 1);
-                    this.identificadores.add(identificador);
+                    int pos = this.semestres[semestre - 1].size() - 1;
+                    materia.setPos(pos);
+                    this.materias.put(materia);
                 }
             } while (readFile.hasNext());
         }
-        LinkedQueue<LinkedBinaryTreeNode<Identificador>> queue = new LinkedQueue<>();
-        queue.put((LinkedBinaryTreeNode<Identificador>) this.getIdentificadores().getRoot());
-        LinkedBinaryTreeNode<Identificador> temp;
-        while (!queue.isEmpty()) {
-            temp = (LinkedBinaryTreeNode<Identificador>) queue.remove();
-            int pos = temp.getElement().getPosición();
-            int sem = temp.getElement().getSemestre();
-            Materia materia = this.getSemestres()[sem - 1].get(pos);
-            this.materiasUrgentes.add(materia);
-            if (temp.getLeft() != null) {
-                queue.put(temp.getLeft());
-            }
-            if (temp.getRight() != null) {
-                queue.put(temp.getRight());
+        for (int i = 0; i < this.getN_semestres(); i++) {
+            for (int j = 0; j < this.getSemestres()[i].size(); j++) {
+                this.materiasUrgentes.add(this.getSemestres()[i].get(j));
             }
         }
-    }
-
-    public LinkedAVLTree getIdentificadores() {
-        return this.identificadores;
-    }
-
-    public void setIdentificadores(LinkedAVLTree identificadores) {
-        this.identificadores = identificadores;
     }
 
     public String getNombre() {
@@ -224,6 +202,14 @@ public class Plan implements Serializable {
 
     public void setMateriasUrgentes(MaxHeap<Materia> materiasUrgentes) {
         this.materiasUrgentes = materiasUrgentes;
+    }
+
+    public Set<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(Equipo7_Bueno_Diaz_Tovar.data.Set<Materia> materias) {
+        this.materias = materias;
     }
 
     @Override

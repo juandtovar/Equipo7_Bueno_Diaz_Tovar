@@ -14,10 +14,12 @@ import javafx.stage.StageStyle;
 public class MiAvance {
 
     public static void actualizarNota(Plan plan, long codigo, double nota) {
-        LinkedBinaryTreeNode<Identificador> materia = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
-        int semestre = materia.getElement().getSemestre();
-        int pos = materia.getElement().getPosición();
-        if (prerrequisitosVistos(plan, materia.getElement())) {
+        int posTabla = plan.getMaterias().find(new Materia(codigo, "", 0, "", 0));
+        Object mat = plan.getMaterias().get(posTabla);
+        Materia materia = (Materia) mat;
+        int semestre = materia.getSemestre();
+        int pos = materia.getPos();
+        if (prerrequisitosVistos(plan, materia)) {
             if (plan.getSemestres()[semestre - 1].get(pos).getNota().size() == 0) {
                 plan.getMateriasVistas()[semestre - 1].add(plan.getSemestres()[semestre - 1].get(pos));
             }
@@ -46,13 +48,11 @@ public class MiAvance {
         salvarAvance(plan);
     }
 
-    public static boolean prerrequisitosVistos(Plan plan, Identificador materia) {
-        Materia temp = plan.getSemestres()[materia.getSemestre() - 1].get(materia.getPosición());
-        for (int i = 0; i < temp.getPrerrequisitos().size(); i++) {
-            long prerrequisito = temp.getPrerrequisitos().get(i);
-            Identificador iden_prerrequisito = (Identificador) plan.getIdentificadores().find(new Identificador(prerrequisito, 0, 0)).getElement();
-            Materia mat = plan.getSemestres()[iden_prerrequisito.getSemestre() - 1].get(iden_prerrequisito.getPosición());
-            if (!mat.isVista()) {
+    public static boolean prerrequisitosVistos(Plan plan, Materia materia) {
+        for (int i = 0; i < materia.getPrerrequisitos().size(); i++) {
+            long prerrequisito = materia.getPrerrequisitos().get(i);
+            int posTabla = plan.getMaterias().find(new Materia(prerrequisito, "", 0, "", 0));
+            if (!plan.getMaterias().getTable()[posTabla].isVista()) {
                 return false;
             }
         }

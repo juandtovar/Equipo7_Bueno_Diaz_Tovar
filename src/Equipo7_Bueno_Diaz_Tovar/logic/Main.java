@@ -19,8 +19,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         System.out.printf("%s%d\n", "Inicio cargar materias = \t", System.currentTimeMillis());
-        //CARGAR INFO BÁSICA PLAN
 
+        //CARGAR INFO BÁSICA PLAN
         try {
             FileInputStream planesFile = new FileInputStream("informacion_planes.txt");
             FileInputStream file, fileInput;
@@ -66,7 +66,6 @@ public class Main extends Application {
         } catch (FileNotFoundException ex) {
 
         }
-
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);

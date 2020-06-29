@@ -9,6 +9,7 @@ public class Materia implements Serializable, Comparable<Materia> {
     private int creditos;
     private String tipologia;
     private int semestre;
+    private int pos;
     private final SingleLinkedList<Double> nota;
     private SingleLinkedList<Long> prerrequisitos;
     private boolean vista;
@@ -117,10 +118,44 @@ public class Materia implements Serializable, Comparable<Materia> {
     public void setDesbloqueos() {
         this.desbloqueos++;
     }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
+    @Override
+    public int hashCode() {
+        return (23 * (int) this.codigo + 3) % 12990007;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Materia other = (Materia) obj;
+        if (this.codigo != other.codigo) {
+            return false;
+        }
+        return true;
+    }
     
     @Override
     public String toString() {
-        return String.valueOf(semestre) + " " + String.valueOf(desbloqueos) + " " + String.valueOf(codigo);
+        return String.valueOf(this.name) + " "
+                + String.valueOf(this.codigo) + " "
+                + String.valueOf(this.semestre) + " "
+                + String.valueOf(this.pos);
     }
 
     @Override
@@ -144,6 +179,5 @@ public class Materia implements Serializable, Comparable<Materia> {
         }
         return 0;
     }
-
 
 }

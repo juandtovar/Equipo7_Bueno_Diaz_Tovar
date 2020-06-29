@@ -9,8 +9,7 @@ public class MiPlan {
 
     public static void insertarMateria(Plan plan, Materia materia) {
         System.out.printf("%s%d\n", "Inicio insertar materia = \t", System.currentTimeMillis());
-        LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(materia.getCodigo(), 0, 0));
-        if (temp != null) {
+        if (plan.getMaterias().find(materia) != -1) {
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Insertar materia");
             dialogo.setHeaderText(null);
@@ -19,9 +18,7 @@ public class MiPlan {
             dialogo.showAndWait();
         } else if (materia.getSemestre() <= plan.getN_semestres()) {
             plan.getSemestres()[materia.getSemestre() - 1].add(materia);
-            Identificador identificador
-                    = new Identificador(materia.getCodigo(), materia.getSemestre(), plan.getSemestres()[materia.getSemestre() - 1].size() - 1);
-            plan.getIdentificadores().add(identificador);
+            plan.getMaterias().put(materia);
         } else {
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Insertar materia");
@@ -36,26 +33,27 @@ public class MiPlan {
 
     public static void eliminarMateria(Plan plan, long codigo) throws Exception {
         System.out.printf("%s%d\n", "Inicio eliminar materia = \t", System.currentTimeMillis());
-        LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
-        int pos = temp.getElement().getPosición();
-        int sem = temp.getElement().getSemestre();
-        if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
-            plan.getMateriasUrgentes().remove(plan.getSemestres()[sem - 1].get(pos));
-            try {
-                int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
-                plan.getMateriasVistas()[sem - 1].remove(i);
-            } catch (Exception ex) {
+        int posTabla = plan.getMaterias().find(new Materia(codigo, "", 0, "", 0));
+        if (posTabla != -1) {
+            Materia mat = plan.getMaterias().get(posTabla);
+            int pos = mat.getPos();
+            int sem = mat.getSemestre();
+            if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
+                plan.getMateriasUrgentes().remove(plan.getSemestres()[sem - 1].get(pos));
+                try {
+                    int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
+                    plan.getMateriasVistas()[sem - 1].remove(i);
+                } catch (Exception ex) {
 
+                }
+                plan.getSemestres()[sem - 1].remove(pos);
+                plan.getMaterias().remove(mat);
+                for (int i = pos; i < plan.getSemestres()[sem - 1].size(); i++) {
+                    plan.getSemestres()[sem - 1].get(i).setPos(plan.getSemestres()[sem - 1].get(i).getPos() - 1);
+                }
+            } else {
+                throw new Exception("MateriaObligatoria");
             }
-            plan.getIdentificadores().remove(new Identificador(codigo, 0, 0));
-            plan.getSemestres()[sem - 1].remove(pos);
-            for (int i = pos; i < plan.getSemestres()[sem - 1].size(); i++) {
-                long cod = plan.getSemestres()[sem - 1].get(i).getCodigo();
-                temp = plan.getIdentificadores().find(new Identificador(cod, 0, 0));
-                temp.getElement().setPosición(temp.getElement().getPosición() - 1);
-            }
-        } else {
-            throw new Exception("MateriaObligatoria");
         }
         System.out.printf("%s%d\n", "Fin eliminar materia = \t\t", System.currentTimeMillis());
         MiAvance.salvarAvance(plan);
@@ -63,12 +61,10 @@ public class MiPlan {
 
     public static void consultarMateria(Plan plan, long codigo) {
         System.out.printf("%s%d\n", "Inicio consultar materia = \t", System.currentTimeMillis());
-        LinkedBinaryTreeNode<Identificador> temp = plan.getIdentificadores().find(new Identificador(codigo, 0, 0));
-        if (temp != null) {
-            int semestre = temp.getElement().getSemestre();
-            int pos = temp.getElement().getPosición();
-            System.out.printf("%s%d\n", "Fin consultar materia = \t", System.currentTimeMillis());
-            Materia mat = plan.getSemestres()[semestre - 1].get(pos);
+        int posTabla = plan.getMaterias().find(new Materia(codigo, "", 0, "", 0));
+        System.out.printf("%s%d\n", "Fin consultar materia = \t", System.currentTimeMillis());
+        if (posTabla != -1) {
+            Materia mat = (Materia) plan.getMaterias().get(posTabla);
             Alert dialogo = new Alert(AlertType.INFORMATION);
             dialogo.setTitle("Busqueda de materia");
             dialogo.setHeaderText(null);
