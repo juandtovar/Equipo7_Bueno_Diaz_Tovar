@@ -1,8 +1,9 @@
 package Equipo7_Bueno_Diaz_Tovar.data;
 
 import Equipo7_Bueno_Diaz_Tovar.data.interfaces.*;
+import java.io.Serializable;
 
-public class Set<K> implements HashTable<K> {
+public class Set<K> implements HashTable<K>, Serializable {
 
     private int m;
     private K[] table;
@@ -119,6 +120,18 @@ public class Set<K> implements HashTable<K> {
 
     public void setTable(K[] table) {
         this.table = table;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        
+        for(int i = 0; i < m; i++) {
+            if(this.get(i) != null) {
+                s += i + " " + this.get(i).toString() + '\n';
+            }
+        }
+        return s;
     }
     
     

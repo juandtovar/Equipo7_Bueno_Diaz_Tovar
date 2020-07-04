@@ -12,8 +12,8 @@ public class Materia implements Serializable, Comparable<Materia> {
     private int pos;
     private final SingleLinkedList<Double> nota;
     private SingleLinkedList<Long> prerrequisitos;
+    private SingleLinkedList<Long> desbloqueos;
     private boolean vista;
-    private int desbloqueos;
 
     public Materia(long codigo, String name, int creditos, String tipologia, int semestre) {
         this.name = name;
@@ -24,21 +24,9 @@ public class Materia implements Serializable, Comparable<Materia> {
         this.nota = new SingleLinkedList<>();
         this.semestre = semestre;
         this.vista = false;
-        this.desbloqueos = 0;
+        this.desbloqueos = new SingleLinkedList<>();
     }
     
-    public Materia(long codigo, String name, int creditos, String tipologia, int semestre, int desbloqueos) {
-        this.name = name;
-        this.codigo = codigo;
-        this.creditos = creditos;
-        this.tipologia = tipologia;
-        this.prerrequisitos = new SingleLinkedList<>();
-        this.nota = new SingleLinkedList<>();
-        this.semestre = semestre;
-        this.vista = false;
-        this.desbloqueos = desbloqueos;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -107,16 +95,12 @@ public class Materia implements Serializable, Comparable<Materia> {
         this.vista = true;
     }
 
-    public long getDesbloqueos() {
+    public SingleLinkedList<Long> getDesbloqueos() {
         return desbloqueos;
     }
 
-    public void setDesbloqueos(int desbloqueos) {
+    public void setDesbloqueos(SingleLinkedList<Long> desbloqueos) {
         this.desbloqueos = desbloqueos;
-    }
-
-    public void setDesbloqueos() {
-        this.desbloqueos++;
     }
 
     public int getPos() {
@@ -154,8 +138,8 @@ public class Materia implements Serializable, Comparable<Materia> {
     public String toString() {
         return String.valueOf(this.name) + " "
                 + String.valueOf(this.codigo) + " "
-                + String.valueOf(this.semestre) + " "
-                + String.valueOf(this.pos);
+                + this.getPrerrequisitos().toString() + " "
+                + this.getDesbloqueos().toString() + '\n';
     }
 
     @Override
@@ -168,9 +152,9 @@ public class Materia implements Serializable, Comparable<Materia> {
             return 1;
         } else if (this.getSemestre() > o.getSemestre()) {
             return -1;
-        } else if (this.getDesbloqueos() > o.getDesbloqueos()) {
+        } else if (this.getDesbloqueos().size() > o.getDesbloqueos().size()) {
             return 1;
-        } else if (this.getDesbloqueos() < o.getDesbloqueos()) {
+        } else if (this.getDesbloqueos().size() < o.getDesbloqueos().size()) {
             return -1;
         } else if (this.getCodigo() < o.getCodigo()) {
             return 1;

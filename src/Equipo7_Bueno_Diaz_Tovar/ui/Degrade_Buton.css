@@ -16,10 +16,20 @@
     -fx-background-color: #A93226;
 }
 
-.button_unseen {
+.button_unseen_notUnlocked {
     -fx-text-fill: #fff;
     -fx-background-color: #BFC9CA;
 }
-.button_unseen:hover{
+
+.button_unseen_notUnlocked:hover{
     -fx-background-color: #A6ACAF;
+}
+
+.button_unseen_unlocked {
+    -fx-text-fill: #fff;
+    -fx-background-color: #D2B4DE;
+}
+
+.button_unseen_unlocked:hover{
+    -fx-background-color: #BB8FCE;
 }

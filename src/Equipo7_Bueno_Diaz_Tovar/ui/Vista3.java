@@ -177,8 +177,10 @@ public class Vista3 implements Vista {
                 } else {
                     this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
                 }
+            } else if (!MiAvance.prerrequisitosVistos(this.planActual, materia)) {
+                this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen_notUnlocked");
             } else {
-                this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen");
+                this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen_unlocked");
             }
             this.escena.getStylesheets().add(getClass().getResource("Presed_boton.css").toExternalForm());
         }
@@ -187,10 +189,9 @@ public class Vista3 implements Vista {
         presentarVistaInicial();
     }
 
-    public void actualizarBoton(int codigo, double nota) {
-
+    public void actualizarBoton(int codigo) {
         int posTabla = this.planActual.getMaterias().find(new Materia(codigo, "", 0, "", 0));
-        Materia mat = this.planActual.getMaterias().getTable()[posTabla];
+        Materia mat = this.planActual.getMaterias().get(posTabla);
         int sem = mat.getSemestre();
         int pos = mat.getPos();
         Button boton = (Button) this.columnas[sem - 1].getChildren().get(pos + 1);
@@ -201,16 +202,23 @@ public class Vista3 implements Vista {
         if (!this.vistaTipologia) {
             this.escena.getStylesheets().clear();
             this.escena.getStylesheets().add(getClass().getResource("Degrade_Buton.css").toExternalForm());
-            if (mat.getNota().size() != 0) {
-                if (mat.getLastNota() >= 3) {
-                    this.columnas[i].getChildren().get(j).getStyleClass().clear();
-                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_approved");
-                } else {
-                    this.columnas[i].getChildren().get(j).getStyleClass().clear();
-                    this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
+            if (mat.getLastNota() >= 3) {
+                System.out.println("Mayor a 3");
+                for (int k = 0; k < mat.getDesbloqueos().size(); k++) {
+                    long codigoDesbloqueo = mat.getDesbloqueos().get(k);
+                    int posTablaDesbloqueo = this.planActual.getMaterias().find(new Materia(codigoDesbloqueo, "", 0, "", 0));
+                    Materia desbloqueo = this.planActual.getMaterias().get(posTablaDesbloqueo);
+                    int u = desbloqueo.getSemestre() - 1;
+                    int v = desbloqueo.getPos() + 1;
+                    if (MiAvance.prerrequisitosVistos(this.planActual, desbloqueo)) {
+                        this.columnas[u].getChildren().get(v).getStyleClass().add("button_unseen_unlocked");
+                    }
                 }
+                this.columnas[i].getChildren().get(j).getStyleClass().clear();
+                this.columnas[i].getChildren().get(j).getStyleClass().add("button_approved");
             } else {
-                this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen");
+                this.columnas[i].getChildren().get(j).getStyleClass().clear();
+                this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
             }
             this.escena.getStylesheets().add(getClass().getResource("Presed_boton.css").toExternalForm());
         }
@@ -245,6 +253,7 @@ public class Vista3 implements Vista {
                             "LE",
                             Integer.parseInt(MateriaTF[3].getText()));
                     MiPlan.insertarMateria(planActual, materia);
+                    materia.setPos(this.planActual.getSemestres()[Integer.parseInt(MateriaTF[3].getText()) - 1].size() - 1);
                     if (Integer.parseInt(MateriaTF[3].getText()) < this.planActual.getN_semestres()) {
                         MiAvance.actualizarNota(planActual, materia.getCodigo(), Double.parseDouble(MateriaTF[4].getText()));
                         agregarBoton(materia);
@@ -283,7 +292,7 @@ public class Vista3 implements Vista {
                 int codigo = Integer.parseInt(MateriaTF[0].getText());
                 try {
                     int posTabla = this.planActual.getMaterias().find(new Materia(codigo, "", 0, "", 0));
-                    Materia mat = this.planActual.getMaterias().getTable()[posTabla];
+                    Materia mat = this.planActual.getMaterias().get(posTabla);
                     int sem = mat.getSemestre();
                     int i = mat.getPos();
                     try {
@@ -343,7 +352,7 @@ public class Vista3 implements Vista {
                 if (nota >= 0 && nota <= 5) {
                     int codigo = Integer.parseInt(this.MateriaTF[1].getText());
                     MiAvance.actualizarNota(this.planActual, codigo, nota);
-                    actualizarBoton(codigo, nota);
+                    actualizarBoton(codigo);
                     presentarVistaInicial();
                 } else {
                     this.MateriaTF[0].setText("");
@@ -404,8 +413,10 @@ public class Vista3 implements Vista {
                             } else {
                                 this.columnas[i].getChildren().get(j).getStyleClass().add("button_failed");
                             }
+                        } else if (!MiAvance.prerrequisitosVistos(this.planActual, mat)) {
+                            this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen_notUnlocked");
                         } else {
-                            this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen");
+                            this.columnas[i].getChildren().get(j).getStyleClass().add("button_unseen_unlocked");
                         }
                     }
                 }

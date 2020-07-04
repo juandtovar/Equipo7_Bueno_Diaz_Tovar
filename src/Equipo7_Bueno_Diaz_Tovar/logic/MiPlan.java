@@ -75,6 +75,33 @@ public class MiPlan {
             if (mat.getNota() != null) {
                 texto += "Historial de notas: " + mat.getNota().toString() + '\n';
             }
+            if(mat.getPrerrequisitos().size() != 0) {
+                texto += "Prerrequisitos: [";
+                for(int i = 0; i < mat.getPrerrequisitos().size(); i++) {
+                    long codigoPrerrequisito = mat.getPrerrequisitos().get(i);
+                    int posTablaPre = plan.getMaterias().find(new Materia(codigoPrerrequisito, "", 0, "", 0));
+                    String nombrePre = plan.getMaterias().get(posTablaPre).getName();
+                    texto += nombrePre;
+                    if(i != mat.getPrerrequisitos().size() - 1) {
+                        texto += ", ";
+                    }
+                }
+                texto += "]\n";
+            }
+            if(mat.getDesbloqueos().size() != 0) {
+                texto += "Desbloqueos: [";
+                for(int i = 0; i < mat.getDesbloqueos().size(); i++) {
+                    long codigoDesbloqueo = mat.getDesbloqueos().get(i);
+                    System.out.println("WTF" + codigoDesbloqueo);
+                    int posTablaD = plan.getMaterias().find(new Materia(codigoDesbloqueo, "", 0, "", 0));
+                    String nombreD = plan.getMaterias().get(posTablaD).getName();
+                    texto += nombreD;
+                    if(i != mat.getDesbloqueos().size() - 1) {
+                        texto += ", ";
+                    }
+                }
+                texto += "]";
+            }
             dialogo.setContentText(texto);
             dialogo.initStyle(StageStyle.UTILITY);
             dialogo.showAndWait();

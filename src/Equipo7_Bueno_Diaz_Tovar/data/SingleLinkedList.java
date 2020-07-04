@@ -129,4 +129,5 @@ public class SingleLinkedList<T> implements LinearList<T>, Serializable {
         }
         return s + "]";
     }
+
 }

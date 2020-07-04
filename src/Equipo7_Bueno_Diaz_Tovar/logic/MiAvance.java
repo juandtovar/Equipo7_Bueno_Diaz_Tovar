@@ -15,8 +15,7 @@ public class MiAvance {
 
     public static void actualizarNota(Plan plan, long codigo, double nota) {
         int posTabla = plan.getMaterias().find(new Materia(codigo, "", 0, "", 0));
-        Object mat = plan.getMaterias().get(posTabla);
-        Materia materia = (Materia) mat;
+        Materia materia = plan.getMaterias().get(posTabla);
         int semestre = materia.getSemestre();
         int pos = materia.getPos();
         if (prerrequisitosVistos(plan, materia)) {
@@ -52,7 +51,7 @@ public class MiAvance {
         for (int i = 0; i < materia.getPrerrequisitos().size(); i++) {
             long prerrequisito = materia.getPrerrequisitos().get(i);
             int posTabla = plan.getMaterias().find(new Materia(prerrequisito, "", 0, "", 0));
-            if (!plan.getMaterias().getTable()[posTabla].isVista()) {
+            if (!plan.getMaterias().get(posTabla).isVista()) {
                 return false;
             }
         }

@@ -58,7 +58,7 @@ public class Plan implements Serializable {
                         cod = readFile.nextLong();
                         materia.getPrerrequisitos().add(cod);
                         int posTabla = this.materias.find(new Materia(cod, "", 0, "", 0));
-                        this.materias.getTable()[posTabla].setDesbloqueos();
+                        this.materias.get(posTabla).getDesbloqueos().add(materia.getCodigo());
                     } catch (Exception ex) {
                         break;
                     }
@@ -71,6 +71,7 @@ public class Plan implements Serializable {
                 int semestre = materia.getSemestre();
                 if (semestre == 0) {
                     this.optativas.add(materia);
+                    this.materias.put(materia);
                 } else {
                     if (semestres[semestre - 1] == null) {
                         SingleLinkedList<Materia> semestreLista = new SingleLinkedList<>();
@@ -88,6 +89,7 @@ public class Plan implements Serializable {
         for (int i = 0; i < this.getN_semestres(); i++) {
             for (int j = 0; j < this.getSemestres()[i].size(); j++) {
                 this.materiasUrgentes.add(this.getSemestres()[i].get(j));
+                
             }
         }
     }
