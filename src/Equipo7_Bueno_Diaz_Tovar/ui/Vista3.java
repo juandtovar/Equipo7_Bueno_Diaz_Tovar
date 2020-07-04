@@ -210,7 +210,7 @@ public class Vista3 implements Vista {
                     Materia desbloqueo = this.planActual.getMaterias().get(posTablaDesbloqueo);
                     int u = desbloqueo.getSemestre() - 1;
                     int v = desbloqueo.getPos() + 1;
-                    if (MiAvance.prerrequisitosVistos(this.planActual, desbloqueo)) {
+                    if (MiAvance.prerrequisitosVistos(this.planActual, desbloqueo) && u >= 0) {
                         this.columnas[u].getChildren().get(v).getStyleClass().add("button_unseen_unlocked");
                     }
                 }

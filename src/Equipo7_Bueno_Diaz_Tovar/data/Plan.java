@@ -37,7 +37,7 @@ public class Plan implements Serializable {
         }
         this.maxMaterias = maxMaterias;
         this.nMaterias = nMaterias;
-        this.materias = new Set(2 * nMaterias + 1);
+        this.materias = new Set(nMaterias + 1);
         this.numeroDesbloqueos = new long[nMaterias];
         this.materiasUrgentes = new MaxHeap<>(nMaterias);
     }

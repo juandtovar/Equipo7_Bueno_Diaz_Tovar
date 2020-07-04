@@ -113,7 +113,7 @@ public class Materia implements Serializable, Comparable<Materia> {
 
     @Override
     public int hashCode() {
-        return (23 * (int) this.codigo + 3) % 12990007;
+        return (23 * (int) this.codigo + 53) % 12990007;
     }
 
     @Override
@@ -136,10 +136,7 @@ public class Materia implements Serializable, Comparable<Materia> {
     
     @Override
     public String toString() {
-        return String.valueOf(this.name) + " "
-                + String.valueOf(this.codigo) + " "
-                + this.getPrerrequisitos().toString() + " "
-                + this.getDesbloqueos().toString() + '\n';
+        return String.valueOf(this.codigo);
     }
 
     @Override
@@ -156,9 +153,9 @@ public class Materia implements Serializable, Comparable<Materia> {
             return 1;
         } else if (this.getDesbloqueos().size() < o.getDesbloqueos().size()) {
             return -1;
-        } else if (this.getCodigo() < o.getCodigo()) {
+        } else if (this.getPos() < o.getPos()) {
             return 1;
-        } else if (this.getCodigo() > o.getCodigo()) {
+        } else if (this.getPos() > o.getPos()) {
             return -1;
         }
         return 0;

@@ -3,6 +3,7 @@ package Equipo7_Bueno_Diaz_Tovar.logic;
 import Equipo7_Bueno_Diaz_Tovar.data.*;
 import Equipo7_Bueno_Diaz_Tovar.ui.*;
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -66,6 +67,7 @@ public class Main extends Application {
         } catch (FileNotFoundException ex) {
 
         }
+
         //CARGAR INFO PERSONAL
         Singleton singleton = Singleton.getSingleton();
         singleton.setStage(stage);

@@ -1,2 +1,0 @@
-ingenieria_mecatronica 56 87 36 10 6 55 ingenieria_mecanica 58 86 36 10 7 50
-

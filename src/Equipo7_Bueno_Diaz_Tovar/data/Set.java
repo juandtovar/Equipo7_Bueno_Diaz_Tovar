@@ -7,8 +7,8 @@ public class Set<K> implements HashTable<K>, Serializable {
 
     private int m;
     private K[] table;
-    protected boolean[] neverUsed;
-    protected int size, neverUsedSize;
+    private boolean[] neverUsed;
+    private int size, neverUsedSize, col;
 
     public Set(int m) {
         this.m = m;
@@ -17,7 +17,7 @@ public class Set<K> implements HashTable<K>, Serializable {
         for (int i = 0; i < m; i++) {
             this.neverUsed[i] = true;
         }
-        this.size = this.neverUsedSize = 0;
+        this.size = this.neverUsedSize = this.col = 0;
     }
 
     @Override
@@ -71,8 +71,9 @@ public class Set<K> implements HashTable<K>, Serializable {
                 } else {
                     i++;
                     pos = (hash + probe(i)) % this.m;
+                    this.col++;
                 }
-            } while (true);
+            } while (pos != hash);
         }
     }
 
@@ -85,7 +86,7 @@ public class Set<K> implements HashTable<K>, Serializable {
     public K get(int pos) {
         return this.table[pos];
     }
-    
+
     @Override
     public void remove(K key) {
         int pos = find(key);
@@ -101,6 +102,9 @@ public class Set<K> implements HashTable<K>, Serializable {
         this.m *= 2;
         this.table = (K[]) new Object[m];
         this.neverUsed = new boolean[this.m];
+        for (int i = 0; i < m; i++) {
+            this.neverUsed[i] = true;
+        }
         this.size = this.neverUsedSize = 0;
         for (int i = 0; i < this.m / 2; i++) {
             if (old[i] != null) {
@@ -111,7 +115,7 @@ public class Set<K> implements HashTable<K>, Serializable {
 
     @Override
     public int probe(int i) {
-        return i * i * i;
+        return i * i;
     }
 
     public K[] getTable() {
@@ -122,18 +126,31 @@ public class Set<K> implements HashTable<K>, Serializable {
         this.table = table;
     }
 
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public String fullToString() {
+        String s = "";
+        for (int i = 0; i < this.table.length; i++) {
+            s += i + " " + this.table[i] + "\n";
+        }
+        return s;
+    }
+
     @Override
     public String toString() {
         String s = "";
-        
-        for(int i = 0; i < m; i++) {
-            if(this.get(i) != null) {
-                s += i + " " + this.get(i).toString() + '\n';
+        for (int i = 0; i < this.table.length; i++) {
+            if (this.table[i] != null) {
+                s += i + " " + this.table[i] + "\n";
             }
         }
         return s;
     }
-    
-    
 
 }

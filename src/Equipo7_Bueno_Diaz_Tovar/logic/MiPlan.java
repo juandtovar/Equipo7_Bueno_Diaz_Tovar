@@ -39,7 +39,6 @@ public class MiPlan {
             int pos = mat.getPos();
             int sem = mat.getSemestre();
             if (plan.getSemestres()[sem - 1].get(pos).getTipologia().equals("LE")) {
-                plan.getMateriasUrgentes().remove(plan.getSemestres()[sem - 1].get(pos));
                 try {
                     int i = plan.getMateriasVistas()[sem - 1].indexOf(plan.getSemestres()[sem - 1].get(pos));
                     plan.getMateriasVistas()[sem - 1].remove(i);
@@ -92,7 +91,6 @@ public class MiPlan {
                 texto += "Desbloqueos: [";
                 for(int i = 0; i < mat.getDesbloqueos().size(); i++) {
                     long codigoDesbloqueo = mat.getDesbloqueos().get(i);
-                    System.out.println("WTF" + codigoDesbloqueo);
                     int posTablaD = plan.getMaterias().find(new Materia(codigoDesbloqueo, "", 0, "", 0));
                     String nombreD = plan.getMaterias().get(posTablaD).getName();
                     texto += nombreD;

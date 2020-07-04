@@ -24,7 +24,7 @@ public class MiAvance {
             }
             if (!plan.getSemestres()[semestre - 1].get(pos).isVista()) {
                 plan.getSemestres()[semestre - 1].get(pos).setNota(nota);
-                if (nota >= 3.0) {
+                if (nota >= 3.0 && !materia.getTipologia().equals("LE")) {
                     plan.getSemestres()[semestre - 1].get(pos).setVista();
                     plan.getMateriasUrgentes().remove(plan.getSemestres()[semestre - 1].get(pos));
                 }
