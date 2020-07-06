@@ -21,3 +21,4 @@ public interface HashTable<K> {
     int probe(int i);
     
 }
+
